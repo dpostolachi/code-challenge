@@ -41,7 +41,6 @@ export default class LazyImage extends PureComponent {
 
         this.Image = new Image()
         this.Image.onload = ( e ) => {
-            console.log( 'loaded' )
             this.setState( {
                 loaded: true,
                 src: src,
@@ -49,6 +48,10 @@ export default class LazyImage extends PureComponent {
         }
         return this.Image.src = src
 
+    }
+
+    componentWillUnmount () {
+        this.Image.onload = null
     }
 
     componentDidUpdate( prevProps, prevState ) {
