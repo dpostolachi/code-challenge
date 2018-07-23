@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[2],{
 
-/***/ "../components/pages/artist.js":
-/*!*************************************!*\
-  !*** ../components/pages/artist.js ***!
-  \*************************************/
+/***/ "../components/pages/band.js":
+/*!***********************************!*\
+  !*** ../components/pages/band.js ***!
+  \***********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

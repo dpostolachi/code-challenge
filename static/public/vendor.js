@@ -2156,6 +2156,20 @@ function isPromise(obj) {
 
 /***/ }),
 
+/***/ "../node_modules/isarray/index.js":
+/*!****************************************!*\
+  !*** ../node_modules/isarray/index.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = Array.isArray || function (arr) {
+  return Object.prototype.toString.call(arr) == '[object Array]';
+};
+
+
+/***/ }),
+
 /***/ "../node_modules/lodash-es/_DataView.js":
 /*!**********************************************!*\
   !*** ../node_modules/lodash-es/_DataView.js ***!
@@ -7514,153 +7528,6 @@ var isBuffer = nativeIsBuffer || _stubFalse_js__WEBPACK_IMPORTED_MODULE_1__["def
 
 /***/ }),
 
-/***/ "../node_modules/lodash-es/isEmpty.js":
-/*!********************************************!*\
-  !*** ../node_modules/lodash-es/isEmpty.js ***!
-  \********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _baseKeys_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_baseKeys.js */ "../node_modules/lodash-es/_baseKeys.js");
-/* harmony import */ var _getTag_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_getTag.js */ "../node_modules/lodash-es/_getTag.js");
-/* harmony import */ var _isArguments_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./isArguments.js */ "../node_modules/lodash-es/isArguments.js");
-/* harmony import */ var _isArray_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./isArray.js */ "../node_modules/lodash-es/isArray.js");
-/* harmony import */ var _isArrayLike_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./isArrayLike.js */ "../node_modules/lodash-es/isArrayLike.js");
-/* harmony import */ var _isBuffer_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./isBuffer.js */ "../node_modules/lodash-es/isBuffer.js");
-/* harmony import */ var _isPrototype_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./_isPrototype.js */ "../node_modules/lodash-es/_isPrototype.js");
-/* harmony import */ var _isTypedArray_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./isTypedArray.js */ "../node_modules/lodash-es/isTypedArray.js");
-
-
-
-
-
-
-
-
-
-/** `Object#toString` result references. */
-var mapTag = '[object Map]',
-    setTag = '[object Set]';
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * Checks if `value` is an empty object, collection, map, or set.
- *
- * Objects are considered empty if they have no own enumerable string keyed
- * properties.
- *
- * Array-like values such as `arguments` objects, arrays, buffers, strings, or
- * jQuery-like collections are considered empty if they have a `length` of `0`.
- * Similarly, maps and sets are considered empty if they have a `size` of `0`.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is empty, else `false`.
- * @example
- *
- * _.isEmpty(null);
- * // => true
- *
- * _.isEmpty(true);
- * // => true
- *
- * _.isEmpty(1);
- * // => true
- *
- * _.isEmpty([1, 2, 3]);
- * // => false
- *
- * _.isEmpty({ 'a': 1 });
- * // => false
- */
-function isEmpty(value) {
-  if (value == null) {
-    return true;
-  }
-  if (Object(_isArrayLike_js__WEBPACK_IMPORTED_MODULE_4__["default"])(value) &&
-      (Object(_isArray_js__WEBPACK_IMPORTED_MODULE_3__["default"])(value) || typeof value == 'string' || typeof value.splice == 'function' ||
-        Object(_isBuffer_js__WEBPACK_IMPORTED_MODULE_5__["default"])(value) || Object(_isTypedArray_js__WEBPACK_IMPORTED_MODULE_7__["default"])(value) || Object(_isArguments_js__WEBPACK_IMPORTED_MODULE_2__["default"])(value))) {
-    return !value.length;
-  }
-  var tag = Object(_getTag_js__WEBPACK_IMPORTED_MODULE_1__["default"])(value);
-  if (tag == mapTag || tag == setTag) {
-    return !value.size;
-  }
-  if (Object(_isPrototype_js__WEBPACK_IMPORTED_MODULE_6__["default"])(value)) {
-    return !Object(_baseKeys_js__WEBPACK_IMPORTED_MODULE_0__["default"])(value).length;
-  }
-  for (var key in value) {
-    if (hasOwnProperty.call(value, key)) {
-      return false;
-    }
-  }
-  return true;
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (isEmpty);
-
-
-/***/ }),
-
-/***/ "../node_modules/lodash-es/isEqual.js":
-/*!********************************************!*\
-  !*** ../node_modules/lodash-es/isEqual.js ***!
-  \********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _baseIsEqual_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_baseIsEqual.js */ "../node_modules/lodash-es/_baseIsEqual.js");
-
-
-/**
- * Performs a deep comparison between two values to determine if they are
- * equivalent.
- *
- * **Note:** This method supports comparing arrays, array buffers, booleans,
- * date objects, error objects, maps, numbers, `Object` objects, regexes,
- * sets, strings, symbols, and typed arrays. `Object` objects are compared
- * by their own, not inherited, enumerable properties. Functions and DOM
- * nodes are compared by strict equality, i.e. `===`.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to compare.
- * @param {*} other The other value to compare.
- * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
- * @example
- *
- * var object = { 'a': 1 };
- * var other = { 'a': 1 };
- *
- * _.isEqual(object, other);
- * // => true
- *
- * object === other;
- * // => false
- */
-function isEqual(value, other) {
-  return Object(_baseIsEqual_js__WEBPACK_IMPORTED_MODULE_0__["default"])(value, other);
-}
-
-/* harmony default export */ __webpack_exports__["default"] = (isEqual);
-
-
-/***/ }),
-
 /***/ "../node_modules/lodash-es/isEqualWith.js":
 /*!************************************************!*\
   !*** ../node_modules/lodash-es/isEqualWith.js ***!
@@ -8735,7 +8602,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isarray = __webpack_require__(/*! isarray */ "../node_modules/path-to-regexp/node_modules/isarray/index.js")
+var isarray = __webpack_require__(/*! isarray */ "../node_modules/isarray/index.js")
 
 /**
  * Expose `pathToRegexp`.
@@ -9161,20 +9028,6 @@ function pathToRegexp (path, keys, options) {
 
   return stringToRegexp(/** @type {string} */ (path), /** @type {!Array} */ (keys), options)
 }
-
-
-/***/ }),
-
-/***/ "../node_modules/path-to-regexp/node_modules/isarray/index.js":
-/*!********************************************************************!*\
-  !*** ../node_modules/path-to-regexp/node_modules/isarray/index.js ***!
-  \********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = Array.isArray || function (arr) {
-  return Object.prototype.toString.call(arr) == '[object Array]';
-};
 
 
 /***/ }),
@@ -27395,178 +27248,6 @@ if (false) {} else {
 
 /***/ }),
 
-/***/ "../node_modules/react-lifecycles-compat/react-lifecycles-compat.es.js":
-/*!*****************************************************************************!*\
-  !*** ../node_modules/react-lifecycles-compat/react-lifecycles-compat.es.js ***!
-  \*****************************************************************************/
-/*! exports provided: polyfill */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "polyfill", function() { return polyfill; });
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-function componentWillMount() {
-  // Call this.constructor.gDSFP to support sub-classes.
-  var state = this.constructor.getDerivedStateFromProps(this.props, this.state);
-  if (state !== null && state !== undefined) {
-    this.setState(state);
-  }
-}
-
-function componentWillReceiveProps(nextProps) {
-  // Call this.constructor.gDSFP to support sub-classes.
-  // Use the setState() updater to ensure state isn't stale in certain edge cases.
-  function updater(prevState) {
-    var state = this.constructor.getDerivedStateFromProps(nextProps, prevState);
-    return state !== null && state !== undefined ? state : null;
-  }
-  // Binding "this" is important for shallow renderer support.
-  this.setState(updater.bind(this));
-}
-
-function componentWillUpdate(nextProps, nextState) {
-  try {
-    var prevProps = this.props;
-    var prevState = this.state;
-    this.props = nextProps;
-    this.state = nextState;
-    this.__reactInternalSnapshotFlag = true;
-    this.__reactInternalSnapshot = this.getSnapshotBeforeUpdate(
-      prevProps,
-      prevState
-    );
-  } finally {
-    this.props = prevProps;
-    this.state = prevState;
-  }
-}
-
-// React may warn about cWM/cWRP/cWU methods being deprecated.
-// Add a flag to suppress these warnings for this special case.
-componentWillMount.__suppressDeprecationWarning = true;
-componentWillReceiveProps.__suppressDeprecationWarning = true;
-componentWillUpdate.__suppressDeprecationWarning = true;
-
-function polyfill(Component) {
-  var prototype = Component.prototype;
-
-  if (!prototype || !prototype.isReactComponent) {
-    throw new Error('Can only polyfill class components');
-  }
-
-  if (
-    typeof Component.getDerivedStateFromProps !== 'function' &&
-    typeof prototype.getSnapshotBeforeUpdate !== 'function'
-  ) {
-    return Component;
-  }
-
-  // If new component APIs are defined, "unsafe" lifecycles won't be called.
-  // Error if any of these lifecycles are present,
-  // Because they would work differently between older and newer (16.3+) versions of React.
-  var foundWillMountName = null;
-  var foundWillReceivePropsName = null;
-  var foundWillUpdateName = null;
-  if (typeof prototype.componentWillMount === 'function') {
-    foundWillMountName = 'componentWillMount';
-  } else if (typeof prototype.UNSAFE_componentWillMount === 'function') {
-    foundWillMountName = 'UNSAFE_componentWillMount';
-  }
-  if (typeof prototype.componentWillReceiveProps === 'function') {
-    foundWillReceivePropsName = 'componentWillReceiveProps';
-  } else if (typeof prototype.UNSAFE_componentWillReceiveProps === 'function') {
-    foundWillReceivePropsName = 'UNSAFE_componentWillReceiveProps';
-  }
-  if (typeof prototype.componentWillUpdate === 'function') {
-    foundWillUpdateName = 'componentWillUpdate';
-  } else if (typeof prototype.UNSAFE_componentWillUpdate === 'function') {
-    foundWillUpdateName = 'UNSAFE_componentWillUpdate';
-  }
-  if (
-    foundWillMountName !== null ||
-    foundWillReceivePropsName !== null ||
-    foundWillUpdateName !== null
-  ) {
-    var componentName = Component.displayName || Component.name;
-    var newApiName =
-      typeof Component.getDerivedStateFromProps === 'function'
-        ? 'getDerivedStateFromProps()'
-        : 'getSnapshotBeforeUpdate()';
-
-    throw Error(
-      'Unsafe legacy lifecycles will not be called for components using new component APIs.\n\n' +
-        componentName +
-        ' uses ' +
-        newApiName +
-        ' but also contains the following legacy lifecycles:' +
-        (foundWillMountName !== null ? '\n  ' + foundWillMountName : '') +
-        (foundWillReceivePropsName !== null
-          ? '\n  ' + foundWillReceivePropsName
-          : '') +
-        (foundWillUpdateName !== null ? '\n  ' + foundWillUpdateName : '') +
-        '\n\nThe above lifecycles should be removed. Learn more about this warning here:\n' +
-        'https://fb.me/react-async-component-lifecycle-hooks'
-    );
-  }
-
-  // React <= 16.2 does not support static getDerivedStateFromProps.
-  // As a workaround, use cWM and cWRP to invoke the new static lifecycle.
-  // Newer versions of React will ignore these lifecycles if gDSFP exists.
-  if (typeof Component.getDerivedStateFromProps === 'function') {
-    prototype.componentWillMount = componentWillMount;
-    prototype.componentWillReceiveProps = componentWillReceiveProps;
-  }
-
-  // React <= 16.2 does not support getSnapshotBeforeUpdate.
-  // As a workaround, use cWU to invoke the new lifecycle.
-  // Newer versions of React will ignore that lifecycle if gSBU exists.
-  if (typeof prototype.getSnapshotBeforeUpdate === 'function') {
-    if (typeof prototype.componentDidUpdate !== 'function') {
-      throw new Error(
-        'Cannot polyfill getSnapshotBeforeUpdate() for components that do not define componentDidUpdate() on the prototype'
-      );
-    }
-
-    prototype.componentWillUpdate = componentWillUpdate;
-
-    var componentDidUpdate = prototype.componentDidUpdate;
-
-    prototype.componentDidUpdate = function componentDidUpdatePolyfill(
-      prevProps,
-      prevState,
-      maybeSnapshot
-    ) {
-      // 16.3+ will not execute our will-update method;
-      // It will pass a snapshot value to did-update though.
-      // Older versions will require our polyfilled will-update value.
-      // We need to handle both cases, but can't just check for the presence of "maybeSnapshot",
-      // Because for <= 15.x versions this might be a "prevContext" object.
-      // We also can't just check "__reactInternalSnapshot",
-      // Because get-snapshot might return a falsy value.
-      // So check for the explicit __reactInternalSnapshotFlag flag to determine behavior.
-      var snapshot = this.__reactInternalSnapshotFlag
-        ? this.__reactInternalSnapshot
-        : maybeSnapshot;
-
-      componentDidUpdate.call(this, prevProps, prevState, snapshot);
-    };
-  }
-
-  return Component;
-}
-
-
-
-
-/***/ }),
-
 /***/ "../node_modules/react-redux/es/components/Provider.js":
 /*!*************************************************************!*\
   !*** ../node_modules/react-redux/es/components/Provider.js ***!
@@ -31906,7 +31587,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _events_onChangeValue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./events/onChangeValue */ "../node_modules/redux-form/es/events/onChangeValue.js");
 /* harmony import */ var _util_eventConsts__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util/eventConsts */ "../node_modules/redux-form/es/util/eventConsts.js");
 /* harmony import */ var _structure_plain__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./structure/plain */ "../node_modules/redux-form/es/structure/plain/index.js");
-/* harmony import */ var _isReactNative__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./isReactNative */ "../node_modules/redux-form/es/isReactNative.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -31920,8 +31600,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-
 
 
 
@@ -31959,168 +31637,182 @@ var eventDataTransferSetData = function eventDataTransferSetData(event, key, val
   }
 };
 
-var createConnectedField = function createConnectedField(structure) {
-  var deepEqual = structure.deepEqual,
-      getIn = structure.getIn;
+var createConnectedField = function createConnectedField(_ref) {
+  var deepEqual = _ref.deepEqual,
+      getIn = _ref.getIn,
+      toJS = _ref.toJS;
 
   var getSyncError = function getSyncError(syncErrors, name) {
-    var error = _structure_plain__WEBPACK_IMPORTED_MODULE_6__["default"].getIn(syncErrors, name);
+    var error = _structure_plain__WEBPACK_IMPORTED_MODULE_6__["default"].getIn(syncErrors, name
     // Because the error for this field might not be at a level in the error structure where
     // it can be set directly, it might need to be unwrapped from the _error property
-    return error && error._error ? error._error : error;
+    );return error && error._error ? error._error : error;
   };
 
   var getSyncWarning = function getSyncWarning(syncWarnings, name) {
-    var warning = getIn(syncWarnings, name);
+    var warning = getIn(syncWarnings, name
     // Because the warning for this field might not be at a level in the warning structure where
     // it can be set directly, it might need to be unwrapped from the _warning property
-    return warning && warning._warning ? warning._warning : warning;
+    );return warning && warning._warning ? warning._warning : warning;
   };
 
   var ConnectedField = function (_Component) {
     _inherits(ConnectedField, _Component);
 
-    function ConnectedField() {
-      var _ref;
-
-      var _temp, _this, _ret;
-
+    function ConnectedField(props) {
       _classCallCheck(this, ConnectedField);
 
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
+      var _this = _possibleConstructorReturn(this, (ConnectedField.__proto__ || Object.getPrototypeOf(ConnectedField)).call(this, props));
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ConnectedField.__proto__ || Object.getPrototypeOf(ConnectedField)).call.apply(_ref, [this].concat(args))), _this), _this.saveRef = function (ref) {
-        return _this.ref = ref;
-      }, _this.isPristine = function () {
-        return _this.props.pristine;
-      }, _this.getValue = function () {
-        return _this.props.value;
-      }, _this.handleChange = function (event) {
-        var _this$props = _this.props,
-            name = _this$props.name,
-            dispatch = _this$props.dispatch,
-            parse = _this$props.parse,
-            normalize = _this$props.normalize,
-            onChange = _this$props.onChange,
-            _reduxForm = _this$props._reduxForm,
-            previousValue = _this$props.value;
+      _this.handleChange = _this.handleChange.bind(_this);
+      _this.handleFocus = _this.handleFocus.bind(_this);
+      _this.handleBlur = _this.handleBlur.bind(_this);
+      _this.handleDragStart = _this.handleDragStart.bind(_this);
+      _this.handleDrop = _this.handleDrop.bind(_this);
+      return _this;
+    }
+
+    _createClass(ConnectedField, [{
+      key: 'shouldComponentUpdate',
+      value: function shouldComponentUpdate(nextProps) {
+        var _this2 = this;
+
+        var nextPropsKeys = Object.keys(nextProps);
+        var thisPropsKeys = Object.keys(this.props);
+        return nextPropsKeys.length !== thisPropsKeys.length || nextPropsKeys.some(function (prop) {
+          return !~propsToNotUpdateFor.indexOf(prop) && !deepEqual(_this2.props[prop], nextProps[prop]);
+        });
+      }
+    }, {
+      key: 'isPristine',
+      value: function isPristine() {
+        return this.props.pristine;
+      }
+    }, {
+      key: 'getValue',
+      value: function getValue() {
+        return this.props.value;
+      }
+    }, {
+      key: 'getRenderedComponent',
+      value: function getRenderedComponent() {
+        return this.refs.renderedComponent;
+      }
+    }, {
+      key: 'handleChange',
+      value: function handleChange(event) {
+        var _props = this.props,
+            name = _props.name,
+            dispatch = _props.dispatch,
+            parse = _props.parse,
+            normalize = _props.normalize,
+            onChange = _props.onChange,
+            _reduxForm = _props._reduxForm,
+            previousValue = _props.value;
 
         var newValue = Object(_events_onChangeValue__WEBPACK_IMPORTED_MODULE_4__["default"])(event, { name: name, parse: parse, normalize: normalize });
 
         var defaultPrevented = false;
         if (onChange) {
-          // Can't seem to find a way to extend Event in React Native,
-          // thus I simply avoid adding preventDefault() in a RN environment
-          // to prevent the following error:
-          // `One of the sources for assign has an enumerable key on the prototype chain`
-          // Reference: https://github.com/facebook/react-native/issues/5507
-          if (!_isReactNative__WEBPACK_IMPORTED_MODULE_7__["default"]) {
-            onChange(_extends({}, event, {
-              preventDefault: function preventDefault() {
-                defaultPrevented = true;
-                return eventPreventDefault(event);
-              }
-            }), newValue, previousValue, name);
-          } else {
-            onChange(event, newValue, previousValue, name);
-          }
+          onChange(_extends({}, event, {
+            preventDefault: function preventDefault() {
+              defaultPrevented = true;
+              return eventPreventDefault(event);
+            }
+          }), newValue, previousValue);
         }
         if (!defaultPrevented) {
           // dispatch change action
           dispatch(_reduxForm.change(name, newValue));
-
-          // call post-change callback
-          if (_reduxForm.asyncValidate) {
-            _reduxForm.asyncValidate(name, newValue, 'change');
-          }
         }
-      }, _this.handleFocus = function (event) {
-        var _this$props2 = _this.props,
-            name = _this$props2.name,
-            dispatch = _this$props2.dispatch,
-            onFocus = _this$props2.onFocus,
-            _reduxForm = _this$props2._reduxForm;
+      }
+    }, {
+      key: 'handleFocus',
+      value: function handleFocus(event) {
+        var _props2 = this.props,
+            name = _props2.name,
+            dispatch = _props2.dispatch,
+            onFocus = _props2.onFocus,
+            _reduxForm = _props2._reduxForm;
 
 
         var defaultPrevented = false;
         if (onFocus) {
-          if (!_isReactNative__WEBPACK_IMPORTED_MODULE_7__["default"]) {
-            onFocus(_extends({}, event, {
-              preventDefault: function preventDefault() {
-                defaultPrevented = true;
-                return eventPreventDefault(event);
-              }
-            }), name);
-          } else {
-            onFocus(event, name);
-          }
+          onFocus(_extends({}, event, {
+            preventDefault: function preventDefault() {
+              defaultPrevented = true;
+              return eventPreventDefault(event);
+            }
+          }));
         }
 
         if (!defaultPrevented) {
           dispatch(_reduxForm.focus(name));
         }
-      }, _this.handleBlur = function (event) {
-        var _this$props3 = _this.props,
-            name = _this$props3.name,
-            dispatch = _this$props3.dispatch,
-            parse = _this$props3.parse,
-            normalize = _this$props3.normalize,
-            onBlur = _this$props3.onBlur,
-            _reduxForm = _this$props3._reduxForm,
-            _value = _this$props3._value,
-            previousValue = _this$props3.value;
+      }
+    }, {
+      key: 'handleBlur',
+      value: function handleBlur(event) {
+        var _props3 = this.props,
+            name = _props3.name,
+            dispatch = _props3.dispatch,
+            parse = _props3.parse,
+            normalize = _props3.normalize,
+            onBlur = _props3.onBlur,
+            _reduxForm = _props3._reduxForm,
+            _value = _props3._value,
+            previousValue = _props3.value;
 
-        var newValue = Object(_events_onChangeValue__WEBPACK_IMPORTED_MODULE_4__["default"])(event, { name: name, parse: parse, normalize: normalize });
+        var newValue = Object(_events_onChangeValue__WEBPACK_IMPORTED_MODULE_4__["default"])(event, { name: name, parse: parse, normalize: normalize }
 
         // for checkbox and radio, if the value property of checkbox or radio equals
         // the value passed by blur event, then fire blur action with previousValue.
-        if (newValue === _value && _value !== undefined) {
+        );if (newValue === _value && _value !== undefined) {
           newValue = previousValue;
         }
 
         var defaultPrevented = false;
         if (onBlur) {
-          if (!_isReactNative__WEBPACK_IMPORTED_MODULE_7__["default"]) {
-            onBlur(_extends({}, event, {
-              preventDefault: function preventDefault() {
-                defaultPrevented = true;
-                return eventPreventDefault(event);
-              }
-            }), newValue, previousValue, name);
-          } else {
-            onBlur(event, newValue, previousValue, name);
-          }
+          onBlur(_extends({}, event, {
+            preventDefault: function preventDefault() {
+              defaultPrevented = true;
+              return eventPreventDefault(event);
+            }
+          }), newValue, previousValue);
         }
 
         if (!defaultPrevented) {
           // dispatch blur action
-          dispatch(_reduxForm.blur(name, newValue));
+          dispatch(_reduxForm.blur(name, newValue)
 
           // call post-blur callback
-          if (_reduxForm.asyncValidate) {
-            _reduxForm.asyncValidate(name, newValue, 'blur');
+          );if (_reduxForm.asyncValidate) {
+            _reduxForm.asyncValidate(name, newValue);
           }
         }
-      }, _this.handleDragStart = function (event) {
-        var _this$props4 = _this.props,
-            name = _this$props4.name,
-            onDragStart = _this$props4.onDragStart,
-            value = _this$props4.value;
+      }
+    }, {
+      key: 'handleDragStart',
+      value: function handleDragStart(event) {
+        var _props4 = this.props,
+            onDragStart = _props4.onDragStart,
+            value = _props4.value;
 
         eventDataTransferSetData(event, _util_eventConsts__WEBPACK_IMPORTED_MODULE_5__["dataKey"], value == null ? '' : value);
 
         if (onDragStart) {
-          onDragStart(event, name);
+          onDragStart(event);
         }
-      }, _this.handleDrop = function (event) {
-        var _this$props5 = _this.props,
-            name = _this$props5.name,
-            dispatch = _this$props5.dispatch,
-            onDrop = _this$props5.onDrop,
-            _reduxForm = _this$props5._reduxForm,
-            previousValue = _this$props5.value;
+      }
+    }, {
+      key: 'handleDrop',
+      value: function handleDrop(event) {
+        var _props5 = this.props,
+            name = _props5.name,
+            dispatch = _props5.dispatch,
+            onDrop = _props5.onDrop,
+            _reduxForm = _props5._reduxForm,
+            previousValue = _props5.value;
 
         var newValue = eventDataTransferGetData(event, _util_eventConsts__WEBPACK_IMPORTED_MODULE_5__["dataKey"]);
 
@@ -32131,7 +31823,7 @@ var createConnectedField = function createConnectedField(structure) {
               defaultPrevented = true;
               return eventPreventDefault(event);
             }
-          }), newValue, previousValue, name);
+          }), newValue, previousValue);
         }
 
         if (!defaultPrevented) {
@@ -32139,48 +31831,24 @@ var createConnectedField = function createConnectedField(structure) {
           dispatch(_reduxForm.change(name, newValue));
           eventPreventDefault(event);
         }
-      }, _temp), _possibleConstructorReturn(_this, _ret);
-    }
-
-    _createClass(ConnectedField, [{
-      key: 'shouldComponentUpdate',
-      value: function shouldComponentUpdate(nextProps) {
-        var _this2 = this;
-
-        var nextPropsKeys = Object.keys(nextProps);
-        var thisPropsKeys = Object.keys(this.props);
-        // if we have children, we MUST update in React 16
-        // https://twitter.com/erikras/status/915866544558788608
-        return !!(this.props.children || nextProps.children || nextPropsKeys.length !== thisPropsKeys.length || nextPropsKeys.some(function (prop) {
-          if (~(nextProps.immutableProps || []).indexOf(prop)) {
-            return _this2.props[prop] !== nextProps[prop];
-          }
-          return !~propsToNotUpdateFor.indexOf(prop) && !deepEqual(_this2.props[prop], nextProps[prop]);
-        }));
-      }
-    }, {
-      key: 'getRenderedComponent',
-      value: function getRenderedComponent() {
-        return this.ref;
       }
     }, {
       key: 'render',
       value: function render() {
-        var _props = this.props,
-            component = _props.component,
-            withRef = _props.withRef,
-            name = _props.name,
-            _reduxForm = _props._reduxForm,
-            normalize = _props.normalize,
-            onBlur = _props.onBlur,
-            onChange = _props.onChange,
-            onFocus = _props.onFocus,
-            onDragStart = _props.onDragStart,
-            onDrop = _props.onDrop,
-            immutableProps = _props.immutableProps,
-            rest = _objectWithoutProperties(_props, ['component', 'withRef', 'name', '_reduxForm', 'normalize', 'onBlur', 'onChange', 'onFocus', 'onDragStart', 'onDrop', 'immutableProps']);
+        var _props6 = this.props,
+            component = _props6.component,
+            withRef = _props6.withRef,
+            name = _props6.name,
+            _reduxForm = _props6._reduxForm,
+            normalize = _props6.normalize,
+            onBlur = _props6.onBlur,
+            onChange = _props6.onChange,
+            onFocus = _props6.onFocus,
+            onDragStart = _props6.onDragStart,
+            onDrop = _props6.onDrop,
+            rest = _objectWithoutProperties(_props6, ['component', 'withRef', 'name', '_reduxForm', 'normalize', 'onBlur', 'onChange', 'onFocus', 'onDragStart', 'onDrop']);
 
-        var _createFieldProps = Object(_createFieldProps__WEBPACK_IMPORTED_MODULE_3__["default"])(structure, name, _extends({}, rest, {
+        var _createFieldProps = Object(_createFieldProps__WEBPACK_IMPORTED_MODULE_3__["default"])({ getIn: getIn, toJS: toJS }, name, _extends({}, rest, {
           form: _reduxForm.form,
           onBlur: this.handleBlur,
           onChange: this.handleChange,
@@ -32192,7 +31860,7 @@ var createConnectedField = function createConnectedField(structure) {
             props = _objectWithoutProperties(_createFieldProps, ['custom']);
 
         if (withRef) {
-          custom.ref = this.saveRef;
+          custom.ref = 'renderedComponent';
         }
         if (typeof component === 'string') {
           var input = props.input,
@@ -32210,7 +31878,7 @@ var createConnectedField = function createConnectedField(structure) {
   }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
   ConnectedField.propTypes = {
-    component: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.node]).isRequired,
+    component: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string]).isRequired,
     props: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object
   };
 
@@ -32289,13 +31957,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-
 var propsToNotUpdateFor = ['_reduxForm', 'value'];
 
-var createConnectedFieldArray = function createConnectedFieldArray(structure) {
-  var deepEqual = structure.deepEqual,
-      getIn = structure.getIn,
-      size = structure.size;
+var createConnectedFieldArray = function createConnectedFieldArray(_ref) {
+  var deepEqual = _ref.deepEqual,
+      getIn = _ref.getIn,
+      size = _ref.size;
 
   var getSyncError = function getSyncError(syncErrors, name) {
     // For an array, the error can _ONLY_ be under _error.
@@ -32311,25 +31978,16 @@ var createConnectedFieldArray = function createConnectedFieldArray(structure) {
     return getIn(syncWarnings, name + '._warning');
   };
 
-  var ConnectedFieldArray = function (_React$Component) {
-    _inherits(ConnectedFieldArray, _React$Component);
+  var ConnectedFieldArray = function (_Component) {
+    _inherits(ConnectedFieldArray, _Component);
 
     function ConnectedFieldArray() {
-      var _ref;
-
-      var _temp, _this, _ret;
-
       _classCallCheck(this, ConnectedFieldArray);
 
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
-      }
+      var _this = _possibleConstructorReturn(this, (ConnectedFieldArray.__proto__ || Object.getPrototypeOf(ConnectedFieldArray)).call(this));
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ConnectedFieldArray.__proto__ || Object.getPrototypeOf(ConnectedFieldArray)).call.apply(_ref, [this].concat(args))), _this), _this.saveRef = function (ref) {
-        _this.ref = ref;
-      }, _this.getValue = function (index) {
-        return _this.props.value && getIn(_this.props.value, String(index));
-      }, _temp), _possibleConstructorReturn(_this, _ret);
+      _this.getValue = _this.getValue.bind(_this);
+      return _this;
     }
 
     _createClass(ConnectedFieldArray, [{
@@ -32342,14 +32000,10 @@ var createConnectedFieldArray = function createConnectedFieldArray(structure) {
         var nextValue = nextProps.value;
 
         if (thisValue && nextValue) {
-          var nextValueItemsSame = nextValue.every(function (val) {
-            return ~thisValue.indexOf(val);
-          });
-          var nextValueItemsOrderChanged = nextValue.some(function (val, index) {
-            return val !== thisValue[index];
-          });
-          if (thisValue.length !== nextValue.length || nextValueItemsSame && nextValueItemsOrderChanged || nextProps.rerenderOnEveryChange && thisValue.some(function (val, index) {
-            return !deepEqual(val, nextValue[index]);
+          if (thisValue.length !== nextValue.length || nextProps.rerenderOnEveryChange && thisValue.some(function (val) {
+            return nextValue.every(function (next) {
+              return !deepEqual(val, next);
+            });
           })) {
             return true;
           }
@@ -32357,20 +32011,23 @@ var createConnectedFieldArray = function createConnectedFieldArray(structure) {
 
         var nextPropsKeys = Object.keys(nextProps);
         var thisPropsKeys = Object.keys(this.props);
-        // if we have children, we MUST update in React 16
-        // https://twitter.com/erikras/status/915866544558788608
-        return !!(this.props.children || nextProps.children || nextPropsKeys.length !== thisPropsKeys.length || nextPropsKeys.some(function (prop) {
+        return nextPropsKeys.length !== thisPropsKeys.length || nextPropsKeys.some(function (prop) {
           // useful to debug rerenders
           // if (!plain.deepEqual(this.props[ prop ], nextProps[ prop ])) {
           //   console.info(prop, 'changed', this.props[ prop ], '==>', nextProps[ prop ])
           // }
           return !~propsToNotUpdateFor.indexOf(prop) && !deepEqual(_this2.props[prop], nextProps[prop]);
-        }));
+        });
       }
     }, {
       key: 'getRenderedComponent',
       value: function getRenderedComponent() {
-        return this.ref;
+        return this.refs.renderedComponent;
+      }
+    }, {
+      key: 'getValue',
+      value: function getValue(index) {
+        return this.props.value && getIn(this.props.value, index);
       }
     }, {
       key: 'render',
@@ -32385,11 +32042,11 @@ var createConnectedFieldArray = function createConnectedFieldArray(structure) {
             rerenderOnEveryChange = _props.rerenderOnEveryChange,
             rest = _objectWithoutProperties(_props, ['component', 'withRef', 'name', '_reduxForm', 'validate', 'warn', 'rerenderOnEveryChange']);
 
-        var props = Object(_createFieldArrayProps__WEBPACK_IMPORTED_MODULE_5__["default"])(structure, name, _reduxForm.form, _reduxForm.sectionPrefix, this.getValue, rest);
+        var props = Object(_createFieldArrayProps__WEBPACK_IMPORTED_MODULE_5__["default"])(getIn, name, _reduxForm.form, _reduxForm.sectionPrefix, this.getValue, rest);
         if (withRef) {
-          props.ref = this.saveRef;
+          props.ref = 'renderedComponent';
         }
-        return react__WEBPACK_IMPORTED_MODULE_1__["createElement"](component, props);
+        return Object(react__WEBPACK_IMPORTED_MODULE_1__["createElement"])(component, props);
       }
     }, {
       key: 'dirty',
@@ -32412,7 +32069,7 @@ var createConnectedFieldArray = function createConnectedFieldArray(structure) {
   }(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
 
   ConnectedFieldArray.propTypes = {
-    component: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.node]).isRequired,
+    component: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string]).isRequired,
     props: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object,
     rerenderOnEveryChange: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.bool
   };
@@ -32523,14 +32180,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-
 var propsToNotUpdateFor = ['_reduxForm'];
 
-var createConnectedFields = function createConnectedFields(structure) {
-  var deepEqual = structure.deepEqual,
-      getIn = structure.getIn,
-      size = structure.size;
-
+var createConnectedFields = function createConnectedFields(_ref) {
+  var deepEqual = _ref.deepEqual,
+      getIn = _ref.getIn,
+      toJS = _ref.toJS,
+      size = _ref.size;
 
   var getSyncError = function getSyncError(syncErrors, name) {
     // Because the error for this field might not be at a level in the error structure where
@@ -32539,85 +32195,44 @@ var createConnectedFields = function createConnectedFields(structure) {
   };
 
   var getSyncWarning = function getSyncWarning(syncWarnings, name) {
-    var warning = getIn(syncWarnings, name);
+    var warning = getIn(syncWarnings, name
     // Because the warning for this field might not be at a level in the warning structure where
     // it can be set directly, it might need to be unwrapped from the _warning property
-    return warning && warning._warning ? warning._warning : warning;
+    );return warning && warning._warning ? warning._warning : warning;
   };
 
-  var ConnectedFields = function (_React$Component) {
-    _inherits(ConnectedFields, _React$Component);
+  var ConnectedFields = function (_Component) {
+    _inherits(ConnectedFields, _Component);
 
     function ConnectedFields(props) {
       _classCallCheck(this, ConnectedFields);
 
       var _this = _possibleConstructorReturn(this, (ConnectedFields.__proto__ || Object.getPrototypeOf(ConnectedFields)).call(this, props));
 
-      _this.onChangeFns = {};
-      _this.onFocusFns = {};
-      _this.onBlurFns = {};
+      _this.handleChange = _this.handleChange.bind(_this);
+      _this.handleFocus = _this.handleFocus.bind(_this);
+      _this.handleBlur = _this.handleBlur.bind(_this);
 
-      _this.prepareEventHandlers = function (_ref) {
-        var names = _ref.names;
-        return names.forEach(function (name) {
-          _this.onChangeFns[name] = function (event) {
-            return _this.handleChange(name, event);
-          };
-          _this.onFocusFns[name] = function () {
-            return _this.handleFocus(name);
-          };
-          _this.onBlurFns[name] = function (event) {
-            return _this.handleBlur(name, event);
-          };
-        });
-      };
+      _this.onChangeFns = props.names.reduce(function (acc, name) {
+        acc[name] = function (event) {
+          return _this.handleChange(name, event);
+        };
+        return acc;
+      }, {});
 
-      _this.handleChange = function (name, event) {
-        var _this$props = _this.props,
-            dispatch = _this$props.dispatch,
-            parse = _this$props.parse,
-            _reduxForm = _this$props._reduxForm;
+      _this.onFocusFns = props.names.reduce(function (acc, name) {
+        acc[name] = function () {
+          return _this.handleFocus(name);
+        };
+        return acc;
+      }, {});
 
-        var value = Object(_events_onChangeValue__WEBPACK_IMPORTED_MODULE_5__["default"])(event, { name: name, parse: parse });
-
-        dispatch(_reduxForm.change(name, value));
-
-        // call post-change callback
-        if (_reduxForm.asyncValidate) {
-          _reduxForm.asyncValidate(name, value, 'change');
-        }
-      };
-
-      _this.handleFocus = function (name) {
-        var _this$props2 = _this.props,
-            dispatch = _this$props2.dispatch,
-            _reduxForm = _this$props2._reduxForm;
-
-        dispatch(_reduxForm.focus(name));
-      };
-
-      _this.handleBlur = function (name, event) {
-        var _this$props3 = _this.props,
-            dispatch = _this$props3.dispatch,
-            parse = _this$props3.parse,
-            _reduxForm = _this$props3._reduxForm;
-
-        var value = Object(_events_onChangeValue__WEBPACK_IMPORTED_MODULE_5__["default"])(event, { name: name, parse: parse });
-
-        // dispatch blur action
-        dispatch(_reduxForm.blur(name, value));
-
-        // call post-blur callback
-        if (_reduxForm.asyncValidate) {
-          _reduxForm.asyncValidate(name, value, 'blur');
-        }
-      };
-
-      _this.saveRef = function (ref) {
-        _this.ref = ref;
-      };
-
-      _this.prepareEventHandlers(props);
+      _this.onBlurFns = props.names.reduce(function (acc, name) {
+        acc[name] = function (event) {
+          return _this.handleBlur(name, event);
+        };
+        return acc;
+      }, {});
       return _this;
     }
 
@@ -32629,8 +32244,27 @@ var createConnectedFields = function createConnectedFields(structure) {
         if (this.props.names !== nextProps.names && (size(this.props.names) !== size(nextProps.names) || nextProps.names.some(function (nextName) {
           return !_this2.props._fields[nextName];
         }))) {
-          // names has changed. The cached event handlers need to be updated
-          this.prepareEventHandlers(nextProps);
+          // names is changed. The cached event handlers need to be updated
+          this.onChangeFns = nextProps.names.reduce(function (acc, name) {
+            acc[name] = function (event) {
+              return _this2.handleChange(name, event);
+            };
+            return acc;
+          }, {});
+
+          this.onFocusFns = nextProps.names.reduce(function (acc, name) {
+            acc[name] = function () {
+              return _this2.handleFocus(name);
+            };
+            return acc;
+          }, {});
+
+          this.onBlurFns = nextProps.names.reduce(function (acc, name) {
+            acc[name] = function (event) {
+              return _this2.handleBlur(name, event);
+            };
+            return acc;
+          }, {});
         }
       }
     }, {
@@ -32640,11 +32274,9 @@ var createConnectedFields = function createConnectedFields(structure) {
 
         var nextPropsKeys = Object.keys(nextProps);
         var thisPropsKeys = Object.keys(this.props);
-        // if we have children, we MUST update in React 16
-        // https://twitter.com/erikras/status/915866544558788608
-        return !!(this.props.children || nextProps.children || nextPropsKeys.length !== thisPropsKeys.length || nextPropsKeys.some(function (prop) {
+        return nextPropsKeys.length !== thisPropsKeys.length || nextPropsKeys.some(function (prop) {
           return !~propsToNotUpdateFor.indexOf(prop) && !deepEqual(_this3.props[prop], nextProps[prop]);
-        }));
+        });
       }
     }, {
       key: 'isDirty',
@@ -32667,19 +32299,60 @@ var createConnectedFields = function createConnectedFields(structure) {
     }, {
       key: 'getRenderedComponent',
       value: function getRenderedComponent() {
-        return this.ref;
+        return this.refs.renderedComponent;
+      }
+    }, {
+      key: 'handleChange',
+      value: function handleChange(name, event) {
+        var _props = this.props,
+            dispatch = _props.dispatch,
+            parse = _props.parse,
+            normalize = _props.normalize,
+            _reduxForm = _props._reduxForm;
+
+        var value = Object(_events_onChangeValue__WEBPACK_IMPORTED_MODULE_5__["default"])(event, { name: name, parse: parse, normalize: normalize });
+
+        dispatch(_reduxForm.change(name, value));
+      }
+    }, {
+      key: 'handleFocus',
+      value: function handleFocus(name) {
+        var _props2 = this.props,
+            dispatch = _props2.dispatch,
+            _reduxForm = _props2._reduxForm;
+
+        dispatch(_reduxForm.focus(name));
+      }
+    }, {
+      key: 'handleBlur',
+      value: function handleBlur(name, event) {
+        var _props3 = this.props,
+            dispatch = _props3.dispatch,
+            parse = _props3.parse,
+            normalize = _props3.normalize,
+            _reduxForm = _props3._reduxForm;
+
+        var value = Object(_events_onChangeValue__WEBPACK_IMPORTED_MODULE_5__["default"])(event, { name: name, parse: parse, normalize: normalize }
+
+        // dispatch blur action
+        );dispatch(_reduxForm.blur(name, value)
+
+        // call post-blur callback
+        );if (_reduxForm.asyncValidate) {
+          _reduxForm.asyncValidate(name, value);
+        }
       }
     }, {
       key: 'render',
       value: function render() {
         var _this4 = this;
 
-        var _props = this.props,
-            component = _props.component,
-            withRef = _props.withRef,
-            _fields = _props._fields,
-            _reduxForm = _props._reduxForm,
-            rest = _objectWithoutProperties(_props, ['component', 'withRef', '_fields', '_reduxForm']);
+        var _props4 = this.props,
+            component = _props4.component,
+            withRef = _props4.withRef,
+            _fields = _props4._fields,
+            _reduxForm = _props4._reduxForm,
+            rest = _objectWithoutProperties(_props4, ['component', 'withRef', '_fields', '_reduxForm']);
 
         var sectionPrefix = _reduxForm.sectionPrefix,
             form = _reduxForm.form;
@@ -32687,7 +32360,7 @@ var createConnectedFields = function createConnectedFields(structure) {
         var _Object$keys$reduce = Object.keys(_fields).reduce(function (accumulator, name) {
           var connectedProps = _fields[name];
 
-          var _createFieldProps = Object(_createFieldProps__WEBPACK_IMPORTED_MODULE_3__["default"])(structure, name, _extends({}, connectedProps, rest, {
+          var _createFieldProps = Object(_createFieldProps__WEBPACK_IMPORTED_MODULE_3__["default"])({ getIn: getIn, toJS: toJS }, name, _extends({}, connectedProps, rest, {
             form: form,
             onBlur: _this4.onBlurFns[name],
             onChange: _this4.onChangeFns[name],
@@ -32704,10 +32377,10 @@ var createConnectedFields = function createConnectedFields(structure) {
             props = _objectWithoutProperties(_Object$keys$reduce, ['custom']);
 
         if (withRef) {
-          props.ref = this.saveRef;
+          props.ref = 'renderedComponent';
         }
 
-        return react__WEBPACK_IMPORTED_MODULE_0__["createElement"](component, _extends({}, props, custom));
+        return Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])(component, _extends({}, props, custom));
       }
     }]);
 
@@ -32715,7 +32388,7 @@ var createConnectedFields = function createConnectedFields(structure) {
   }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
   ConnectedFields.propTypes = {
-    component: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.node]).isRequired,
+    component: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string]).isRequired,
     _fields: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object.isRequired,
     props: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object
   };
@@ -32740,7 +32413,6 @@ var createConnectedFields = function createConnectedFields(structure) {
           asyncError: getIn(formState, 'asyncErrors.' + name),
           asyncValidating: getIn(formState, 'asyncValidating') === name,
           dirty: !pristine,
-          initial: initial,
           pristine: pristine,
           state: getIn(formState, 'fields.' + name),
           submitError: getIn(formState, 'submitErrors.' + name),
@@ -32827,9 +32499,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_lifecycles_compat__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-lifecycles-compat */ "../node_modules/react-lifecycles-compat/react-lifecycles-compat.es.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -32837,7 +32508,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 
 
 
@@ -32872,46 +32542,13 @@ var Form = function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
 Form.propTypes = {
-  onSubmit: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func.isRequired
+  onSubmit: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired
 };
 Form.contextTypes = {
-  _reduxForm: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object
+  _reduxForm: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object
 };
 
-Object(react_lifecycles_compat__WEBPACK_IMPORTED_MODULE_1__["polyfill"])(Form);
 /* harmony default export */ __webpack_exports__["default"] = (Form);
-
-/***/ }),
-
-/***/ "../node_modules/redux-form/es/FormName.js":
-/*!*************************************************!*\
-  !*** ../node_modules/redux-form/es/FormName.js ***!
-  \*************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
-
-
-
-
-var FormName = function FormName(_ref, _ref2) {
-  var children = _ref.children;
-  var _reduxForm = _ref2._reduxForm;
-  return children({ form: _reduxForm && _reduxForm.form });
-};
-FormName.contextTypes = {
-  _reduxForm: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.shape({
-    form: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired
-  }).isRequired
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (FormName);
 
 /***/ }),
 
@@ -32995,7 +32632,7 @@ var FormSection = function (_Component) {
 
 FormSection.propTypes = {
   name: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired,
-  component: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.node])
+  component: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string])
 };
 
 FormSection.defaultProps = {
@@ -33055,7 +32692,7 @@ var SubmissionError = function (_ExtendableError) {
 /*!****************************************************!*\
   !*** ../node_modules/redux-form/es/actionTypes.js ***!
   \****************************************************/
-/*! exports provided: prefix, ARRAY_INSERT, ARRAY_MOVE, ARRAY_POP, ARRAY_PUSH, ARRAY_REMOVE, ARRAY_REMOVE_ALL, ARRAY_SHIFT, ARRAY_SPLICE, ARRAY_UNSHIFT, ARRAY_SWAP, AUTOFILL, BLUR, CHANGE, CLEAR_FIELDS, CLEAR_SUBMIT, CLEAR_SUBMIT_ERRORS, CLEAR_ASYNC_ERROR, DESTROY, FOCUS, INITIALIZE, REGISTER_FIELD, RESET, RESET_SECTION, SET_SUBMIT_FAILED, SET_SUBMIT_SUCCEEDED, START_ASYNC_VALIDATION, START_SUBMIT, STOP_ASYNC_VALIDATION, STOP_SUBMIT, SUBMIT, TOUCH, UNREGISTER_FIELD, UNTOUCH, UPDATE_SYNC_ERRORS, UPDATE_SYNC_WARNINGS */
+/*! exports provided: prefix, ARRAY_INSERT, ARRAY_MOVE, ARRAY_POP, ARRAY_PUSH, ARRAY_REMOVE, ARRAY_REMOVE_ALL, ARRAY_SHIFT, ARRAY_SPLICE, ARRAY_UNSHIFT, ARRAY_SWAP, AUTOFILL, BLUR, CHANGE, CLEAR_SUBMIT, CLEAR_SUBMIT_ERRORS, CLEAR_ASYNC_ERROR, DESTROY, FOCUS, INITIALIZE, REGISTER_FIELD, RESET, SET_SUBMIT_FAILED, SET_SUBMIT_SUCCEEDED, START_ASYNC_VALIDATION, START_SUBMIT, STOP_ASYNC_VALIDATION, STOP_SUBMIT, SUBMIT, TOUCH, UNREGISTER_FIELD, UNTOUCH, UPDATE_SYNC_ERRORS, UPDATE_SYNC_WARNINGS */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -33074,7 +32711,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AUTOFILL", function() { return AUTOFILL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BLUR", function() { return BLUR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CHANGE", function() { return CHANGE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLEAR_FIELDS", function() { return CLEAR_FIELDS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLEAR_SUBMIT", function() { return CLEAR_SUBMIT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLEAR_SUBMIT_ERRORS", function() { return CLEAR_SUBMIT_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLEAR_ASYNC_ERROR", function() { return CLEAR_ASYNC_ERROR; });
@@ -33083,7 +32719,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "INITIALIZE", function() { return INITIALIZE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REGISTER_FIELD", function() { return REGISTER_FIELD; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RESET", function() { return RESET; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RESET_SECTION", function() { return RESET_SECTION; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_SUBMIT_FAILED", function() { return SET_SUBMIT_FAILED; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_SUBMIT_SUCCEEDED", function() { return SET_SUBMIT_SUCCEEDED; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "START_ASYNC_VALIDATION", function() { return START_ASYNC_VALIDATION; });
@@ -33111,7 +32746,6 @@ var ARRAY_SWAP = prefix + 'ARRAY_SWAP';
 var AUTOFILL = prefix + 'AUTOFILL';
 var BLUR = prefix + 'BLUR';
 var CHANGE = prefix + 'CHANGE';
-var CLEAR_FIELDS = prefix + 'CLEAR_FIELDS';
 var CLEAR_SUBMIT = prefix + 'CLEAR_SUBMIT';
 var CLEAR_SUBMIT_ERRORS = prefix + 'CLEAR_SUBMIT_ERRORS';
 var CLEAR_ASYNC_ERROR = prefix + 'CLEAR_ASYNC_ERROR';
@@ -33120,7 +32754,6 @@ var FOCUS = prefix + 'FOCUS';
 var INITIALIZE = prefix + 'INITIALIZE';
 var REGISTER_FIELD = prefix + 'REGISTER_FIELD';
 var RESET = prefix + 'RESET';
-var RESET_SECTION = prefix + 'RESET_SECTION';
 var SET_SUBMIT_FAILED = prefix + 'SET_SUBMIT_FAILED';
 var SET_SUBMIT_SUCCEEDED = prefix + 'SET_SUBMIT_SUCCEEDED';
 var START_ASYNC_VALIDATION = prefix + 'START_ASYNC_VALIDATION';
@@ -33140,14 +32773,46 @@ var UPDATE_SYNC_WARNINGS = prefix + 'UPDATE_SYNC_WARNINGS';
 /*!************************************************!*\
   !*** ../node_modules/redux-form/es/actions.js ***!
   \************************************************/
-/*! exports provided: default */
+/*! exports provided: arrayInsert, arrayMove, arrayPop, arrayPush, arrayRemove, arrayRemoveAll, arrayShift, arraySplice, arraySwap, arrayUnshift, autofill, blur, change, clearSubmit, clearSubmitErrors, clearAsyncError, destroy, focus, initialize, registerField, reset, startAsyncValidation, startSubmit, stopAsyncValidation, stopSubmit, submit, setSubmitFailed, setSubmitSucceeded, touch, unregisterField, untouch, updateSyncErrors, updateSyncWarnings */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "arrayInsert", function() { return arrayInsert; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "arrayMove", function() { return arrayMove; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "arrayPop", function() { return arrayPop; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "arrayPush", function() { return arrayPush; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "arrayRemove", function() { return arrayRemove; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "arrayRemoveAll", function() { return arrayRemoveAll; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "arrayShift", function() { return arrayShift; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "arraySplice", function() { return arraySplice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "arraySwap", function() { return arraySwap; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "arrayUnshift", function() { return arrayUnshift; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "autofill", function() { return autofill; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "blur", function() { return blur; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "change", function() { return change; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearSubmit", function() { return clearSubmit; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearSubmitErrors", function() { return clearSubmitErrors; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearAsyncError", function() { return clearAsyncError; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "destroy", function() { return destroy; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "focus", function() { return focus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initialize", function() { return initialize; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "registerField", function() { return registerField; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reset", function() { return reset; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startAsyncValidation", function() { return startAsyncValidation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startSubmit", function() { return startSubmit; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stopAsyncValidation", function() { return stopAsyncValidation; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stopSubmit", function() { return stopSubmit; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "submit", function() { return submit; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSubmitFailed", function() { return setSubmitFailed; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSubmitSucceeded", function() { return setSubmitSucceeded; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "touch", function() { return touch; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unregisterField", function() { return unregisterField; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "untouch", function() { return untouch; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateSyncErrors", function() { return updateSyncErrors; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateSyncWarnings", function() { return updateSyncWarnings; });
 /* harmony import */ var _actionTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actionTypes */ "../node_modules/redux-form/es/actionTypes.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 
 
 
@@ -33256,10 +32921,7 @@ var change = function change(form, field, value, touch, persistentSubmitErrors) 
 };
 
 var clearSubmit = function clearSubmit(form) {
-  return {
-    type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["CLEAR_SUBMIT"],
-    meta: { form: form }
-  };
+  return { type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["CLEAR_SUBMIT"], meta: { form: form } };
 };
 
 var clearSubmitErrors = function clearSubmitErrors(form) {
@@ -33276,33 +32938,16 @@ var clearAsyncError = function clearAsyncError(form, field) {
   };
 };
 
-var clearFields = function clearFields(form, keepTouched, persistentSubmitErrors) {
-  for (var _len = arguments.length, fields = Array(_len > 3 ? _len - 3 : 0), _key = 3; _key < _len; _key++) {
-    fields[_key - 3] = arguments[_key];
-  }
-
-  return {
-    type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["CLEAR_FIELDS"],
-    meta: { form: form, keepTouched: keepTouched, persistentSubmitErrors: persistentSubmitErrors, fields: fields }
-  };
-};
-
 var destroy = function destroy() {
-  for (var _len2 = arguments.length, form = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-    form[_key2] = arguments[_key2];
+  for (var _len = arguments.length, form = Array(_len), _key = 0; _key < _len; _key++) {
+    form[_key] = arguments[_key];
   }
 
-  return {
-    type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["DESTROY"],
-    meta: { form: form }
-  };
+  return { type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["DESTROY"], meta: { form: form } };
 };
 
 var focus = function focus(form, field) {
-  return {
-    type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["FOCUS"],
-    meta: { form: form, field: field }
-  };
+  return { type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["FOCUS"], meta: { form: form, field: field } };
 };
 
 var initialize = function initialize(form, values, keepDirty) {
@@ -33328,21 +32973,7 @@ var registerField = function registerField(form, name, type) {
 };
 
 var reset = function reset(form) {
-  return {
-    type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["RESET"],
-    meta: { form: form }
-  };
-};
-
-var resetSection = function resetSection(form) {
-  for (var _len3 = arguments.length, sections = Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
-    sections[_key3 - 1] = arguments[_key3];
-  }
-
-  return {
-    type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["RESET_SECTION"],
-    meta: { form: form, sections: sections }
-  };
+  return { type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["RESET"], meta: { form: form } };
 };
 
 var startAsyncValidation = function startAsyncValidation(form, field) {
@@ -33353,40 +32984,40 @@ var startAsyncValidation = function startAsyncValidation(form, field) {
 };
 
 var startSubmit = function startSubmit(form) {
-  return {
-    type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["START_SUBMIT"],
-    meta: { form: form }
-  };
+  return { type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["START_SUBMIT"], meta: { form: form } };
 };
 
 var stopAsyncValidation = function stopAsyncValidation(form, errors) {
-  return {
+  var action = {
     type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["STOP_ASYNC_VALIDATION"],
     meta: { form: form },
-    payload: errors,
-    error: !!(errors && Object.keys(errors).length)
+    payload: errors
   };
+  if (errors && Object.keys(errors).length) {
+    action.error = true;
+  }
+  return action;
 };
 
 var stopSubmit = function stopSubmit(form, errors) {
-  return {
+  var action = {
     type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["STOP_SUBMIT"],
     meta: { form: form },
-    payload: errors,
-    error: !!(errors && Object.keys(errors).length)
+    payload: errors
   };
+  if (errors && Object.keys(errors).length) {
+    action.error = true;
+  }
+  return action;
 };
 
 var submit = function submit(form) {
-  return {
-    type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["SUBMIT"],
-    meta: { form: form }
-  };
+  return { type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["SUBMIT"], meta: { form: form } };
 };
 
 var setSubmitFailed = function setSubmitFailed(form) {
-  for (var _len4 = arguments.length, fields = Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
-    fields[_key4 - 1] = arguments[_key4];
+  for (var _len2 = arguments.length, fields = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+    fields[_key2 - 1] = arguments[_key2];
   }
 
   return {
@@ -33397,8 +33028,8 @@ var setSubmitFailed = function setSubmitFailed(form) {
 };
 
 var setSubmitSucceeded = function setSubmitSucceeded(form) {
-  for (var _len5 = arguments.length, fields = Array(_len5 > 1 ? _len5 - 1 : 0), _key5 = 1; _key5 < _len5; _key5++) {
-    fields[_key5 - 1] = arguments[_key5];
+  for (var _len3 = arguments.length, fields = Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+    fields[_key3 - 1] = arguments[_key3];
   }
 
   return {
@@ -33409,8 +33040,8 @@ var setSubmitSucceeded = function setSubmitSucceeded(form) {
 };
 
 var touch = function touch(form) {
-  for (var _len6 = arguments.length, fields = Array(_len6 > 1 ? _len6 - 1 : 0), _key6 = 1; _key6 < _len6; _key6++) {
-    fields[_key6 - 1] = arguments[_key6];
+  for (var _len4 = arguments.length, fields = Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
+    fields[_key4 - 1] = arguments[_key4];
   }
 
   return {
@@ -33429,8 +33060,8 @@ var unregisterField = function unregisterField(form, name) {
 };
 
 var untouch = function untouch(form) {
-  for (var _len7 = arguments.length, fields = Array(_len7 > 1 ? _len7 - 1 : 0), _key7 = 1; _key7 < _len7; _key7++) {
-    fields[_key7 - 1] = arguments[_key7];
+  for (var _len5 = arguments.length, fields = Array(_len5 > 1 ? _len5 - 1 : 0), _key5 = 1; _key5 < _len5; _key5++) {
+    fields[_key5 - 1] = arguments[_key5];
   }
 
   return {
@@ -33459,46 +33090,6 @@ var updateSyncWarnings = function updateSyncWarnings(form) {
   };
 };
 
-var actions = {
-  arrayInsert: arrayInsert,
-  arrayMove: arrayMove,
-  arrayPop: arrayPop,
-  arrayPush: arrayPush,
-  arrayRemove: arrayRemove,
-  arrayRemoveAll: arrayRemoveAll,
-  arrayShift: arrayShift,
-  arraySplice: arraySplice,
-  arraySwap: arraySwap,
-  arrayUnshift: arrayUnshift,
-  autofill: autofill,
-  blur: blur,
-  change: change,
-  clearFields: clearFields,
-  clearSubmit: clearSubmit,
-  clearSubmitErrors: clearSubmitErrors,
-  clearAsyncError: clearAsyncError,
-  destroy: destroy,
-  focus: focus,
-  initialize: initialize,
-  registerField: registerField,
-  reset: reset,
-  resetSection: resetSection,
-  startAsyncValidation: startAsyncValidation,
-  startSubmit: startSubmit,
-  stopAsyncValidation: stopAsyncValidation,
-  stopSubmit: stopSubmit,
-  submit: submit,
-  setSubmitFailed: setSubmitFailed,
-  setSubmitSucceeded: setSubmitSucceeded,
-  touch: touch,
-  unregisterField: unregisterField,
-  untouch: untouch,
-  updateSyncErrors: updateSyncErrors,
-  updateSyncWarnings: updateSyncWarnings
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (actions);
-
 /***/ }),
 
 /***/ "../node_modules/redux-form/es/asyncValidation.js":
@@ -33522,14 +33113,12 @@ var asyncValidation = function asyncValidation(fn, start, stop, field) {
   }
   var handleErrors = function handleErrors(rejected) {
     return function (errors) {
-      if (rejected) {
-        if (errors && Object.keys(errors).length) {
-          stop(errors);
-          return errors;
-        } else {
-          stop();
-          throw new Error('Asynchronous validation promise was rejected without errors.');
-        }
+      if (errors && Object.keys(errors).length) {
+        stop(errors);
+        return errors;
+      } else if (rejected) {
+        stop();
+        throw new Error('Asynchronous validation promise was rejected without errors.');
       }
       stop();
       return Promise.resolve();
@@ -33553,15 +33142,13 @@ var asyncValidation = function asyncValidation(fn, start, stop, field) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_lifecycles_compat__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-lifecycles-compat */ "../node_modules/react-lifecycles-compat/react-lifecycles-compat.es.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var invariant__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! invariant */ "../node_modules/invariant/browser.js");
-/* harmony import */ var invariant__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(invariant__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _ConnectedField__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ConnectedField */ "../node_modules/redux-form/es/ConnectedField.js");
-/* harmony import */ var _util_shallowCompare__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util/shallowCompare */ "../node_modules/redux-form/es/util/shallowCompare.js");
-/* harmony import */ var _util_prefixName__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./util/prefixName */ "../node_modules/redux-form/es/util/prefixName.js");
-/* harmony import */ var _structure_plain__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./structure/plain */ "../node_modules/redux-form/es/structure/plain/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var invariant__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! invariant */ "../node_modules/invariant/browser.js");
+/* harmony import */ var invariant__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(invariant__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _ConnectedField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ConnectedField */ "../node_modules/redux-form/es/ConnectedField.js");
+/* harmony import */ var _util_shallowCompare__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util/shallowCompare */ "../node_modules/redux-form/es/util/shallowCompare.js");
+/* harmony import */ var _util_prefixName__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util/prefixName */ "../node_modules/redux-form/es/util/prefixName.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -33579,13 +33166,17 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+var createField = function createField(_ref) {
+  var deepEqual = _ref.deepEqual,
+      getIn = _ref.getIn,
+      setIn = _ref.setIn,
+      toJS = _ref.toJS;
 
-
-
-var createField = function createField(structure) {
-  var ConnectedField = Object(_ConnectedField__WEBPACK_IMPORTED_MODULE_4__["default"])(structure);
-
-  var setIn = structure.setIn;
+  var ConnectedField = Object(_ConnectedField__WEBPACK_IMPORTED_MODULE_3__["default"])({
+    deepEqual: deepEqual,
+    getIn: getIn,
+    toJS: toJS
+  });
 
   var Field = function (_Component) {
     _inherits(Field, _Component);
@@ -33595,31 +33186,22 @@ var createField = function createField(structure) {
 
       var _this = _possibleConstructorReturn(this, (Field.__proto__ || Object.getPrototypeOf(Field)).call(this, props, context));
 
-      _this.saveRef = function (ref) {
-        return _this.ref = ref;
-      };
-
-      _this.normalize = function (name, value) {
-        var normalize = _this.props.normalize;
-
-        if (!normalize) {
-          return value;
-        }
-        var previousValues = _this.context._reduxForm.getValues();
-        var previousValue = _this.value;
-        var nextValues = setIn(previousValues, name, value);
-        return normalize(value, previousValue, nextValues, previousValues);
-      };
-
       if (!context._reduxForm) {
         throw new Error('Field must be inside a component decorated with reduxForm()');
       }
+
+      _this.normalize = _this.normalize.bind(_this);
       return _this;
     }
 
     _createClass(Field, [{
-      key: 'componentDidMount',
-      value: function componentDidMount() {
+      key: 'shouldComponentUpdate',
+      value: function shouldComponentUpdate(nextProps, nextState) {
+        return Object(_util_shallowCompare__WEBPACK_IMPORTED_MODULE_4__["default"])(this, nextProps, nextState);
+      }
+    }, {
+      key: 'componentWillMount',
+      value: function componentWillMount() {
         var _this2 = this;
 
         this.context._reduxForm.register(this.name, 'Field', function () {
@@ -33629,27 +33211,13 @@ var createField = function createField(structure) {
         });
       }
     }, {
-      key: 'shouldComponentUpdate',
-      value: function shouldComponentUpdate(nextProps, nextState) {
-        return Object(_util_shallowCompare__WEBPACK_IMPORTED_MODULE_5__["default"])(this, nextProps, nextState);
-      }
-    }, {
       key: 'componentWillReceiveProps',
-      value: function componentWillReceiveProps(nextProps, nextContext) {
-        var oldName = Object(_util_prefixName__WEBPACK_IMPORTED_MODULE_6__["default"])(this.context, this.props.name);
-        var newName = Object(_util_prefixName__WEBPACK_IMPORTED_MODULE_6__["default"])(nextContext, nextProps.name);
-
-        if (oldName !== newName ||
-        // use deepEqual here because they could be a function or an array of functions
-        !_structure_plain__WEBPACK_IMPORTED_MODULE_7__["default"].deepEqual(this.props.validate, nextProps.validate) || !_structure_plain__WEBPACK_IMPORTED_MODULE_7__["default"].deepEqual(this.props.warn, nextProps.warn)) {
+      value: function componentWillReceiveProps(nextProps) {
+        if (this.props.name !== nextProps.name) {
           // unregister old name
-          this.context._reduxForm.unregister(oldName);
+          this.context._reduxForm.unregister(this.name
           // register new name
-          this.context._reduxForm.register(newName, 'Field', function () {
-            return nextProps.validate;
-          }, function () {
-            return nextProps.warn;
-          });
+          );this.context._reduxForm.register(Object(_util_prefixName__WEBPACK_IMPORTED_MODULE_5__["default"])(this.context, nextProps.name), 'Field');
         }
       }
     }, {
@@ -33660,8 +33228,21 @@ var createField = function createField(structure) {
     }, {
       key: 'getRenderedComponent',
       value: function getRenderedComponent() {
-        invariant__WEBPACK_IMPORTED_MODULE_3___default()(this.props.withRef, 'If you want to access getRenderedComponent(), ' + 'you must specify a withRef prop to Field');
-        return this.ref ? this.ref.getWrappedInstance().getRenderedComponent() : undefined;
+        invariant__WEBPACK_IMPORTED_MODULE_2___default()(this.props.withRef, 'If you want to access getRenderedComponent(), ' + 'you must specify a withRef prop to Field');
+        return this.refs.connected.getWrappedInstance().getRenderedComponent();
+      }
+    }, {
+      key: 'normalize',
+      value: function normalize(name, value) {
+        var normalize = this.props.normalize;
+
+        if (!normalize) {
+          return value;
+        }
+        var previousValues = this.context._reduxForm.getValues();
+        var previousValue = this.value;
+        var nextValues = setIn(previousValues, name, value);
+        return normalize(value, previousValue, nextValues, previousValues);
       }
     }, {
       key: 'render',
@@ -33670,13 +33251,13 @@ var createField = function createField(structure) {
           name: this.name,
           normalize: this.normalize,
           _reduxForm: this.context._reduxForm,
-          ref: this.saveRef
+          ref: 'connected'
         }));
       }
     }, {
       key: 'name',
       get: function get() {
-        return Object(_util_prefixName__WEBPACK_IMPORTED_MODULE_6__["default"])(this.context, this.props.name);
+        return Object(_util_prefixName__WEBPACK_IMPORTED_MODULE_5__["default"])(this.context, this.props.name);
       }
     }, {
       key: 'dirty',
@@ -33686,12 +33267,12 @@ var createField = function createField(structure) {
     }, {
       key: 'pristine',
       get: function get() {
-        return !!(this.ref && this.ref.getWrappedInstance().isPristine());
+        return this.refs.connected.getWrappedInstance().isPristine();
       }
     }, {
       key: 'value',
       get: function get() {
-        return this.ref && this.ref.getWrappedInstance().getValue();
+        return this.refs.connected && this.refs.connected.getWrappedInstance().getValue();
       }
     }]);
 
@@ -33699,27 +33280,25 @@ var createField = function createField(structure) {
   }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
   Field.propTypes = {
-    name: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string.isRequired,
-    component: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.node]).isRequired,
-    format: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func,
-    normalize: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func,
-    onBlur: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func,
-    onChange: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func,
-    onFocus: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func,
-    onDragStart: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func,
-    onDrop: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func,
-    parse: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func,
-    props: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object,
-    validate: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func)]),
-    warn: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func)]),
-    withRef: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.bool,
-    immutableProps: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string)
+    name: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired,
+    component: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string]).isRequired,
+    format: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
+    normalize: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
+    onBlur: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
+    onChange: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
+    onFocus: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
+    onDragStart: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
+    onDrop: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
+    parse: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
+    props: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object,
+    validate: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func)]),
+    warn: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func)]),
+    withRef: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool
   };
   Field.contextTypes = {
-    _reduxForm: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object
+    _reduxForm: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object
   };
 
-  Object(react_lifecycles_compat__WEBPACK_IMPORTED_MODULE_1__["polyfill"])(Field);
   return Field;
 };
 
@@ -33738,13 +33317,12 @@ var createField = function createField(structure) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_lifecycles_compat__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-lifecycles-compat */ "../node_modules/react-lifecycles-compat/react-lifecycles-compat.es.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var invariant__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! invariant */ "../node_modules/invariant/browser.js");
-/* harmony import */ var invariant__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(invariant__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _ConnectedFieldArray__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ConnectedFieldArray */ "../node_modules/redux-form/es/ConnectedFieldArray.js");
-/* harmony import */ var _util_prefixName__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util/prefixName */ "../node_modules/redux-form/es/util/prefixName.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var invariant__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! invariant */ "../node_modules/invariant/browser.js");
+/* harmony import */ var invariant__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(invariant__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _ConnectedFieldArray__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ConnectedFieldArray */ "../node_modules/redux-form/es/ConnectedFieldArray.js");
+/* harmony import */ var _util_prefixName__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util/prefixName */ "../node_modules/redux-form/es/util/prefixName.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -33756,8 +33334,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
 
 
 
@@ -33781,8 +33357,16 @@ var wrapError = function wrapError(fn, key) {
   };
 };
 
-var createFieldArray = function createFieldArray(structure) {
-  var ConnectedFieldArray = Object(_ConnectedFieldArray__WEBPACK_IMPORTED_MODULE_4__["default"])(structure);
+var createFieldArray = function createFieldArray(_ref2) {
+  var deepEqual = _ref2.deepEqual,
+      getIn = _ref2.getIn,
+      size = _ref2.size;
+
+  var ConnectedFieldArray = Object(_ConnectedFieldArray__WEBPACK_IMPORTED_MODULE_3__["default"])({
+    deepEqual: deepEqual,
+    getIn: getIn,
+    size: size
+  });
 
   var FieldArray = function (_Component) {
     _inherits(FieldArray, _Component);
@@ -33792,10 +33376,6 @@ var createFieldArray = function createFieldArray(structure) {
 
       var _this = _possibleConstructorReturn(this, (FieldArray.__proto__ || Object.getPrototypeOf(FieldArray)).call(this, props, context));
 
-      _this.saveRef = function (ref) {
-        _this.ref = ref;
-      };
-
       if (!context._reduxForm) {
         throw new Error('FieldArray must be inside a component decorated with reduxForm()');
       }
@@ -33803,8 +33383,8 @@ var createFieldArray = function createFieldArray(structure) {
     }
 
     _createClass(FieldArray, [{
-      key: 'componentDidMount',
-      value: function componentDidMount() {
+      key: 'componentWillMount',
+      value: function componentWillMount() {
         var _this2 = this;
 
         this.context._reduxForm.register(this.name, 'FieldArray', function () {
@@ -33815,15 +33395,12 @@ var createFieldArray = function createFieldArray(structure) {
       }
     }, {
       key: 'componentWillReceiveProps',
-      value: function componentWillReceiveProps(nextProps, nextContext) {
-        var oldName = Object(_util_prefixName__WEBPACK_IMPORTED_MODULE_5__["default"])(this.context, this.props.name);
-        var newName = Object(_util_prefixName__WEBPACK_IMPORTED_MODULE_5__["default"])(nextContext, nextProps.name);
-
-        if (oldName !== newName) {
+      value: function componentWillReceiveProps(nextProps) {
+        if (this.props.name !== nextProps.name) {
           // unregister old name
-          this.context._reduxForm.unregister(oldName);
+          this.context._reduxForm.unregister(this.name
           // register new name
-          this.context._reduxForm.register(newName, 'FieldArray');
+          );this.context._reduxForm.register(Object(_util_prefixName__WEBPACK_IMPORTED_MODULE_4__["default"])(this.context, nextProps.name), 'FieldArray');
         }
       }
     }, {
@@ -33834,37 +33411,39 @@ var createFieldArray = function createFieldArray(structure) {
     }, {
       key: 'getRenderedComponent',
       value: function getRenderedComponent() {
-        invariant__WEBPACK_IMPORTED_MODULE_3___default()(this.props.withRef, 'If you want to access getRenderedComponent(), ' + 'you must specify a withRef prop to FieldArray');
-        return this.ref && this.ref.getWrappedInstance().getRenderedComponent();
+        invariant__WEBPACK_IMPORTED_MODULE_2___default()(this.props.withRef, 'If you want to access getRenderedComponent(), ' + 'you must specify a withRef prop to FieldArray');
+        return this.refs.connected.getWrappedInstance().getRenderedComponent();
       }
     }, {
       key: 'render',
       value: function render() {
         return Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ConnectedFieldArray, _extends({}, this.props, {
           name: this.name,
+          syncError: this.syncError,
+          syncWarning: this.syncWarning,
           _reduxForm: this.context._reduxForm,
-          ref: this.saveRef
+          ref: 'connected'
         }));
       }
     }, {
       key: 'name',
       get: function get() {
-        return Object(_util_prefixName__WEBPACK_IMPORTED_MODULE_5__["default"])(this.context, this.props.name);
+        return Object(_util_prefixName__WEBPACK_IMPORTED_MODULE_4__["default"])(this.context, this.props.name);
       }
     }, {
       key: 'dirty',
       get: function get() {
-        return !this.ref || this.ref.getWrappedInstance().dirty;
+        return this.refs.connected.getWrappedInstance().dirty;
       }
     }, {
       key: 'pristine',
       get: function get() {
-        return !!(this.ref && this.ref.getWrappedInstance().pristine);
+        return this.refs.connected.getWrappedInstance().pristine;
       }
     }, {
       key: 'value',
       get: function get() {
-        return this.ref ? this.ref.getWrappedInstance().value : undefined;
+        return this.refs.connected.getWrappedInstance().value;
       }
     }]);
 
@@ -33872,18 +33451,17 @@ var createFieldArray = function createFieldArray(structure) {
   }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
   FieldArray.propTypes = {
-    name: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string.isRequired,
-    component: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.node]).isRequired,
-    props: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object,
-    validate: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func)]),
-    warn: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func)]),
-    withRef: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.bool
+    name: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string.isRequired,
+    component: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func.isRequired,
+    props: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object,
+    validate: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func)]),
+    warn: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func)]),
+    withRef: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool
   };
   FieldArray.contextTypes = {
-    _reduxForm: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object
+    _reduxForm: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object
   };
 
-  Object(react_lifecycles_compat__WEBPACK_IMPORTED_MODULE_1__["polyfill"])(FieldArray);
   return FieldArray;
 };
 
@@ -33904,9 +33482,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-var createFieldArrayProps = function createFieldArrayProps(_ref2, name, form, sectionPrefix, getValue, _ref) {
-  var getIn = _ref2.getIn;
-
+var createFieldArrayProps = function createFieldArrayProps(getIn, name, form, sectionPrefix, getValue, _ref) {
   var arrayInsert = _ref.arrayInsert,
       arrayMove = _ref.arrayMove,
       arrayPop = _ref.arrayPop,
@@ -33957,7 +33533,7 @@ var createFieldArrayProps = function createFieldArrayProps(_ref2, name, form, se
       name: name,
       pop: function pop() {
         arrayPop();
-        return getIn(value, String(length - 1));
+        return getIn(value, length - 1);
       },
       push: arrayPush,
       reduce: function reduce(callback, initial) {
@@ -33969,9 +33545,8 @@ var createFieldArrayProps = function createFieldArrayProps(_ref2, name, form, se
       removeAll: arrayRemoveAll,
       shift: function shift() {
         arrayShift();
-        return getIn(value, '0');
+        return getIn(value, 0);
       },
-      splice: arraySplice,
       swap: arraySwap,
       unshift: arrayUnshift
     },
@@ -33990,7 +33565,6 @@ var createFieldArrayProps = function createFieldArrayProps(_ref2, name, form, se
   return finalProps;
 };
 
-
 /* harmony default export */ __webpack_exports__["default"] = (createFieldArrayProps);
 
 /***/ }),
@@ -34008,7 +33582,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-var processProps = function processProps(type, props, _value, deepEqual) {
+var processProps = function processProps(type, props, _value) {
   var value = props.value;
 
   if (type === 'checkbox') {
@@ -34018,7 +33592,7 @@ var processProps = function processProps(type, props, _value, deepEqual) {
   }
   if (type === 'radio') {
     return _extends({}, props, {
-      checked: deepEqual(value, _value),
+      checked: value === _value,
       value: _value
     });
   }
@@ -34037,8 +33611,7 @@ var processProps = function processProps(type, props, _value, deepEqual) {
 
 var createFieldProps = function createFieldProps(_ref2, name, _ref) {
   var getIn = _ref2.getIn,
-      toJS = _ref2.toJS,
-      deepEqual = _ref2.deepEqual;
+      toJS = _ref2.toJS;
 
   var asyncError = _ref.asyncError,
       asyncValidating = _ref.asyncValidating,
@@ -34089,7 +33662,7 @@ var createFieldProps = function createFieldProps(_ref2, name, _ref) {
       onDrop: onDrop,
       onFocus: onFocus,
       value: formattedFieldValue
-    }, _value, deepEqual),
+    }, _value),
     meta: _extends({}, toJS(state), {
       active: !!(state && getIn(state, 'active')),
       asyncValidating: asyncValidating,
@@ -34127,15 +33700,14 @@ var createFieldProps = function createFieldProps(_ref2, name, _ref) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_lifecycles_compat__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-lifecycles-compat */ "../node_modules/react-lifecycles-compat/react-lifecycles-compat.es.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var invariant__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! invariant */ "../node_modules/invariant/browser.js");
-/* harmony import */ var invariant__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(invariant__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _ConnectedFields__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ConnectedFields */ "../node_modules/redux-form/es/ConnectedFields.js");
-/* harmony import */ var _util_shallowCompare__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./util/shallowCompare */ "../node_modules/redux-form/es/util/shallowCompare.js");
-/* harmony import */ var _structure_plain__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./structure/plain */ "../node_modules/redux-form/es/structure/plain/index.js");
-/* harmony import */ var _util_prefixName__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./util/prefixName */ "../node_modules/redux-form/es/util/prefixName.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var invariant__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! invariant */ "../node_modules/invariant/browser.js");
+/* harmony import */ var invariant__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(invariant__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _ConnectedFields__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ConnectedFields */ "../node_modules/redux-form/es/ConnectedFields.js");
+/* harmony import */ var _util_shallowCompare__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util/shallowCompare */ "../node_modules/redux-form/es/util/shallowCompare.js");
+/* harmony import */ var _structure_plain__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./structure/plain */ "../node_modules/redux-form/es/structure/plain/index.js");
+/* harmony import */ var _util_prefixName__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./util/prefixName */ "../node_modules/redux-form/es/util/prefixName.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -34154,8 +33726,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-
-
 var validateNameProp = function validateNameProp(prop) {
   if (!prop) {
     return new Error('No "names" prop was specified <Fields/>');
@@ -34165,8 +33735,18 @@ var validateNameProp = function validateNameProp(prop) {
   }
 };
 
-var createFields = function createFields(structure) {
-  var ConnectedFields = Object(_ConnectedFields__WEBPACK_IMPORTED_MODULE_4__["default"])(structure);
+var createFields = function createFields(_ref) {
+  var deepEqual = _ref.deepEqual,
+      getIn = _ref.getIn,
+      toJS = _ref.toJS,
+      size = _ref.size;
+
+  var ConnectedFields = Object(_ConnectedFields__WEBPACK_IMPORTED_MODULE_3__["default"])({
+    deepEqual: deepEqual,
+    getIn: getIn,
+    toJS: toJS,
+    size: size
+  });
 
   var Fields = function (_Component) {
     _inherits(Fields, _Component);
@@ -34179,21 +33759,21 @@ var createFields = function createFields(structure) {
       if (!context._reduxForm) {
         throw new Error('Fields must be inside a component decorated with reduxForm()');
       }
-      var error = validateNameProp(props.names);
-      if (error) {
-        throw error;
-      }
       return _this;
     }
 
     _createClass(Fields, [{
       key: 'shouldComponentUpdate',
-      value: function shouldComponentUpdate(nextProps) {
-        return Object(_util_shallowCompare__WEBPACK_IMPORTED_MODULE_5__["default"])(this, nextProps);
+      value: function shouldComponentUpdate(nextProps, nextState) {
+        return Object(_util_shallowCompare__WEBPACK_IMPORTED_MODULE_4__["default"])(this, nextProps, nextState);
       }
     }, {
-      key: 'componentDidMount',
-      value: function componentDidMount() {
+      key: 'componentWillMount',
+      value: function componentWillMount() {
+        var error = validateNameProp(this.props.names);
+        if (error) {
+          throw error;
+        }
         var context = this.context;
         var register = context._reduxForm.register;
 
@@ -34204,7 +33784,7 @@ var createFields = function createFields(structure) {
     }, {
       key: 'componentWillReceiveProps',
       value: function componentWillReceiveProps(nextProps) {
-        if (!_structure_plain__WEBPACK_IMPORTED_MODULE_6__["default"].deepEqual(this.props.names, nextProps.names)) {
+        if (!_structure_plain__WEBPACK_IMPORTED_MODULE_5__["default"].deepEqual(this.props.names, nextProps.names)) {
           var context = this.context;
           var _context$_reduxForm = context._reduxForm,
               register = _context$_reduxForm.register,
@@ -34212,11 +33792,11 @@ var createFields = function createFields(structure) {
           // unregister old name
 
           this.props.names.forEach(function (name) {
-            return unregister(Object(_util_prefixName__WEBPACK_IMPORTED_MODULE_7__["default"])(context, name));
-          });
+            return unregister(Object(_util_prefixName__WEBPACK_IMPORTED_MODULE_6__["default"])(context, name));
+          }
           // register new name
-          nextProps.names.forEach(function (name) {
-            return register(Object(_util_prefixName__WEBPACK_IMPORTED_MODULE_7__["default"])(context, name), 'Field');
+          );nextProps.names.forEach(function (name) {
+            return register(Object(_util_prefixName__WEBPACK_IMPORTED_MODULE_6__["default"])(context, name), 'Field');
           });
         }
       }
@@ -34227,13 +33807,13 @@ var createFields = function createFields(structure) {
         var unregister = context._reduxForm.unregister;
 
         this.props.names.forEach(function (name) {
-          return unregister(Object(_util_prefixName__WEBPACK_IMPORTED_MODULE_7__["default"])(context, name));
+          return unregister(Object(_util_prefixName__WEBPACK_IMPORTED_MODULE_6__["default"])(context, name));
         });
       }
     }, {
       key: 'getRenderedComponent',
       value: function getRenderedComponent() {
-        invariant__WEBPACK_IMPORTED_MODULE_3___default()(this.props.withRef, 'If you want to access getRenderedComponent(), ' + 'you must specify a withRef prop to Fields');
+        invariant__WEBPACK_IMPORTED_MODULE_2___default()(this.props.withRef, 'If you want to access getRenderedComponent(), ' + 'you must specify a withRef prop to Fields');
         return this.refs.connected.getWrappedInstance().getRenderedComponent();
       }
     }, {
@@ -34243,7 +33823,7 @@ var createFields = function createFields(structure) {
 
         return Object(react__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ConnectedFields, _extends({}, this.props, {
           names: this.props.names.map(function (name) {
-            return Object(_util_prefixName__WEBPACK_IMPORTED_MODULE_7__["default"])(context, name);
+            return Object(_util_prefixName__WEBPACK_IMPORTED_MODULE_6__["default"])(context, name);
           }),
           _reduxForm: this.context._reduxForm,
           ref: 'connected'
@@ -34255,7 +33835,7 @@ var createFields = function createFields(structure) {
         var context = this.context;
 
         return this.props.names.map(function (name) {
-          return Object(_util_prefixName__WEBPACK_IMPORTED_MODULE_7__["default"])(context, name);
+          return Object(_util_prefixName__WEBPACK_IMPORTED_MODULE_6__["default"])(context, name);
         });
       }
     }, {
@@ -34282,17 +33862,16 @@ var createFields = function createFields(structure) {
     names: function names(props, propName) {
       return validateNameProp(props[propName]);
     },
-    component: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.string, prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.node]).isRequired,
-    format: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func,
-    parse: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.func,
-    props: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object,
-    withRef: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.bool
+    component: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func, prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.string]).isRequired,
+    format: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
+    parse: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.func,
+    props: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object,
+    withRef: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.bool
   };
   Fields.contextTypes = {
-    _reduxForm: prop_types__WEBPACK_IMPORTED_MODULE_2___default.a.object
+    _reduxForm: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object
   };
 
-  Object(react_lifecycles_compat__WEBPACK_IMPORTED_MODULE_1__["polyfill"])(Fields);
   return Fields;
 };
 
@@ -34315,14 +33894,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var createFormValueSelector = function createFormValueSelector(_ref) {
   var getIn = _ref.getIn;
-  return function (form, getFormState) {
-    invariant__WEBPACK_IMPORTED_MODULE_0___default()(form, 'Form value must be specified');
-    var nonNullGetFormState = getFormState || function (state) {
+  return function (form) {
+    var getFormState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function (state) {
       return getIn(state, 'form');
     };
+
+    invariant__WEBPACK_IMPORTED_MODULE_0___default()(form, 'Form value must be specified');
     return function (state) {
       for (var _len = arguments.length, fields = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
         fields[_key - 1] = arguments[_key];
@@ -34330,9 +33909,9 @@ var createFormValueSelector = function createFormValueSelector(_ref) {
 
       invariant__WEBPACK_IMPORTED_MODULE_0___default()(fields.length, 'No fields specified');
       return fields.length === 1 ? // only selecting one field, so return its value
-      getIn(nonNullGetFormState(state), form + '.values.' + fields[0]) : // selecting many fields, so return an object of field values
+      getIn(getFormState(state), form + '.values.' + fields[0]) : // selecting many fields, so return an object of field values
       fields.reduce(function (accumulator, field) {
-        var value = getIn(nonNullGetFormState(state), form + '.values.' + field);
+        var value = getIn(getFormState(state), form + '.values.' + field);
         return value === undefined ? accumulator : _structure_plain__WEBPACK_IMPORTED_MODULE_1__["default"].setIn(accumulator, field, value);
       }, {});
     };
@@ -34352,26 +33931,13 @@ var createFormValueSelector = function createFormValueSelector(_ref) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var lodash_es_mapValues__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash-es/mapValues */ "../node_modules/lodash-es/mapValues.js");
-/* harmony import */ var lodash_es_isEqual__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash-es/isEqual */ "../node_modules/lodash-es/isEqual.js");
-/* harmony import */ var lodash_es_isEmpty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash-es/isEmpty */ "../node_modules/lodash-es/isEmpty.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "../node_modules/react-redux/es/index.js");
-/* harmony import */ var _util_prefixName__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./util/prefixName */ "../node_modules/redux-form/es/util/prefixName.js");
-
-
-
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "../node_modules/react-redux/es/index.js");
+/* harmony import */ var _util_prefixName__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util/prefixName */ "../node_modules/redux-form/es/util/prefixName.js");
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -34384,12 +33950,30 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-
 var createValues = function createValues(_ref) {
   var getIn = _ref.getIn;
-  return function (firstArg) {
-    for (var _len = arguments.length, rest = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-      rest[_key - 1] = arguments[_key];
+  return function () {
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    var valuesMap = void 0;
+
+    if (typeof args[0] === 'string') {
+      valuesMap = args.map(function (k) {
+        return { prop: k, path: k };
+      });
+    } else {
+      var config = args[0];
+      valuesMap = Object.keys(config).map(function (k) {
+        return {
+          prop: k,
+          path: config[k]
+        };
+      });
+    }
+    if (!valuesMap.length) {
+      throw new Error('formValues(): You must specify values to get as formValues(name1, name2, ...) or formValues({propName1: propPath1, ...})');
     }
 
     // create a class that reads current form name and creates a selector
@@ -34406,87 +33990,38 @@ var createValues = function createValues(_ref) {
           if (!context._reduxForm) {
             throw new Error('formValues() must be used inside a React tree decorated with reduxForm()');
           }
-          _this.updateComponent(props);
+          var getValues = context._reduxForm.getValues;
+
+          var formValuesSelector = function formValuesSelector(_) {
+            // Yes, we're only using connect() for listening to updates
+            var props = {};
+            var values = getValues();
+            valuesMap.forEach(function (_ref2) {
+              var prop = _ref2.prop,
+                  path = _ref2.path;
+              return props[prop] = getIn(values, Object(_util_prefixName__WEBPACK_IMPORTED_MODULE_3__["default"])(context, path));
+            });
+            return props;
+          };
+          _this.Component = Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(formValuesSelector, function () {
+            return {};
+          } // ignore dispatch
+          )(Component);
           return _this;
         }
 
         _createClass(FormValues, [{
-          key: 'componentWillReceiveProps',
-          value: function componentWillReceiveProps(props) {
-            if (typeof firstArg === 'function') {
-              this.updateComponent(props);
-            }
-          }
-        }, {
           key: 'render',
           value: function render() {
-            var Component = this.Component;
-
-            return react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Component
-            // so that the connected component updates props when sectionPrefix has changed
-            , _extends({ sectionPrefix: this.context._reduxForm.sectionPrefix
-            }, this.props));
-          }
-        }, {
-          key: 'updateComponent',
-          value: function updateComponent(props) {
-            var valuesMap = void 0;
-            var resolvedFirstArg = typeof firstArg === 'function' ? firstArg(props) : firstArg;
-            if (typeof resolvedFirstArg === 'string') {
-              valuesMap = rest.reduce(function (result, k) {
-                result[k] = k;
-                return result;
-              }, _defineProperty({}, resolvedFirstArg, resolvedFirstArg));
-            } else {
-              valuesMap = resolvedFirstArg;
-            }
-            if (Object(lodash_es_isEmpty__WEBPACK_IMPORTED_MODULE_2__["default"])(valuesMap)) {
-              // maybe that empty valuesMap is ok if firstArg is a function?
-              // if this is the case, we probably should set this.Component = Component
-              throw new Error('formValues(): You must specify values to get as formValues(name1, name2, ...) or formValues({propName1: propPath1, ...}) or formValues((props) => name) or formValues((props) => ({propName1: propPath1, ...}))');
-            }
-            if (Object(lodash_es_isEqual__WEBPACK_IMPORTED_MODULE_1__["default"])(valuesMap, this._valuesMap)) {
-              // no change in valuesMap
-              return;
-            }
-            this._valuesMap = valuesMap;
-            this.setComponent();
-          }
-        }, {
-          key: 'setComponent',
-          value: function setComponent() {
-            var _this2 = this;
-
-            var formValuesSelector = function formValuesSelector(_, _ref2) {
-              var sectionPrefix = _ref2.sectionPrefix;
-
-              // Yes, we're only using connect() for listening to updates.
-              // The second argument needs to be there so that connect calls
-              // the selector when props change
-              var getValues = _this2.context._reduxForm.getValues;
-
-              var values = getValues();
-              return Object(lodash_es_mapValues__WEBPACK_IMPORTED_MODULE_0__["default"])(_this2._valuesMap, function (path) {
-                return getIn(values, Object(_util_prefixName__WEBPACK_IMPORTED_MODULE_6__["default"])(_this2.context, path));
-              });
-            };
-            this.Component = Object(react_redux__WEBPACK_IMPORTED_MODULE_5__["connect"])(formValuesSelector, function () {
-              return {};
-            } // ignore dispatch
-            )(function (_ref3) {
-              var sectionPrefix = _ref3.sectionPrefix,
-                  otherProps = _objectWithoutProperties(_ref3, ['sectionPrefix']);
-
-              return react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(Component, otherProps);
-            });
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(this.Component, this.props);
           }
         }]);
 
         return FormValues;
-      }(react__WEBPACK_IMPORTED_MODULE_3___default.a.Component);
+      }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
       FormValues.contextTypes = {
-        _reduxForm: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.object
+        _reduxForm: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.object
       };
       return FormValues;
     };
@@ -34517,43 +34052,24 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 
 
-
-var shouldDelete = function shouldDelete(_ref) {
-  var getIn = _ref.getIn;
-  return function (state, path) {
-    var initialValuesPath = null;
-
-    if (path.startsWith('values')) {
-      initialValuesPath = path.replace('values', 'initial');
-    }
-
-    var initialValueComparison = initialValuesPath ? getIn(state, initialValuesPath) === undefined : true;
-
-    return getIn(state, path) !== undefined && initialValueComparison;
-  };
-};
-
 var isReduxFormAction = function isReduxFormAction(action) {
   return action && action.type && action.type.length > _actionTypes__WEBPACK_IMPORTED_MODULE_0__["prefix"].length && action.type.substring(0, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["prefix"].length) === _actionTypes__WEBPACK_IMPORTED_MODULE_0__["prefix"];
 };
 
-function createReducer(structure) {
+var createReducer = function createReducer(structure) {
   var _behaviors;
 
   var deepEqual = structure.deepEqual,
       empty = structure.empty,
-      forEach = structure.forEach,
       getIn = structure.getIn,
       setIn = structure.setIn,
       deleteIn = structure.deleteIn,
       fromJS = structure.fromJS,
       keys = structure.keys,
       size = structure.size,
-      some = structure.some,
       splice = structure.splice;
 
-  var deleteInWithCleanUp = Object(_deleteInWithCleanUp__WEBPACK_IMPORTED_MODULE_1__["default"])(structure)(shouldDelete);
-  var plainDeleteInWithCleanUp = Object(_deleteInWithCleanUp__WEBPACK_IMPORTED_MODULE_1__["default"])(_structure_plain__WEBPACK_IMPORTED_MODULE_2__["default"])(shouldDelete);
+  var deleteInWithCleanUp = Object(_deleteInWithCleanUp__WEBPACK_IMPORTED_MODULE_1__["default"])(structure);
   var doSplice = function doSplice(state, key, field, index, removeNum, value, force) {
     var existing = getIn(state, key + '.' + field);
     return existing || force ? setIn(state, key + '.' + field, splice(existing, index, removeNum, value)) : state;
@@ -34576,18 +34092,18 @@ function createReducer(structure) {
     return result;
   };
 
-  var behaviors = (_behaviors = {}, _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ARRAY_INSERT"], function (state, _ref2) {
-    var _ref2$meta = _ref2.meta,
-        field = _ref2$meta.field,
-        index = _ref2$meta.index,
-        payload = _ref2.payload;
+  var behaviors = (_behaviors = {}, _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ARRAY_INSERT"], function (state, _ref) {
+    var _ref$meta = _ref.meta,
+        field = _ref$meta.field,
+        index = _ref$meta.index,
+        payload = _ref.payload;
 
     return arraySplice(state, field, index, 0, payload);
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ARRAY_MOVE"], function (state, _ref3) {
-    var _ref3$meta = _ref3.meta,
-        field = _ref3$meta.field,
-        from = _ref3$meta.from,
-        to = _ref3$meta.to;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ARRAY_MOVE"], function (state, _ref2) {
+    var _ref2$meta = _ref2.meta,
+        field = _ref2$meta.field,
+        from = _ref2$meta.from,
+        to = _ref2$meta.to;
 
     var array = getIn(state, 'values.' + field);
     var length = array ? size(array) : 0;
@@ -34597,54 +34113,55 @@ function createReducer(structure) {
         var path = key + '.' + field;
         if (getIn(result, path)) {
           var value = getIn(result, path + '[' + from + ']');
-          result = setIn(result, path, splice(getIn(result, path), from, 1)); // remove
-          result = setIn(result, path, splice(getIn(result, path), to, 0, value)); // insert
+          result = setIn(result, path, splice(getIn(result, path), from, 1) // remove
+          );result = setIn(result, path, splice(getIn(result, path), to, 0, value) // insert
+          );
         }
       });
     }
     return result;
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ARRAY_POP"], function (state, _ref4) {
-    var field = _ref4.meta.field;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ARRAY_POP"], function (state, _ref3) {
+    var field = _ref3.meta.field;
 
     var array = getIn(state, 'values.' + field);
     var length = array ? size(array) : 0;
     return length ? arraySplice(state, field, length - 1, 1) : state;
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ARRAY_PUSH"], function (state, _ref5) {
-    var field = _ref5.meta.field,
-        payload = _ref5.payload;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ARRAY_PUSH"], function (state, _ref4) {
+    var field = _ref4.meta.field,
+        payload = _ref4.payload;
 
     var array = getIn(state, 'values.' + field);
     var length = array ? size(array) : 0;
     return arraySplice(state, field, length, 0, payload);
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ARRAY_REMOVE"], function (state, _ref6) {
-    var _ref6$meta = _ref6.meta,
-        field = _ref6$meta.field,
-        index = _ref6$meta.index;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ARRAY_REMOVE"], function (state, _ref5) {
+    var _ref5$meta = _ref5.meta,
+        field = _ref5$meta.field,
+        index = _ref5$meta.index;
 
     return arraySplice(state, field, index, 1);
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ARRAY_REMOVE_ALL"], function (state, _ref7) {
-    var field = _ref7.meta.field;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ARRAY_REMOVE_ALL"], function (state, _ref6) {
+    var field = _ref6.meta.field;
 
     var array = getIn(state, 'values.' + field);
     var length = array ? size(array) : 0;
     return length ? arraySplice(state, field, 0, length) : state;
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ARRAY_SHIFT"], function (state, _ref8) {
-    var field = _ref8.meta.field;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ARRAY_SHIFT"], function (state, _ref7) {
+    var field = _ref7.meta.field;
 
     return arraySplice(state, field, 0, 1);
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ARRAY_SPLICE"], function (state, _ref9) {
-    var _ref9$meta = _ref9.meta,
-        field = _ref9$meta.field,
-        index = _ref9$meta.index,
-        removeNum = _ref9$meta.removeNum,
-        payload = _ref9.payload;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ARRAY_SPLICE"], function (state, _ref8) {
+    var _ref8$meta = _ref8.meta,
+        field = _ref8$meta.field,
+        index = _ref8$meta.index,
+        removeNum = _ref8$meta.removeNum,
+        payload = _ref8.payload;
 
     return arraySplice(state, field, index, removeNum, payload);
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ARRAY_SWAP"], function (state, _ref10) {
-    var _ref10$meta = _ref10.meta,
-        field = _ref10$meta.field,
-        indexA = _ref10$meta.indexA,
-        indexB = _ref10$meta.indexB;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ARRAY_SWAP"], function (state, _ref9) {
+    var _ref9$meta = _ref9.meta,
+        field = _ref9$meta.field,
+        indexA = _ref9$meta.indexA,
+        indexB = _ref9$meta.indexB;
 
     var result = state;
     rootKeys.forEach(function (key) {
@@ -34656,14 +34173,14 @@ function createReducer(structure) {
       }
     });
     return result;
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ARRAY_UNSHIFT"], function (state, _ref11) {
-    var field = _ref11.meta.field,
-        payload = _ref11.payload;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ARRAY_UNSHIFT"], function (state, _ref10) {
+    var field = _ref10.meta.field,
+        payload = _ref10.payload;
 
     return arraySplice(state, field, 0, 0, payload);
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["AUTOFILL"], function (state, _ref12) {
-    var field = _ref12.meta.field,
-        payload = _ref12.payload;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["AUTOFILL"], function (state, _ref11) {
+    var field = _ref11.meta.field,
+        payload = _ref11.payload;
 
     var result = state;
     result = deleteInWithCleanUp(result, 'asyncErrors.' + field);
@@ -34671,11 +34188,11 @@ function createReducer(structure) {
     result = setIn(result, 'fields.' + field + '.autofilled', true);
     result = setIn(result, 'values.' + field, payload);
     return result;
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["BLUR"], function (state, _ref13) {
-    var _ref13$meta = _ref13.meta,
-        field = _ref13$meta.field,
-        touch = _ref13$meta.touch,
-        payload = _ref13.payload;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["BLUR"], function (state, _ref12) {
+    var _ref12$meta = _ref12.meta,
+        field = _ref12$meta.field,
+        touch = _ref12$meta.touch,
+        payload = _ref12.payload;
 
     var result = state;
     var initial = getIn(result, 'initial.' + field);
@@ -34693,12 +34210,12 @@ function createReducer(structure) {
       result = setIn(result, 'anyTouched', true);
     }
     return result;
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["CHANGE"], function (state, _ref14) {
-    var _ref14$meta = _ref14.meta,
-        field = _ref14$meta.field,
-        touch = _ref14$meta.touch,
-        persistentSubmitErrors = _ref14$meta.persistentSubmitErrors,
-        payload = _ref14.payload;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["CHANGE"], function (state, _ref13) {
+    var _ref13$meta = _ref13.meta,
+        field = _ref13$meta.field,
+        touch = _ref13$meta.touch,
+        persistentSubmitErrors = _ref13$meta.persistentSubmitErrors,
+        payload = _ref13.payload;
 
     var result = state;
     var initial = getIn(result, 'initial.' + field);
@@ -34720,39 +34237,13 @@ function createReducer(structure) {
   }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["CLEAR_SUBMIT"], function (state) {
     return deleteIn(state, 'triggerSubmit');
   }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["CLEAR_SUBMIT_ERRORS"], function (state) {
-    var result = state;
-    result = deleteInWithCleanUp(result, 'submitErrors');
-    result = deleteIn(result, 'error');
-    return result;
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["CLEAR_ASYNC_ERROR"], function (state, _ref15) {
-    var field = _ref15.meta.field;
+    return deleteInWithCleanUp(state, 'submitErrors');
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["CLEAR_ASYNC_ERROR"], function (state, _ref14) {
+    var field = _ref14.meta.field;
 
     return deleteIn(state, 'asyncErrors.' + field);
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["CLEAR_FIELDS"], function (state, _ref16) {
-    var _ref16$meta = _ref16.meta,
-        keepTouched = _ref16$meta.keepTouched,
-        persistentSubmitErrors = _ref16$meta.persistentSubmitErrors,
-        fields = _ref16$meta.fields;
-
-    var result = state;
-    fields.forEach(function (field) {
-      result = deleteInWithCleanUp(result, 'values.' + field);
-      result = deleteInWithCleanUp(result, 'asyncErrors.' + field);
-      if (!persistentSubmitErrors) {
-        result = deleteInWithCleanUp(result, 'submitErrors.' + field);
-      }
-      result = deleteInWithCleanUp(result, 'fields.' + field + '.autofilled');
-      if (!keepTouched) {
-        result = deleteIn(result, 'fields.' + field + '.touched');
-      }
-    });
-    var anyTouched = some(keys(getIn(result, 'registeredFields')), function (key) {
-      return getIn(result, 'fields.' + key + '.touched');
-    });
-    result = anyTouched ? setIn(result, 'anyTouched', true) : deleteIn(result, 'anyTouched');
-    return result;
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["FOCUS"], function (state, _ref17) {
-    var field = _ref17.meta.field;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["FOCUS"], function (state, _ref15) {
+    var field = _ref15.meta.field;
 
     var result = state;
     var previouslyActive = getIn(state, 'active');
@@ -34761,13 +34252,11 @@ function createReducer(structure) {
     result = setIn(result, 'fields.' + field + '.active', true);
     result = setIn(result, 'active', field);
     return result;
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["INITIALIZE"], function (state, _ref18) {
-    var payload = _ref18.payload,
-        _ref18$meta = _ref18.meta,
-        keepDirty = _ref18$meta.keepDirty,
-        keepSubmitSucceeded = _ref18$meta.keepSubmitSucceeded,
-        updateUnregisteredFields = _ref18$meta.updateUnregisteredFields,
-        keepValues = _ref18$meta.keepValues;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["INITIALIZE"], function (state, _ref16) {
+    var payload = _ref16.payload,
+        _ref16$meta = _ref16.meta,
+        keepDirty = _ref16$meta.keepDirty,
+        keepSubmitSucceeded = _ref16$meta.keepSubmitSucceeded;
 
     var mapData = fromJS(payload);
     var result = empty; // clean all field state
@@ -34799,8 +34288,8 @@ function createReducer(structure) {
 
     var previousValues = getIn(state, 'values');
     var previousInitialValues = getIn(state, 'initial');
-
     var newInitialValues = mapData;
+
     var newValues = previousValues;
 
     if (keepDirty && registeredFields) {
@@ -34818,58 +34307,28 @@ function createReducer(structure) {
         // initialize action causes the field to become pristine. That effect
         // is what we want.
         //
-        var overwritePristineValue = function overwritePristineValue(name) {
+        keys(registeredFields).forEach(function (name) {
           var previousInitialValue = getIn(previousInitialValues, name);
           var previousValue = getIn(previousValues, name);
 
           if (deepEqual(previousValue, previousInitialValue)) {
             // Overwrite the old pristine value with the new pristine value
             var newInitialValue = getIn(newInitialValues, name);
-
-            // This check prevents any 'setIn' call that would create useless
-            // nested objects, since the path to the new field value would
-            // evaluate to the same (especially for undefined values)
-            if (getIn(newValues, name) !== newInitialValue) {
-              newValues = setIn(newValues, name, newInitialValue);
-            }
+            newValues = setIn(newValues, name, newInitialValue);
           }
-        };
+        });
 
-        if (!updateUnregisteredFields) {
-          forEach(keys(registeredFields), function (name) {
-            return overwritePristineValue(name);
-          });
-        }
-
-        forEach(keys(newInitialValues), function (name) {
+        keys(newInitialValues).forEach(function (name) {
           var previousInitialValue = getIn(previousInitialValues, name);
           if (typeof previousInitialValue === 'undefined') {
             // Add new values at the root level.
             var newInitialValue = getIn(newInitialValues, name);
             newValues = setIn(newValues, name, newInitialValue);
           }
-
-          if (updateUnregisteredFields) {
-            overwritePristineValue(name);
-          }
         });
       }
     } else {
       newValues = newInitialValues;
-    }
-
-    if (keepValues) {
-      forEach(keys(previousValues), function (name) {
-        var previousValue = getIn(previousValues, name);
-
-        newValues = setIn(newValues, name, previousValue);
-      });
-
-      forEach(keys(previousInitialValues), function (name) {
-        var previousInitialValue = getIn(previousInitialValues, name);
-
-        newInitialValues = setIn(newInitialValues, name, previousInitialValue);
-      });
     }
 
     if (keepSubmitSucceeded && getIn(state, 'submitSucceeded')) {
@@ -34878,10 +34337,10 @@ function createReducer(structure) {
     result = setIn(result, 'values', newValues);
     result = setIn(result, 'initial', newInitialValues);
     return result;
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["REGISTER_FIELD"], function (state, _ref19) {
-    var _ref19$payload = _ref19.payload,
-        name = _ref19$payload.name,
-        type = _ref19$payload.type;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["REGISTER_FIELD"], function (state, _ref17) {
+    var _ref17$payload = _ref17.payload,
+        name = _ref17$payload.name,
+        type = _ref17$payload.type;
 
     var key = 'registeredFields[\'' + name + '\']';
     var field = getIn(state, key);
@@ -34904,36 +34363,16 @@ function createReducer(structure) {
       result = setIn(result, 'initial', values);
     }
     return result;
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["RESET_SECTION"], function (state, _ref20) {
-    var sections = _ref20.meta.sections;
-
-    var result = state;
-
-    sections.forEach(function (section) {
-      result = deleteInWithCleanUp(result, 'asyncErrors.' + section);
-      result = deleteInWithCleanUp(result, 'submitErrors.' + section);
-      result = deleteInWithCleanUp(result, 'fields.' + section);
-
-      var values = getIn(state, 'initial.' + section);
-      result = values ? setIn(result, 'values.' + section, values) : deleteInWithCleanUp(result, 'values.' + section);
-    });
-
-    var anyTouched = some(keys(getIn(result, 'registeredFields')), function (key) {
-      return getIn(result, 'fields.' + key + '.touched');
-    });
-    result = anyTouched ? setIn(result, 'anyTouched', true) : deleteIn(result, 'anyTouched');
-
-    return result;
   }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["SUBMIT"], function (state) {
     return setIn(state, 'triggerSubmit', true);
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["START_ASYNC_VALIDATION"], function (state, _ref21) {
-    var field = _ref21.meta.field;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["START_ASYNC_VALIDATION"], function (state, _ref18) {
+    var field = _ref18.meta.field;
 
     return setIn(state, 'asyncValidating', field || true);
   }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["START_SUBMIT"], function (state) {
     return setIn(state, 'submitting', true);
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["STOP_ASYNC_VALIDATION"], function (state, _ref22) {
-    var payload = _ref22.payload;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["STOP_ASYNC_VALIDATION"], function (state, _ref19) {
+    var payload = _ref19.payload;
 
     var result = state;
     result = deleteIn(result, 'asyncValidating');
@@ -34946,14 +34385,16 @@ function createReducer(structure) {
       }
       if (Object.keys(fieldErrors).length) {
         result = setIn(result, 'asyncErrors', fromJS(fieldErrors));
+      } else {
+        result = deleteIn(result, 'asyncErrors');
       }
     } else {
       result = deleteIn(result, 'error');
       result = deleteIn(result, 'asyncErrors');
     }
     return result;
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["STOP_SUBMIT"], function (state, _ref23) {
-    var payload = _ref23.payload;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["STOP_SUBMIT"], function (state, _ref20) {
+    var payload = _ref20.payload;
 
     var result = state;
     result = deleteIn(result, 'submitting');
@@ -34975,12 +34416,13 @@ function createReducer(structure) {
       }
       result = setIn(result, 'submitFailed', true);
     } else {
+      result = setIn(result, 'submitSucceeded', true);
       result = deleteIn(result, 'error');
       result = deleteIn(result, 'submitErrors');
     }
     return result;
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["SET_SUBMIT_FAILED"], function (state, _ref24) {
-    var fields = _ref24.meta.fields;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["SET_SUBMIT_FAILED"], function (state, _ref21) {
+    var fields = _ref21.meta.fields;
 
     var result = state;
     result = setIn(result, 'submitFailed', true);
@@ -34998,8 +34440,8 @@ function createReducer(structure) {
     result = deleteIn(result, 'submitFailed');
     result = setIn(result, 'submitSucceeded', true);
     return result;
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["TOUCH"], function (state, _ref25) {
-    var fields = _ref25.meta.fields;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["TOUCH"], function (state, _ref22) {
+    var fields = _ref22.meta.fields;
 
     var result = state;
     fields.forEach(function (field) {
@@ -35007,10 +34449,10 @@ function createReducer(structure) {
     });
     result = setIn(result, 'anyTouched', true);
     return result;
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["UNREGISTER_FIELD"], function (state, _ref26) {
-    var _ref26$payload = _ref26.payload,
-        name = _ref26$payload.name,
-        destroyOnUnmount = _ref26$payload.destroyOnUnmount;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["UNREGISTER_FIELD"], function (state, _ref23) {
+    var _ref23$payload = _ref23.payload,
+        name = _ref23$payload.name,
+        destroyOnUnmount = _ref23$payload.destroyOnUnmount;
 
     var result = state;
     var key = 'registeredFields[\'' + name + '\']';
@@ -35026,47 +34468,33 @@ function createReducer(structure) {
       if (deepEqual(getIn(result, 'registeredFields'), empty)) {
         result = deleteIn(result, 'registeredFields');
       }
-      var syncErrors = getIn(result, 'syncErrors');
-      if (syncErrors) {
-        syncErrors = plainDeleteInWithCleanUp(syncErrors, name);
-        if (_structure_plain__WEBPACK_IMPORTED_MODULE_2__["default"].deepEqual(syncErrors, _structure_plain__WEBPACK_IMPORTED_MODULE_2__["default"].empty)) {
-          result = deleteIn(result, 'syncErrors');
-        } else {
-          result = setIn(result, 'syncErrors', syncErrors);
-        }
-      }
-      var syncWarnings = getIn(result, 'syncWarnings');
-      if (syncWarnings) {
-        syncWarnings = plainDeleteInWithCleanUp(syncWarnings, name);
-        if (_structure_plain__WEBPACK_IMPORTED_MODULE_2__["default"].deepEqual(syncWarnings, _structure_plain__WEBPACK_IMPORTED_MODULE_2__["default"].empty)) {
-          result = deleteIn(result, 'syncWarnings');
-        } else {
-          result = setIn(result, 'syncWarnings', syncWarnings);
-        }
-      }
-      result = deleteInWithCleanUp(result, 'submitErrors.' + name);
-      result = deleteInWithCleanUp(result, 'asyncErrors.' + name);
     } else {
       field = setIn(field, 'count', count);
       result = setIn(result, key, field);
     }
+    if (destroyOnUnmount) {
+      result = deleteInWithCleanUp(result, 'syncErrors.' + name);
+      result = deleteInWithCleanUp(result, 'submitErrors.' + name);
+      result = deleteInWithCleanUp(result, 'asyncErrors.' + name);
+      result = deleteInWithCleanUp(result, 'syncWarnings.' + name);
+    }
     return result;
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["UNTOUCH"], function (state, _ref27) {
-    var fields = _ref27.meta.fields;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["UNTOUCH"], function (state, _ref24) {
+    var fields = _ref24.meta.fields;
 
     var result = state;
     fields.forEach(function (field) {
       return result = deleteIn(result, 'fields.' + field + '.touched');
     });
-    var anyTouched = some(keys(getIn(result, 'registeredFields')), function (key) {
+    var anyTouched = keys(getIn(result, 'registeredFields')).some(function (key) {
       return getIn(result, 'fields.' + key + '.touched');
     });
     result = anyTouched ? setIn(result, 'anyTouched', true) : deleteIn(result, 'anyTouched');
     return result;
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["UPDATE_SYNC_ERRORS"], function (state, _ref28) {
-    var _ref28$payload = _ref28.payload,
-        syncErrors = _ref28$payload.syncErrors,
-        error = _ref28$payload.error;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["UPDATE_SYNC_ERRORS"], function (state, _ref25) {
+    var _ref25$payload = _ref25.payload,
+        syncErrors = _ref25$payload.syncErrors,
+        error = _ref25$payload.error;
 
     var result = state;
     if (error) {
@@ -35082,10 +34510,10 @@ function createReducer(structure) {
       result = deleteIn(result, 'syncErrors');
     }
     return result;
-  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["UPDATE_SYNC_WARNINGS"], function (state, _ref29) {
-    var _ref29$payload = _ref29.payload,
-        syncWarnings = _ref29$payload.syncWarnings,
-        warning = _ref29$payload.warning;
+  }), _defineProperty(_behaviors, _actionTypes__WEBPACK_IMPORTED_MODULE_0__["UPDATE_SYNC_WARNINGS"], function (state, _ref26) {
+    var _ref26$payload = _ref26.payload,
+        syncWarnings = _ref26$payload.syncWarnings,
+        warning = _ref26$payload.warning;
 
     var result = state;
     if (warning) {
@@ -35112,13 +34540,13 @@ function createReducer(structure) {
   var byForm = function byForm(reducer) {
     return function () {
       var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : empty;
-      var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { type: 'NONE' };
+      var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
       var form = action && action.meta && action.meta.form;
       if (!form || !isReduxFormAction(action)) {
         return state;
       }
-      if (action.type === _actionTypes__WEBPACK_IMPORTED_MODULE_0__["DESTROY"] && action.meta && action.meta.form) {
+      if (action.type === _actionTypes__WEBPACK_IMPORTED_MODULE_0__["DESTROY"]) {
         return action.meta.form.reduce(function (result, form) {
           return deleteInWithCleanUp(result, form);
         }, state);
@@ -35133,30 +34561,18 @@ function createReducer(structure) {
    * Adds additional functionality to the reducer
    */
   function decorate(target) {
-    target.plugin = function (reducers) {
+    target.plugin = function plugin(reducers) {
       var _this = this;
 
       // use 'function' keyword to enable 'this'
       return decorate(function () {
         var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : empty;
-        var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { type: 'NONE' };
-
-        var callPlugin = function callPlugin(processed, key) {
-          var previousState = getIn(processed, key);
+        var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+        return Object.keys(reducers).reduce(function (accumulator, key) {
+          var previousState = getIn(accumulator, key);
           var nextState = reducers[key](previousState, action, getIn(state, key));
-          return nextState !== previousState ? setIn(processed, key, nextState) : processed;
-        };
-
-        var processed = _this(state, action); // run through redux-form reducer
-        var form = action && action.meta && action.meta.form;
-
-        if (form) {
-          // this is an action aimed at forms, so only give it to the specified form's plugin
-          return reducers[form] ? callPlugin(processed, form) : processed;
-        } else {
-          // this is not a form-specific action, so send it to all the plugins
-          return Object.keys(reducers).reduce(callPlugin, processed);
-        }
+          return nextState === previousState ? accumulator : setIn(accumulator, key, nextState);
+        }, _this(state, action));
       });
     };
 
@@ -35164,7 +34580,7 @@ function createReducer(structure) {
   }
 
   return decorate(byForm(reducer));
-}
+};
 
 /* harmony default export */ __webpack_exports__["default"] = (createReducer);
 
@@ -35181,33 +34597,27 @@ function createReducer(structure) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_es_merge__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash-es/merge */ "../node_modules/lodash-es/merge.js");
 /* harmony import */ var lodash_es_mapValues__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash-es/mapValues */ "../node_modules/lodash-es/mapValues.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_lifecycles_compat__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-lifecycles-compat */ "../node_modules/react-lifecycles-compat/react-lifecycles-compat.es.js");
-/* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! hoist-non-react-statics */ "../node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js");
-/* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var invariant__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! invariant */ "../node_modules/invariant/browser.js");
-/* harmony import */ var invariant__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(invariant__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var is_promise__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! is-promise */ "../node_modules/is-promise/index.js");
-/* harmony import */ var is_promise__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(is_promise__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-redux */ "../node_modules/react-redux/es/index.js");
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! redux */ "../node_modules/redux/es/redux.js");
-/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./actions */ "../node_modules/redux-form/es/actions.js");
-/* harmony import */ var _asyncValidation__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./asyncValidation */ "../node_modules/redux-form/es/asyncValidation.js");
-/* harmony import */ var _defaultShouldAsyncValidate__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./defaultShouldAsyncValidate */ "../node_modules/redux-form/es/defaultShouldAsyncValidate.js");
-/* harmony import */ var _defaultShouldValidate__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./defaultShouldValidate */ "../node_modules/redux-form/es/defaultShouldValidate.js");
-/* harmony import */ var _defaultShouldError__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./defaultShouldError */ "../node_modules/redux-form/es/defaultShouldError.js");
-/* harmony import */ var _defaultShouldWarn__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./defaultShouldWarn */ "../node_modules/redux-form/es/defaultShouldWarn.js");
-/* harmony import */ var _events_silenceEvent__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./events/silenceEvent */ "../node_modules/redux-form/es/events/silenceEvent.js");
-/* harmony import */ var _events_silenceEvents__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./events/silenceEvents */ "../node_modules/redux-form/es/events/silenceEvents.js");
-/* harmony import */ var _generateValidator__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./generateValidator */ "../node_modules/redux-form/es/generateValidator.js");
-/* harmony import */ var _handleSubmit__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./handleSubmit */ "../node_modules/redux-form/es/handleSubmit.js");
-/* harmony import */ var _selectors_isValid__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./selectors/isValid */ "../node_modules/redux-form/es/selectors/isValid.js");
-/* harmony import */ var _structure_plain__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./structure/plain */ "../node_modules/redux-form/es/structure/plain/index.js");
-/* harmony import */ var _util_getDisplayName__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./util/getDisplayName */ "../node_modules/redux-form/es/util/getDisplayName.js");
-/* harmony import */ var _util_isHotReloading__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./util/isHotReloading */ "../node_modules/redux-form/es/util/isHotReloading.js");
+/* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! hoist-non-react-statics */ "../node_modules/redux-form/node_modules/hoist-non-react-statics/index.js");
+/* harmony import */ var hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var is_promise__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! is-promise */ "../node_modules/is-promise/index.js");
+/* harmony import */ var is_promise__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(is_promise__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-redux */ "../node_modules/react-redux/es/index.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! redux */ "../node_modules/redux/es/redux.js");
+/* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./actions */ "../node_modules/redux-form/es/actions.js");
+/* harmony import */ var _asyncValidation__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./asyncValidation */ "../node_modules/redux-form/es/asyncValidation.js");
+/* harmony import */ var _defaultShouldAsyncValidate__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./defaultShouldAsyncValidate */ "../node_modules/redux-form/es/defaultShouldAsyncValidate.js");
+/* harmony import */ var _defaultShouldValidate__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./defaultShouldValidate */ "../node_modules/redux-form/es/defaultShouldValidate.js");
+/* harmony import */ var _events_silenceEvent__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./events/silenceEvent */ "../node_modules/redux-form/es/events/silenceEvent.js");
+/* harmony import */ var _events_silenceEvents__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./events/silenceEvents */ "../node_modules/redux-form/es/events/silenceEvents.js");
+/* harmony import */ var _generateValidator__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./generateValidator */ "../node_modules/redux-form/es/generateValidator.js");
+/* harmony import */ var _handleSubmit__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./handleSubmit */ "../node_modules/redux-form/es/handleSubmit.js");
+/* harmony import */ var _selectors_isValid__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./selectors/isValid */ "../node_modules/redux-form/es/selectors/isValid.js");
+/* harmony import */ var _structure_plain__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./structure/plain */ "../node_modules/redux-form/es/structure/plain/index.js");
+/* harmony import */ var _util_getDisplayName__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./util/getDisplayName */ "../node_modules/redux-form/es/util/getDisplayName.js");
 
 
 
@@ -35248,33 +34658,26 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 
 
-
-
-
-
-
-
-
 var isClassComponent = function isClassComponent(Component) {
-  return Boolean(Component && Component.prototype && _typeof(Component.prototype.isReactComponent) === 'object');
+  return Boolean(Component && Component.prototype && _typeof(Component.prototype.isReactComponent) === 'object'
+
+  // extract field-specific actions
+  );
 };
-
-// extract field-specific actions
-
-var arrayInsert = _actions__WEBPACK_IMPORTED_MODULE_10__["default"].arrayInsert,
-    arrayMove = _actions__WEBPACK_IMPORTED_MODULE_10__["default"].arrayMove,
-    arrayPop = _actions__WEBPACK_IMPORTED_MODULE_10__["default"].arrayPop,
-    arrayPush = _actions__WEBPACK_IMPORTED_MODULE_10__["default"].arrayPush,
-    arrayRemove = _actions__WEBPACK_IMPORTED_MODULE_10__["default"].arrayRemove,
-    arrayRemoveAll = _actions__WEBPACK_IMPORTED_MODULE_10__["default"].arrayRemoveAll,
-    arrayShift = _actions__WEBPACK_IMPORTED_MODULE_10__["default"].arrayShift,
-    arraySplice = _actions__WEBPACK_IMPORTED_MODULE_10__["default"].arraySplice,
-    arraySwap = _actions__WEBPACK_IMPORTED_MODULE_10__["default"].arraySwap,
-    arrayUnshift = _actions__WEBPACK_IMPORTED_MODULE_10__["default"].arrayUnshift,
-    blur = _actions__WEBPACK_IMPORTED_MODULE_10__["default"].blur,
-    change = _actions__WEBPACK_IMPORTED_MODULE_10__["default"].change,
-    focus = _actions__WEBPACK_IMPORTED_MODULE_10__["default"].focus,
-    formActions = _objectWithoutProperties(_actions__WEBPACK_IMPORTED_MODULE_10__["default"], ['arrayInsert', 'arrayMove', 'arrayPop', 'arrayPush', 'arrayRemove', 'arrayRemoveAll', 'arrayShift', 'arraySplice', 'arraySwap', 'arrayUnshift', 'blur', 'change', 'focus']);
+var arrayInsert = _actions__WEBPACK_IMPORTED_MODULE_8__["arrayInsert"],
+    arrayMove = _actions__WEBPACK_IMPORTED_MODULE_8__["arrayMove"],
+    arrayPop = _actions__WEBPACK_IMPORTED_MODULE_8__["arrayPop"],
+    arrayPush = _actions__WEBPACK_IMPORTED_MODULE_8__["arrayPush"],
+    arrayRemove = _actions__WEBPACK_IMPORTED_MODULE_8__["arrayRemove"],
+    arrayRemoveAll = _actions__WEBPACK_IMPORTED_MODULE_8__["arrayRemoveAll"],
+    arrayShift = _actions__WEBPACK_IMPORTED_MODULE_8__["arrayShift"],
+    arraySplice = _actions__WEBPACK_IMPORTED_MODULE_8__["arraySplice"],
+    arraySwap = _actions__WEBPACK_IMPORTED_MODULE_8__["arraySwap"],
+    arrayUnshift = _actions__WEBPACK_IMPORTED_MODULE_8__["arrayUnshift"],
+    blur = _actions__WEBPACK_IMPORTED_MODULE_8__["blur"],
+    change = _actions__WEBPACK_IMPORTED_MODULE_8__["change"],
+    focus = _actions__WEBPACK_IMPORTED_MODULE_8__["focus"],
+    formActions = _objectWithoutProperties(_actions__WEBPACK_IMPORTED_MODULE_8__, ['arrayInsert', 'arrayMove', 'arrayPop', 'arrayPush', 'arrayRemove', 'arrayRemoveAll', 'arrayShift', 'arraySplice', 'arraySwap', 'arrayUnshift', 'blur', 'change', 'focus']);
 
 var arrayActions = {
   arrayInsert: arrayInsert,
@@ -35289,7 +34692,7 @@ var arrayActions = {
   arrayUnshift: arrayUnshift
 };
 
-var propsToNotUpdateFor = [].concat(_toConsumableArray(Object.keys(_actions__WEBPACK_IMPORTED_MODULE_10__["default"])), ['array', 'asyncErrors', 'initialValues', 'syncErrors', 'syncWarnings', 'values', 'registeredFields']);
+var propsToNotUpdateFor = [].concat(_toConsumableArray(Object.keys(_actions__WEBPACK_IMPORTED_MODULE_8__)), ['array', 'asyncErrors', 'initialValues', 'syncErrors', 'syncWarnings', 'values', 'registeredFields']);
 
 var checkSubmit = function checkSubmit(submit) {
   if (!submit || typeof submit !== 'function') {
@@ -35309,20 +34712,17 @@ var createReduxForm = function createReduxForm(structure) {
       keys = structure.keys,
       fromJS = structure.fromJS;
 
-  var isValid = Object(_selectors_isValid__WEBPACK_IMPORTED_MODULE_20__["default"])(structure);
+  var isValid = Object(_selectors_isValid__WEBPACK_IMPORTED_MODULE_16__["default"])(structure);
   return function (initialConfig) {
     var config = _extends({
       touchOnBlur: true,
       touchOnChange: false,
       persistentSubmitErrors: false,
       destroyOnUnmount: true,
-      shouldAsyncValidate: _defaultShouldAsyncValidate__WEBPACK_IMPORTED_MODULE_12__["default"],
-      shouldValidate: _defaultShouldValidate__WEBPACK_IMPORTED_MODULE_13__["default"],
-      shouldError: _defaultShouldError__WEBPACK_IMPORTED_MODULE_14__["default"],
-      shouldWarn: _defaultShouldWarn__WEBPACK_IMPORTED_MODULE_15__["default"],
+      shouldAsyncValidate: _defaultShouldAsyncValidate__WEBPACK_IMPORTED_MODULE_10__["default"],
+      shouldValidate: _defaultShouldValidate__WEBPACK_IMPORTED_MODULE_11__["default"],
       enableReinitialize: false,
       keepDirtyOnReinitialize: false,
-      updateUnregisteredFields: false,
       getFormState: function getFormState(state) {
         return getIn(state, 'form');
       },
@@ -35334,180 +34734,24 @@ var createReduxForm = function createReduxForm(structure) {
       var Form = function (_Component) {
         _inherits(Form, _Component);
 
-        function Form() {
-          var _ref;
-
-          var _temp, _this, _ret;
-
+        function Form(props) {
           _classCallCheck(this, Form);
 
-          for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-            args[_key] = arguments[_key];
-          }
+          var _this = _possibleConstructorReturn(this, (Form.__proto__ || Object.getPrototypeOf(Form)).call(this, props));
 
-          return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Form.__proto__ || Object.getPrototypeOf(Form)).call.apply(_ref, [this].concat(args))), _this), _this.destroyed = false, _this.fieldCounts = {}, _this.fieldValidators = {}, _this.lastFieldValidatorKeys = [], _this.fieldWarners = {}, _this.lastFieldWarnerKeys = [], _this.innerOnSubmit = undefined, _this.submitPromise = undefined, _this.getValues = function () {
-            return _this.props.values;
-          }, _this.isValid = function () {
-            return _this.props.valid;
-          }, _this.isPristine = function () {
-            return _this.props.pristine;
-          }, _this.register = function (name, type, getValidator, getWarner) {
-            var lastCount = _this.fieldCounts[name];
-            var nextCount = (lastCount || 0) + 1;
-            _this.fieldCounts[name] = nextCount;
-            _this.props.registerField(name, type);
-            if (getValidator) {
-              _this.fieldValidators[name] = getValidator;
-            }
-            if (getWarner) {
-              _this.fieldWarners[name] = getWarner;
-            }
-          }, _this.unregister = function (name) {
-            var lastCount = _this.fieldCounts[name];
-            if (lastCount === 1) delete _this.fieldCounts[name];else if (lastCount != null) _this.fieldCounts[name] = lastCount - 1;
-
-            if (!_this.destroyed) {
-              var _this$props = _this.props,
-                  _destroyOnUnmount = _this$props.destroyOnUnmount,
-                  _forceUnregisterOnUnmount = _this$props.forceUnregisterOnUnmount,
-                  _unregisterField = _this$props.unregisterField;
-
-              if (_destroyOnUnmount || _forceUnregisterOnUnmount) {
-                _unregisterField(name, _destroyOnUnmount);
-                if (!_this.fieldCounts[name]) {
-                  delete _this.fieldValidators[name];
-                  delete _this.fieldWarners[name];
-                  _this.lastFieldValidatorKeys = _this.lastFieldValidatorKeys.filter(function (key) {
-                    return key !== name;
-                  });
-                }
-              } else {
-                _unregisterField(name, false);
-              }
-            }
-          }, _this.getFieldList = function (options) {
-            var registeredFields = _this.props.registeredFields;
-            var list = [];
-            if (!registeredFields) {
-              return list;
-            }
-            var keySeq = keys(registeredFields);
-            if (options && options.excludeFieldArray) {
-              keySeq = keySeq.filter(function (name) {
-                return getIn(registeredFields, '[\'' + name + '\'].type') !== 'FieldArray';
-              });
-            }
-            return fromJS(keySeq.reduce(function (acc, key) {
-              acc.push(key);
-              return acc;
-            }, list));
-          }, _this.getValidators = function () {
-            var validators = {};
-            Object.keys(_this.fieldValidators).forEach(function (name) {
-              var validator = _this.fieldValidators[name]();
-              if (validator) {
-                validators[name] = validator;
-              }
-            });
-            return validators;
-          }, _this.generateValidator = function () {
-            var validators = _this.getValidators();
-            return Object.keys(validators).length ? Object(_generateValidator__WEBPACK_IMPORTED_MODULE_18__["default"])(validators, structure) : undefined;
-          }, _this.getWarners = function () {
-            var warners = {};
-            Object.keys(_this.fieldWarners).forEach(function (name) {
-              var warner = _this.fieldWarners[name]();
-              if (warner) {
-                warners[name] = warner;
-              }
-            });
-            return warners;
-          }, _this.generateWarner = function () {
-            var warners = _this.getWarners();
-            return Object.keys(warners).length ? Object(_generateValidator__WEBPACK_IMPORTED_MODULE_18__["default"])(warners, structure) : undefined;
-          }, _this.asyncValidate = function (name, value, trigger) {
-            var _this$props2 = _this.props,
-                asyncBlurFields = _this$props2.asyncBlurFields,
-                asyncChangeFields = _this$props2.asyncChangeFields,
-                asyncErrors = _this$props2.asyncErrors,
-                asyncValidate = _this$props2.asyncValidate,
-                dispatch = _this$props2.dispatch,
-                initialized = _this$props2.initialized,
-                pristine = _this$props2.pristine,
-                shouldAsyncValidate = _this$props2.shouldAsyncValidate,
-                startAsyncValidation = _this$props2.startAsyncValidation,
-                stopAsyncValidation = _this$props2.stopAsyncValidation,
-                syncErrors = _this$props2.syncErrors,
-                values = _this$props2.values;
-
-            var submitting = !name;
-
-            var fieldNeedsValidation = function fieldNeedsValidation() {
-              var fieldNeedsValidationForBlur = asyncBlurFields && name && ~asyncBlurFields.indexOf(name.replace(/\[[0-9]+\]/g, '[]'));
-              var fieldNeedsValidationForChange = asyncChangeFields && name && ~asyncChangeFields.indexOf(name.replace(/\[[0-9]+\]/g, '[]'));
-              var asyncValidateByDefault = !(asyncBlurFields || asyncChangeFields);
-
-              return submitting || asyncValidateByDefault || (trigger === 'blur' ? fieldNeedsValidationForBlur : fieldNeedsValidationForChange);
-            };
-
-            if (asyncValidate) {
-              var valuesToValidate = submitting ? values : setIn(values, name, value);
-              var syncValidationPasses = submitting || !getIn(syncErrors, name);
-              if (fieldNeedsValidation() && shouldAsyncValidate({
-                asyncErrors: asyncErrors,
-                initialized: initialized,
-                trigger: submitting ? 'submit' : trigger,
-                blurredField: name,
-                pristine: pristine,
-                syncValidationPasses: syncValidationPasses
-              })) {
-                return Object(_asyncValidation__WEBPACK_IMPORTED_MODULE_11__["default"])(function () {
-                  return asyncValidate(valuesToValidate, dispatch, _this.props, name);
-                }, startAsyncValidation, stopAsyncValidation, name);
-              }
-            }
-          }, _this.submitCompleted = function (result) {
-            delete _this.submitPromise;
-            return result;
-          }, _this.submitFailed = function (error) {
-            delete _this.submitPromise;
-            throw error;
-          }, _this.listenToSubmit = function (promise) {
-            if (!is_promise__WEBPACK_IMPORTED_MODULE_6___default()(promise)) {
-              return promise;
-            }
-            _this.submitPromise = promise;
-            return promise.then(_this.submitCompleted, _this.submitFailed);
-          }, _this.submit = function (submitOrEvent) {
-            var _this$props3 = _this.props,
-                onSubmit = _this$props3.onSubmit,
-                blur = _this$props3.blur,
-                change = _this$props3.change,
-                dispatch = _this$props3.dispatch;
-
-
-            if (!submitOrEvent || Object(_events_silenceEvent__WEBPACK_IMPORTED_MODULE_16__["default"])(submitOrEvent)) {
-              // submitOrEvent is an event: fire submit if not already submitting
-              if (!_this.submitPromise) {
-                // avoid recursive stack trace if use Form with onSubmit as handleSubmit
-                if (_this.innerOnSubmit && _this.innerOnSubmit !== _this.submit) {
-                  // will call "submitOrEvent is the submit function" block below
-                  return _this.innerOnSubmit();
-                } else {
-                  return _this.listenToSubmit(Object(_handleSubmit__WEBPACK_IMPORTED_MODULE_19__["default"])(checkSubmit(onSubmit), _extends({}, _this.props, Object(redux__WEBPACK_IMPORTED_MODULE_9__["bindActionCreators"])({ blur: blur, change: change }, dispatch)), _this.props.validExceptSubmit, _this.asyncValidate, _this.getFieldList({ excludeFieldArray: true })));
-                }
-              }
-            } else {
-              // submitOrEvent is the submit function: return deferred submit thunk
-              return Object(_events_silenceEvents__WEBPACK_IMPORTED_MODULE_17__["default"])(function () {
-                return !_this.submitPromise && _this.listenToSubmit(Object(_handleSubmit__WEBPACK_IMPORTED_MODULE_19__["default"])(checkSubmit(submitOrEvent), _extends({}, _this.props, Object(redux__WEBPACK_IMPORTED_MODULE_9__["bindActionCreators"])({ blur: blur, change: change }, dispatch)), _this.props.validExceptSubmit, _this.asyncValidate, _this.getFieldList({ excludeFieldArray: true })));
-              });
-            }
-          }, _this.reset = function () {
-            return _this.props.reset();
-          }, _this.saveRef = function (ref) {
-            _this.wrapped = ref;
-          }, _temp), _possibleConstructorReturn(_this, _ret);
+          _this.submit = _this.submit.bind(_this);
+          _this.reset = _this.reset.bind(_this);
+          _this.asyncValidate = _this.asyncValidate.bind(_this);
+          _this.getValues = _this.getValues.bind(_this);
+          _this.register = _this.register.bind(_this);
+          _this.unregister = _this.unregister.bind(_this);
+          _this.submitCompleted = _this.submitCompleted.bind(_this);
+          _this.submitFailed = _this.submitFailed.bind(_this);
+          _this.fieldValidators = {};
+          _this.lastFieldValidatorKeys = [];
+          _this.fieldWarners = {};
+          _this.lastFieldWarnerKeys = [];
+          return _this;
         }
 
         _createClass(Form, [{
@@ -35538,18 +34782,13 @@ var createReduxForm = function createReduxForm(structure) {
 
             if (nextProps) {
               if ((enableReinitialize || !nextProps.initialized) && !deepEqual(this.props.initialValues, nextProps.initialValues)) {
-                var _keepDirty = nextProps.initialized && this.props.keepDirtyOnReinitialize;
-                this.props.initialize(nextProps.initialValues, _keepDirty, {
-                  keepValues: nextProps.keepValues,
-                  lastInitialValues: this.props.initialValues,
-                  updateUnregisteredFields: nextProps.updateUnregisteredFields
+                var keepDirty = nextProps.initialized && this.props.keepDirtyOnReinitialize;
+                this.props.initialize(nextProps.initialValues, keepDirty, {
+                  lastInitialValues: this.props.initialValues
                 });
               }
             } else if (this.props.initialValues && (!this.props.initialized || enableReinitialize)) {
-              this.props.initialize(this.props.initialValues, this.props.keepDirtyOnReinitialize, {
-                keepValues: this.props.keepValues,
-                updateUnregisteredFields: this.props.updateUnregisteredFields
-              });
+              this.props.initialize(this.props.initialValues, this.props.keepDirtyOnReinitialize);
             }
           }
         }, {
@@ -35561,7 +34800,7 @@ var createReduxForm = function createReduxForm(structure) {
 
             var noErrors = (!lastSyncErrors || !Object.keys(lastSyncErrors).length) && !error;
             var nextNoErrors = (!nextSyncErrors || !Object.keys(nextSyncErrors).length) && !nextError;
-            if (!(noErrors && nextNoErrors) && (!_structure_plain__WEBPACK_IMPORTED_MODULE_21__["default"].deepEqual(lastSyncErrors, nextSyncErrors) || !_structure_plain__WEBPACK_IMPORTED_MODULE_21__["default"].deepEqual(error, nextError))) {
+            if (!(noErrors && nextNoErrors) && (!_structure_plain__WEBPACK_IMPORTED_MODULE_17__["default"].deepEqual(lastSyncErrors, nextSyncErrors) || !_structure_plain__WEBPACK_IMPORTED_MODULE_17__["default"].deepEqual(error, nextError))) {
               updateSyncErrors(nextSyncErrors, nextError);
             }
           }
@@ -35587,30 +34826,18 @@ var createReduxForm = function createReduxForm(structure) {
             }
           }
         }, {
-          key: 'shouldErrorFunction',
-          value: function shouldErrorFunction() {
-            var _props3 = this.props,
-                shouldValidate = _props3.shouldValidate,
-                shouldError = _props3.shouldError;
-
-            var shouldValidateOverridden = shouldValidate !== _defaultShouldValidate__WEBPACK_IMPORTED_MODULE_13__["default"];
-            var shouldErrorOverridden = shouldError !== _defaultShouldError__WEBPACK_IMPORTED_MODULE_14__["default"];
-
-            return shouldValidateOverridden && !shouldErrorOverridden ? shouldValidate : shouldError;
-          }
-        }, {
           key: 'validateIfNeeded',
           value: function validateIfNeeded(nextProps) {
-            var _props4 = this.props,
-                validate = _props4.validate,
-                values = _props4.values;
+            var _props3 = this.props,
+                shouldValidate = _props3.shouldValidate,
+                validate = _props3.validate,
+                values = _props3.values;
 
-            var shouldError = this.shouldErrorFunction();
             var fieldLevelValidate = this.generateValidator();
             if (validate || fieldLevelValidate) {
               var initialRender = nextProps === undefined;
               var fieldValidatorKeys = Object.keys(this.getValidators());
-              var validateParams = {
+              var shouldValidateResult = shouldValidate({
                 values: values,
                 nextProps: nextProps,
                 props: this.props,
@@ -35618,10 +34845,10 @@ var createReduxForm = function createReduxForm(structure) {
                 lastFieldValidatorKeys: this.lastFieldValidatorKeys,
                 fieldValidatorKeys: fieldValidatorKeys,
                 structure: structure
-              };
+              });
 
-              if (shouldError(validateParams)) {
-                var propsToValidate = initialRender || !nextProps ? this.props : nextProps;
+              if (shouldValidateResult) {
+                var propsToValidate = initialRender ? this.props : nextProps;
 
                 var _merge2 = Object(lodash_es_merge__WEBPACK_IMPORTED_MODULE_0__["default"])(validate ? validate(propsToValidate.values, propsToValidate) || {} : {}, fieldLevelValidate ? fieldLevelValidate(propsToValidate.values, propsToValidate) || {} : {}),
                     _error = _merge2._error,
@@ -35630,49 +34857,35 @@ var createReduxForm = function createReduxForm(structure) {
                 this.lastFieldValidatorKeys = fieldValidatorKeys;
                 this.updateSyncErrorsIfNeeded(nextSyncErrors, _error, propsToValidate.syncErrors);
               }
-            } else {
-              this.lastFieldValidatorKeys = [];
             }
           }
         }, {
           key: 'updateSyncWarningsIfNeeded',
           value: function updateSyncWarningsIfNeeded(nextSyncWarnings, nextWarning, lastSyncWarnings) {
-            var _props5 = this.props,
-                warning = _props5.warning,
-                syncWarnings = _props5.syncWarnings,
-                updateSyncWarnings = _props5.updateSyncWarnings;
+            var _props4 = this.props,
+                warning = _props4.warning,
+                syncWarnings = _props4.syncWarnings,
+                updateSyncWarnings = _props4.updateSyncWarnings;
 
             var noWarnings = (!syncWarnings || !Object.keys(syncWarnings).length) && !warning;
             var nextNoWarnings = (!nextSyncWarnings || !Object.keys(nextSyncWarnings).length) && !nextWarning;
-            if (!(noWarnings && nextNoWarnings) && (!_structure_plain__WEBPACK_IMPORTED_MODULE_21__["default"].deepEqual(lastSyncWarnings, nextSyncWarnings) || !_structure_plain__WEBPACK_IMPORTED_MODULE_21__["default"].deepEqual(warning, nextWarning))) {
+            if (!(noWarnings && nextNoWarnings) && (!_structure_plain__WEBPACK_IMPORTED_MODULE_17__["default"].deepEqual(lastSyncWarnings, nextSyncWarnings) || !_structure_plain__WEBPACK_IMPORTED_MODULE_17__["default"].deepEqual(warning, nextWarning))) {
               updateSyncWarnings(nextSyncWarnings, nextWarning);
             }
           }
         }, {
-          key: 'shouldWarnFunction',
-          value: function shouldWarnFunction() {
-            var _props6 = this.props,
-                shouldValidate = _props6.shouldValidate,
-                shouldWarn = _props6.shouldWarn;
-
-            var shouldValidateOverridden = shouldValidate !== _defaultShouldValidate__WEBPACK_IMPORTED_MODULE_13__["default"];
-            var shouldWarnOverridden = shouldWarn !== _defaultShouldWarn__WEBPACK_IMPORTED_MODULE_15__["default"];
-
-            return shouldValidateOverridden && !shouldWarnOverridden ? shouldValidate : shouldWarn;
-          }
-        }, {
           key: 'warnIfNeeded',
           value: function warnIfNeeded(nextProps) {
-            var _props7 = this.props,
-                warn = _props7.warn,
-                values = _props7.values;
+            var _props5 = this.props,
+                shouldValidate = _props5.shouldValidate,
+                warn = _props5.warn,
+                values = _props5.values;
 
-            var shouldWarn = this.shouldWarnFunction();
             var fieldLevelWarn = this.generateWarner();
             if (warn || fieldLevelWarn) {
               var initialRender = nextProps === undefined;
               var fieldWarnerKeys = Object.keys(this.getWarners());
-              var validateParams = {
+              var shouldWarnResult = shouldValidate({
                 values: values,
                 nextProps: nextProps,
                 props: this.props,
@@ -35680,10 +34893,10 @@ var createReduxForm = function createReduxForm(structure) {
                 lastFieldValidatorKeys: this.lastFieldWarnerKeys,
                 fieldValidatorKeys: fieldWarnerKeys,
                 structure: structure
-              };
+              });
 
-              if (shouldWarn(validateParams)) {
-                var propsToWarn = initialRender || !nextProps ? this.props : nextProps;
+              if (shouldWarnResult) {
+                var propsToWarn = initialRender ? this.props : nextProps;
 
                 var _merge3 = Object(lodash_es_merge__WEBPACK_IMPORTED_MODULE_0__["default"])(warn ? warn(propsToWarn.values, propsToWarn) : {}, fieldLevelWarn ? fieldLevelWarn(propsToWarn.values, propsToWarn) : {}),
                     _warning = _merge3._warning,
@@ -35697,12 +34910,9 @@ var createReduxForm = function createReduxForm(structure) {
         }, {
           key: 'componentWillMount',
           value: function componentWillMount() {
-            if (!Object(_util_isHotReloading__WEBPACK_IMPORTED_MODULE_23__["default"])()) {
-              this.initIfNeeded();
-              this.validateIfNeeded();
-              this.warnIfNeeded();
-            }
-            invariant__WEBPACK_IMPORTED_MODULE_5___default()(this.props.shouldValidate, 'shouldValidate() is deprecated and will be removed in v8.0.0. Use shouldWarn() or shouldError() instead.');
+            this.initIfNeeded();
+            this.validateIfNeeded();
+            this.warnIfNeeded();
           }
         }, {
           key: 'componentWillReceiveProps',
@@ -35712,12 +34922,10 @@ var createReduxForm = function createReduxForm(structure) {
             this.warnIfNeeded(nextProps);
             this.clearSubmitPromiseIfNeeded(nextProps);
             this.submitIfNeeded(nextProps);
-            var onChange = nextProps.onChange,
-                values = nextProps.values,
-                dispatch = nextProps.dispatch;
-
-            if (onChange && !deepEqual(values, this.props.values)) {
-              onChange(values, dispatch, nextProps, this.props.values);
+            if (nextProps.onChange) {
+              if (!deepEqual(nextProps.values, this.props.values)) {
+                nextProps.onChange(nextProps.values, nextProps.dispatch, nextProps);
+              }
             }
           }
         }, {
@@ -35726,12 +34934,10 @@ var createReduxForm = function createReduxForm(structure) {
             var _this3 = this;
 
             if (!this.props.pure) return true;
-            var _config$immutableProp = config.immutableProps,
-                immutableProps = _config$immutableProp === undefined ? [] : _config$immutableProp;
-            // if we have children, we MUST update in React 16
-            // https://twitter.com/erikras/status/915866544558788608
+            var _initialConfig$immuta = initialConfig.immutableProps,
+                immutableProps = _initialConfig$immuta === undefined ? [] : _initialConfig$immuta;
 
-            return !!(this.props.children || nextProps.children || Object.keys(nextProps).some(function (prop) {
+            return Object.keys(nextProps).some(function (prop) {
               // useful to debug rerenders
               // if (!plain.deepEqual(this.props[ prop ], nextProps[ prop ])) {
               //   console.info(prop, 'changed', this.props[ prop ], '==>', nextProps[ prop ])
@@ -35740,29 +34946,210 @@ var createReduxForm = function createReduxForm(structure) {
                 return _this3.props[prop] !== nextProps[prop];
               }
               return !~propsToNotUpdateFor.indexOf(prop) && !deepEqual(_this3.props[prop], nextProps[prop]);
-            }));
-          }
-        }, {
-          key: 'componentDidMount',
-          value: function componentDidMount() {
-            if (!Object(_util_isHotReloading__WEBPACK_IMPORTED_MODULE_23__["default"])()) {
-              this.initIfNeeded(this.props);
-              this.validateIfNeeded();
-              this.warnIfNeeded();
-            }
-            invariant__WEBPACK_IMPORTED_MODULE_5___default()(this.props.shouldValidate, 'shouldValidate() is deprecated and will be removed in v8.0.0. Use shouldWarn() or shouldError() instead.');
+            });
           }
         }, {
           key: 'componentWillUnmount',
           value: function componentWillUnmount() {
-            var _props8 = this.props,
-                destroyOnUnmount = _props8.destroyOnUnmount,
-                destroy = _props8.destroy;
+            var _props6 = this.props,
+                destroyOnUnmount = _props6.destroyOnUnmount,
+                destroy = _props6.destroy;
 
-            if (destroyOnUnmount && !Object(_util_isHotReloading__WEBPACK_IMPORTED_MODULE_23__["default"])()) {
+            if (destroyOnUnmount) {
               this.destroyed = true;
               destroy();
             }
+          }
+        }, {
+          key: 'getValues',
+          value: function getValues() {
+            return this.props.values;
+          }
+        }, {
+          key: 'isValid',
+          value: function isValid() {
+            return this.props.valid;
+          }
+        }, {
+          key: 'isPristine',
+          value: function isPristine() {
+            return this.props.pristine;
+          }
+        }, {
+          key: 'register',
+          value: function register(name, type, getValidator, getWarner) {
+            this.props.registerField(name, type);
+            if (getValidator) {
+              this.fieldValidators[name] = getValidator;
+            }
+            if (getWarner) {
+              this.fieldWarners[name] = getWarner;
+            }
+          }
+        }, {
+          key: 'unregister',
+          value: function unregister(name) {
+            if (!this.destroyed) {
+              if (this.props.destroyOnUnmount || this.props.forceUnregisterOnUnmount) {
+                this.props.unregisterField(name);
+                delete this.fieldValidators[name];
+                delete this.fieldWarners[name];
+              } else {
+                this.props.unregisterField(name, false);
+              }
+            }
+          }
+        }, {
+          key: 'getFieldList',
+          value: function getFieldList(options) {
+            var registeredFields = this.props.registeredFields;
+            var list = [];
+            if (!registeredFields) {
+              return list;
+            }
+            var keySeq = keys(registeredFields);
+            if (options && options.excludeFieldArray) {
+              keySeq = keySeq.filter(function (name) {
+                return getIn(registeredFields, '[\'' + name + '\'].type') !== 'FieldArray';
+              });
+            }
+            return fromJS(keySeq.reduce(function (acc, key) {
+              acc.push(key);
+              return acc;
+            }, list));
+          }
+        }, {
+          key: 'getValidators',
+          value: function getValidators() {
+            var _this4 = this;
+
+            var validators = {};
+            Object.keys(this.fieldValidators).forEach(function (name) {
+              var validator = _this4.fieldValidators[name]();
+              if (validator) {
+                validators[name] = validator;
+              }
+            });
+            return validators;
+          }
+        }, {
+          key: 'generateValidator',
+          value: function generateValidator() {
+            var validators = this.getValidators();
+            return Object.keys(validators).length ? Object(_generateValidator__WEBPACK_IMPORTED_MODULE_14__["default"])(validators, structure) : undefined;
+          }
+        }, {
+          key: 'getWarners',
+          value: function getWarners() {
+            var _this5 = this;
+
+            var warners = {};
+            Object.keys(this.fieldWarners).forEach(function (name) {
+              var warner = _this5.fieldWarners[name]();
+              if (warner) {
+                warners[name] = warner;
+              }
+            });
+            return warners;
+          }
+        }, {
+          key: 'generateWarner',
+          value: function generateWarner() {
+            var warners = this.getWarners();
+            return Object.keys(warners).length ? Object(_generateValidator__WEBPACK_IMPORTED_MODULE_14__["default"])(warners, structure) : undefined;
+          }
+        }, {
+          key: 'asyncValidate',
+          value: function asyncValidate(name, value) {
+            var _this6 = this;
+
+            var _props7 = this.props,
+                asyncBlurFields = _props7.asyncBlurFields,
+                asyncErrors = _props7.asyncErrors,
+                asyncValidate = _props7.asyncValidate,
+                dispatch = _props7.dispatch,
+                initialized = _props7.initialized,
+                pristine = _props7.pristine,
+                shouldAsyncValidate = _props7.shouldAsyncValidate,
+                startAsyncValidation = _props7.startAsyncValidation,
+                stopAsyncValidation = _props7.stopAsyncValidation,
+                syncErrors = _props7.syncErrors,
+                values = _props7.values;
+
+            var submitting = !name;
+            if (asyncValidate) {
+              var valuesToValidate = submitting ? values : setIn(values, name, value);
+              var syncValidationPasses = submitting || !getIn(syncErrors, name);
+              var isBlurredField = !submitting && (!asyncBlurFields || ~asyncBlurFields.indexOf(name.replace(/\[[0-9]+\]/g, '[]')));
+              if ((isBlurredField || submitting) && shouldAsyncValidate({
+                asyncErrors: asyncErrors,
+                initialized: initialized,
+                trigger: submitting ? 'submit' : 'blur',
+                blurredField: name,
+                pristine: pristine,
+                syncValidationPasses: syncValidationPasses
+              })) {
+                return Object(_asyncValidation__WEBPACK_IMPORTED_MODULE_9__["default"])(function () {
+                  return asyncValidate(valuesToValidate, dispatch, _this6.props, name);
+                }, startAsyncValidation, stopAsyncValidation, name);
+              }
+            }
+          }
+        }, {
+          key: 'submitCompleted',
+          value: function submitCompleted(result) {
+            delete this.submitPromise;
+            return result;
+          }
+        }, {
+          key: 'submitFailed',
+          value: function submitFailed(error) {
+            delete this.submitPromise;
+            throw error;
+          }
+        }, {
+          key: 'listenToSubmit',
+          value: function listenToSubmit(promise) {
+            if (!is_promise__WEBPACK_IMPORTED_MODULE_3___default()(promise)) {
+              return promise;
+            }
+            this.submitPromise = promise;
+            return promise.then(this.submitCompleted, this.submitFailed);
+          }
+        }, {
+          key: 'submit',
+          value: function submit(submitOrEvent) {
+            var _this7 = this;
+
+            var _props8 = this.props,
+                onSubmit = _props8.onSubmit,
+                blur = _props8.blur,
+                change = _props8.change,
+                dispatch = _props8.dispatch;
+
+
+            if (!submitOrEvent || Object(_events_silenceEvent__WEBPACK_IMPORTED_MODULE_12__["default"])(submitOrEvent)) {
+              // submitOrEvent is an event: fire submit if not already submitting
+              if (!this.submitPromise) {
+                // avoid recursive stack trace if use Form with onSubmit as handleSubmit
+                if (this.innerOnSubmit && this.innerOnSubmit !== this.submit) {
+                  // will call "submitOrEvent is the submit function" block below
+                  return this.innerOnSubmit();
+                } else {
+                  return this.listenToSubmit(Object(_handleSubmit__WEBPACK_IMPORTED_MODULE_15__["default"])(checkSubmit(onSubmit), _extends({}, this.props, Object(redux__WEBPACK_IMPORTED_MODULE_7__["bindActionCreators"])({ blur: blur, change: change }, dispatch)), this.props.validExceptSubmit, this.asyncValidate, this.getFieldList({ excludeFieldArray: true })));
+                }
+              }
+            } else {
+              // submitOrEvent is the submit function: return deferred submit thunk
+              return Object(_events_silenceEvents__WEBPACK_IMPORTED_MODULE_13__["default"])(function () {
+                return !_this7.submitPromise && _this7.listenToSubmit(Object(_handleSubmit__WEBPACK_IMPORTED_MODULE_15__["default"])(checkSubmit(submitOrEvent), _extends({}, _this7.props, Object(redux__WEBPACK_IMPORTED_MODULE_7__["bindActionCreators"])({ blur: blur, change: change }, dispatch)), _this7.props.validExceptSubmit, _this7.asyncValidate, _this7.getFieldList({ excludeFieldArray: true })));
+              });
+            }
+          }
+        }, {
+          key: 'reset',
+          value: function reset() {
+            this.props.reset();
           }
         }, {
           key: 'render',
@@ -35771,7 +35158,6 @@ var createReduxForm = function createReduxForm(structure) {
             /* eslint-disable no-unused-vars */
             var _props9 = this.props,
                 anyTouched = _props9.anyTouched,
-                array = _props9.array,
                 arrayInsert = _props9.arrayInsert,
                 arrayMove = _props9.arrayMove,
                 arrayPop = _props9.arrayPop,
@@ -35787,7 +35173,6 @@ var createReduxForm = function createReduxForm(structure) {
                 asyncValidating = _props9.asyncValidating,
                 blur = _props9.blur,
                 change = _props9.change,
-                clearSubmit = _props9.clearSubmit,
                 destroy = _props9.destroy,
                 destroyOnUnmount = _props9.destroyOnUnmount,
                 forceUnregisterOnUnmount = _props9.forceUnregisterOnUnmount,
@@ -35798,26 +35183,20 @@ var createReduxForm = function createReduxForm(structure) {
                 focus = _props9.focus,
                 form = _props9.form,
                 getFormState = _props9.getFormState,
-                immutableProps = _props9.immutableProps,
                 initialize = _props9.initialize,
                 initialized = _props9.initialized,
                 initialValues = _props9.initialValues,
                 invalid = _props9.invalid,
                 keepDirtyOnReinitialize = _props9.keepDirtyOnReinitialize,
-                keepValues = _props9.keepValues,
-                updateUnregisteredFields = _props9.updateUnregisteredFields,
                 pristine = _props9.pristine,
                 propNamespace = _props9.propNamespace,
                 registeredFields = _props9.registeredFields,
                 registerField = _props9.registerField,
                 reset = _props9.reset,
-                resetSection = _props9.resetSection,
                 setSubmitFailed = _props9.setSubmitFailed,
                 setSubmitSucceeded = _props9.setSubmitSucceeded,
                 shouldAsyncValidate = _props9.shouldAsyncValidate,
                 shouldValidate = _props9.shouldValidate,
-                shouldError = _props9.shouldError,
-                shouldWarn = _props9.shouldWarn,
                 startAsyncValidation = _props9.startAsyncValidation,
                 startSubmit = _props9.startSubmit,
                 stopAsyncValidation = _props9.stopAsyncValidation,
@@ -35839,17 +35218,15 @@ var createReduxForm = function createReduxForm(structure) {
                 validExceptSubmit = _props9.validExceptSubmit,
                 values = _props9.values,
                 warning = _props9.warning,
-                rest = _objectWithoutProperties(_props9, ['anyTouched', 'array', 'arrayInsert', 'arrayMove', 'arrayPop', 'arrayPush', 'arrayRemove', 'arrayRemoveAll', 'arrayShift', 'arraySplice', 'arraySwap', 'arrayUnshift', 'asyncErrors', 'asyncValidate', 'asyncValidating', 'blur', 'change', 'clearSubmit', 'destroy', 'destroyOnUnmount', 'forceUnregisterOnUnmount', 'dirty', 'dispatch', 'enableReinitialize', 'error', 'focus', 'form', 'getFormState', 'immutableProps', 'initialize', 'initialized', 'initialValues', 'invalid', 'keepDirtyOnReinitialize', 'keepValues', 'updateUnregisteredFields', 'pristine', 'propNamespace', 'registeredFields', 'registerField', 'reset', 'resetSection', 'setSubmitFailed', 'setSubmitSucceeded', 'shouldAsyncValidate', 'shouldValidate', 'shouldError', 'shouldWarn', 'startAsyncValidation', 'startSubmit', 'stopAsyncValidation', 'stopSubmit', 'submitting', 'submitFailed', 'submitSucceeded', 'touch', 'touchOnBlur', 'touchOnChange', 'persistentSubmitErrors', 'syncErrors', 'syncWarnings', 'unregisterField', 'untouch', 'updateSyncErrors', 'updateSyncWarnings', 'valid', 'validExceptSubmit', 'values', 'warning']);
+                rest = _objectWithoutProperties(_props9, ['anyTouched', 'arrayInsert', 'arrayMove', 'arrayPop', 'arrayPush', 'arrayRemove', 'arrayRemoveAll', 'arrayShift', 'arraySplice', 'arraySwap', 'arrayUnshift', 'asyncErrors', 'asyncValidate', 'asyncValidating', 'blur', 'change', 'destroy', 'destroyOnUnmount', 'forceUnregisterOnUnmount', 'dirty', 'dispatch', 'enableReinitialize', 'error', 'focus', 'form', 'getFormState', 'initialize', 'initialized', 'initialValues', 'invalid', 'keepDirtyOnReinitialize', 'pristine', 'propNamespace', 'registeredFields', 'registerField', 'reset', 'setSubmitFailed', 'setSubmitSucceeded', 'shouldAsyncValidate', 'shouldValidate', 'startAsyncValidation', 'startSubmit', 'stopAsyncValidation', 'stopSubmit', 'submitting', 'submitFailed', 'submitSucceeded', 'touch', 'touchOnBlur', 'touchOnChange', 'persistentSubmitErrors', 'syncErrors', 'syncWarnings', 'unregisterField', 'untouch', 'updateSyncErrors', 'updateSyncWarnings', 'valid', 'validExceptSubmit', 'values', 'warning']);
             /* eslint-enable no-unused-vars */
 
 
             var reduxFormProps = _extends({
-              array: array,
               anyTouched: anyTouched,
               asyncValidate: this.asyncValidate,
               asyncValidating: asyncValidating
-            }, Object(redux__WEBPACK_IMPORTED_MODULE_9__["bindActionCreators"])({ blur: blur, change: change }, dispatch), {
-              clearSubmit: clearSubmit,
+            }, Object(redux__WEBPACK_IMPORTED_MODULE_7__["bindActionCreators"])({ blur: blur, change: change }, dispatch), {
               destroy: destroy,
               dirty: dirty,
               dispatch: dispatch,
@@ -35862,7 +35239,6 @@ var createReduxForm = function createReduxForm(structure) {
               invalid: invalid,
               pristine: pristine,
               reset: reset,
-              resetSection: resetSection,
               submitting: submitting,
               submitFailed: submitFailed,
               submitSucceeded: submitSucceeded,
@@ -35873,40 +35249,39 @@ var createReduxForm = function createReduxForm(structure) {
             });
             var propsToPass = _extends({}, propNamespace ? _defineProperty({}, propNamespace, reduxFormProps) : reduxFormProps, rest);
             if (isClassComponent(WrappedComponent)) {
-              ;propsToPass.ref = this.saveRef;
+              propsToPass.ref = 'wrapped';
             }
-            return Object(react__WEBPACK_IMPORTED_MODULE_2__["createElement"])(WrappedComponent, propsToPass);
+            return Object(react__WEBPACK_IMPORTED_MODULE_5__["createElement"])(WrappedComponent, propsToPass);
           }
         }]);
 
         return Form;
-      }(react__WEBPACK_IMPORTED_MODULE_2__["Component"]);
+      }(react__WEBPACK_IMPORTED_MODULE_5__["Component"]);
 
-      Form.displayName = 'Form(' + Object(_util_getDisplayName__WEBPACK_IMPORTED_MODULE_22__["default"])(WrappedComponent) + ')';
+      Form.displayName = 'Form(' + Object(_util_getDisplayName__WEBPACK_IMPORTED_MODULE_18__["default"])(WrappedComponent) + ')';
       Form.WrappedComponent = WrappedComponent;
       Form.childContextTypes = {
-        _reduxForm: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.object.isRequired
+        _reduxForm: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.object.isRequired
       };
       Form.propTypes = {
-        destroyOnUnmount: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.bool,
-        forceUnregisterOnUnmount: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.bool,
-        form: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.string.isRequired,
-        immutableProps: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.arrayOf(prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.string),
-        initialValues: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.array, prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.object]),
-        getFormState: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.func,
-        onSubmitFail: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.func,
-        onSubmitSuccess: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.func,
-        propNamespace: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.string,
-        validate: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.func,
-        warn: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.func,
-        touchOnBlur: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.bool,
-        touchOnChange: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.bool,
-        triggerSubmit: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.bool,
-        persistentSubmitErrors: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.bool,
-        registeredFields: prop_types__WEBPACK_IMPORTED_MODULE_7___default.a.any
+        destroyOnUnmount: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.bool,
+        forceUnregisterOnUnmount: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.bool,
+        form: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.string.isRequired,
+        initialValues: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.oneOfType([prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.array, prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.object]),
+        getFormState: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.func,
+        onSubmitFail: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.func,
+        onSubmitSuccess: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.func,
+        propNameSpace: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.string,
+        validate: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.func,
+        warn: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.func,
+        touchOnBlur: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.bool,
+        touchOnChange: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.bool,
+        triggerSubmit: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.bool,
+        persistentSubmitErrors: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.bool,
+        registeredFields: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.any
       };
 
-      var connector = Object(react_redux__WEBPACK_IMPORTED_MODULE_8__["connect"])(function (state, props) {
+      var connector = Object(react_redux__WEBPACK_IMPORTED_MODULE_6__["connect"])(function (state, props) {
         var form = props.form,
             getFormState = props.getFormState,
             initialValues = props.initialValues,
@@ -35934,8 +35309,8 @@ var createReduxForm = function createReduxForm(structure) {
 
         var pristine = shouldResetValues || deepEqual(initial, values);
         var asyncErrors = getIn(formState, 'asyncErrors');
-        var syncErrors = getIn(formState, 'syncErrors') || _structure_plain__WEBPACK_IMPORTED_MODULE_21__["default"].empty;
-        var syncWarnings = getIn(formState, 'syncWarnings') || _structure_plain__WEBPACK_IMPORTED_MODULE_21__["default"].empty;
+        var syncErrors = getIn(formState, 'syncErrors') || {};
+        var syncWarnings = getIn(formState, 'syncWarnings') || {};
         var registeredFields = getIn(formState, 'registeredFields');
         var valid = isValid(form, getFormState, false)(state);
         var validExceptSubmit = isValid(form, getFormState, true)(state);
@@ -35969,11 +35344,11 @@ var createReduxForm = function createReduxForm(structure) {
         };
       }, function (dispatch, initialProps) {
         var bindForm = function bindForm(actionCreator) {
-          return actionCreator.bind(null, initialProps.form);
-        };
+          return actionCreator.bind(null, initialProps.form
 
-        // Bind the first parameter on `props.form`
-        var boundFormACs = Object(lodash_es_mapValues__WEBPACK_IMPORTED_MODULE_1__["default"])(formActions, bindForm);
+          // Bind the first parameter on `props.form`
+          );
+        };var boundFormACs = Object(lodash_es_mapValues__WEBPACK_IMPORTED_MODULE_1__["default"])(formActions, bindForm);
         var boundArrayACs = Object(lodash_es_mapValues__WEBPACK_IMPORTED_MODULE_1__["default"])(arrayActions, bindForm);
         var boundBlur = function boundBlur(field, value) {
           return blur(initialProps.form, field, value, !!initialProps.touchOnBlur);
@@ -35981,21 +35356,21 @@ var createReduxForm = function createReduxForm(structure) {
         var boundChange = function boundChange(field, value) {
           return change(initialProps.form, field, value, !!initialProps.touchOnChange, !!initialProps.persistentSubmitErrors);
         };
-        var boundFocus = bindForm(focus);
+        var boundFocus = bindForm(focus
 
         // Wrap action creators with `dispatch`
-        var connectedFormACs = Object(redux__WEBPACK_IMPORTED_MODULE_9__["bindActionCreators"])(boundFormACs, dispatch);
+        );var connectedFormACs = Object(redux__WEBPACK_IMPORTED_MODULE_7__["bindActionCreators"])(boundFormACs, dispatch);
         var connectedArrayACs = {
-          insert: Object(redux__WEBPACK_IMPORTED_MODULE_9__["bindActionCreators"])(boundArrayACs.arrayInsert, dispatch),
-          move: Object(redux__WEBPACK_IMPORTED_MODULE_9__["bindActionCreators"])(boundArrayACs.arrayMove, dispatch),
-          pop: Object(redux__WEBPACK_IMPORTED_MODULE_9__["bindActionCreators"])(boundArrayACs.arrayPop, dispatch),
-          push: Object(redux__WEBPACK_IMPORTED_MODULE_9__["bindActionCreators"])(boundArrayACs.arrayPush, dispatch),
-          remove: Object(redux__WEBPACK_IMPORTED_MODULE_9__["bindActionCreators"])(boundArrayACs.arrayRemove, dispatch),
-          removeAll: Object(redux__WEBPACK_IMPORTED_MODULE_9__["bindActionCreators"])(boundArrayACs.arrayRemoveAll, dispatch),
-          shift: Object(redux__WEBPACK_IMPORTED_MODULE_9__["bindActionCreators"])(boundArrayACs.arrayShift, dispatch),
-          splice: Object(redux__WEBPACK_IMPORTED_MODULE_9__["bindActionCreators"])(boundArrayACs.arraySplice, dispatch),
-          swap: Object(redux__WEBPACK_IMPORTED_MODULE_9__["bindActionCreators"])(boundArrayACs.arraySwap, dispatch),
-          unshift: Object(redux__WEBPACK_IMPORTED_MODULE_9__["bindActionCreators"])(boundArrayACs.arrayUnshift, dispatch)
+          insert: Object(redux__WEBPACK_IMPORTED_MODULE_7__["bindActionCreators"])(boundArrayACs.arrayInsert, dispatch),
+          move: Object(redux__WEBPACK_IMPORTED_MODULE_7__["bindActionCreators"])(boundArrayACs.arrayMove, dispatch),
+          pop: Object(redux__WEBPACK_IMPORTED_MODULE_7__["bindActionCreators"])(boundArrayACs.arrayPop, dispatch),
+          push: Object(redux__WEBPACK_IMPORTED_MODULE_7__["bindActionCreators"])(boundArrayACs.arrayPush, dispatch),
+          remove: Object(redux__WEBPACK_IMPORTED_MODULE_7__["bindActionCreators"])(boundArrayACs.arrayRemove, dispatch),
+          removeAll: Object(redux__WEBPACK_IMPORTED_MODULE_7__["bindActionCreators"])(boundArrayACs.arrayRemoveAll, dispatch),
+          shift: Object(redux__WEBPACK_IMPORTED_MODULE_7__["bindActionCreators"])(boundArrayACs.arrayShift, dispatch),
+          splice: Object(redux__WEBPACK_IMPORTED_MODULE_7__["bindActionCreators"])(boundArrayACs.arraySplice, dispatch),
+          swap: Object(redux__WEBPACK_IMPORTED_MODULE_7__["bindActionCreators"])(boundArrayACs.arraySwap, dispatch),
+          unshift: Object(redux__WEBPACK_IMPORTED_MODULE_7__["bindActionCreators"])(boundArrayACs.arrayUnshift, dispatch)
         };
 
         var computedActions = _extends({}, connectedFormACs, boundArrayACs, {
@@ -36010,12 +35385,11 @@ var createReduxForm = function createReduxForm(structure) {
           return computedActions;
         };
       }, undefined, { withRef: true });
-      var ConnectedForm = hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_4___default()(connector(Form), WrappedComponent);
+      var ConnectedForm = hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_2___default()(connector(Form), WrappedComponent);
       ConnectedForm.defaultProps = config;
 
       // build outer component to expose instance api
-
-      var ReduxForm = function (_Component2) {
+      return function (_Component2) {
         _inherits(ReduxForm, _Component2);
 
         function ReduxForm() {
@@ -36027,28 +35401,22 @@ var createReduxForm = function createReduxForm(structure) {
         _createClass(ReduxForm, [{
           key: 'submit',
           value: function submit() {
-            return this.ref && this.ref.getWrappedInstance().submit();
+            return this.refs.wrapped.getWrappedInstance().submit();
           }
         }, {
           key: 'reset',
           value: function reset() {
-            if (this.ref) {
-              this.ref.getWrappedInstance().reset();
-            }
+            return this.refs.wrapped.getWrappedInstance().reset();
           }
         }, {
           key: 'render',
           value: function render() {
-            var _this5 = this;
-
             var _props10 = this.props,
                 initialValues = _props10.initialValues,
                 rest = _objectWithoutProperties(_props10, ['initialValues']);
 
-            return Object(react__WEBPACK_IMPORTED_MODULE_2__["createElement"])(ConnectedForm, _extends({}, rest, {
-              ref: function ref(_ref3) {
-                _this5.ref = _ref3;
-              },
+            return Object(react__WEBPACK_IMPORTED_MODULE_5__["createElement"])(ConnectedForm, _extends({}, rest, {
+              ref: 'wrapped',
               // convert initialValues if need to
               initialValues: fromJS(initialValues)
             }));
@@ -36056,7 +35424,7 @@ var createReduxForm = function createReduxForm(structure) {
         }, {
           key: 'valid',
           get: function get() {
-            return !!(this.ref && this.ref.getWrappedInstance().isValid());
+            return this.refs.wrapped.getWrappedInstance().isValid();
           }
         }, {
           key: 'invalid',
@@ -36066,7 +35434,7 @@ var createReduxForm = function createReduxForm(structure) {
         }, {
           key: 'pristine',
           get: function get() {
-            return !!(this.ref && this.ref.getWrappedInstance().isPristine());
+            return this.refs.wrapped.getWrappedInstance().isPristine();
           }
         }, {
           key: 'dirty',
@@ -36076,27 +35444,24 @@ var createReduxForm = function createReduxForm(structure) {
         }, {
           key: 'values',
           get: function get() {
-            return this.ref ? this.ref.getWrappedInstance().getValues() : empty;
+            return this.refs.wrapped.getWrappedInstance().getValues();
           }
         }, {
           key: 'fieldList',
           get: function get() {
             // mainly provided for testing
-            return this.ref ? this.ref.getWrappedInstance().getFieldList() : [];
+            return this.refs.wrapped.getWrappedInstance().getFieldList();
           }
         }, {
           key: 'wrappedInstance',
           get: function get() {
             // for testing
-            return this.ref && this.ref.getWrappedInstance().wrapped;
+            return this.refs.wrapped.getWrappedInstance().refs.wrapped;
           }
         }]);
 
         return ReduxForm;
-      }(react__WEBPACK_IMPORTED_MODULE_2__["Component"]);
-
-      Object(react_lifecycles_compat__WEBPACK_IMPORTED_MODULE_3__["polyfill"])(ReduxForm);
-      return hoist_non_react_statics__WEBPACK_IMPORTED_MODULE_4___default()(ReduxForm, WrappedComponent);
+      }(react__WEBPACK_IMPORTED_MODULE_5__["Component"]);
     };
   };
 };
@@ -36121,7 +35486,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-
 var createValues = function createValues(_ref) {
   var getIn = _ref.getIn;
   return function (config) {
@@ -36137,8 +35501,9 @@ var createValues = function createValues(_ref) {
 
     return Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(function (state) {
       return _defineProperty({}, prop, getIn(getFormState(state), form + '.values'));
-    }
-    // ignore dispatch
+    }, function () {
+      return {};
+    } // ignore dispatch
     );
   };
 };
@@ -36156,8 +35521,6 @@ var createValues = function createValues(_ref) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-
-
 var defaultShouldAsyncValidate = function defaultShouldAsyncValidate(_ref) {
   var initialized = _ref.initialized,
       trigger = _ref.trigger,
@@ -36169,7 +35532,6 @@ var defaultShouldAsyncValidate = function defaultShouldAsyncValidate(_ref) {
   }
   switch (trigger) {
     case 'blur':
-    case 'change':
       // blurring
       return true;
     case 'submit':
@@ -36181,38 +35543,7 @@ var defaultShouldAsyncValidate = function defaultShouldAsyncValidate(_ref) {
   }
 };
 
-
 /* harmony default export */ __webpack_exports__["default"] = (defaultShouldAsyncValidate);
-
-/***/ }),
-
-/***/ "../node_modules/redux-form/es/defaultShouldError.js":
-/*!***********************************************************!*\
-  !*** ../node_modules/redux-form/es/defaultShouldError.js ***!
-  \***********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-var defaultShouldError = function defaultShouldError(_ref) {
-  var values = _ref.values,
-      nextProps = _ref.nextProps,
-      initialRender = _ref.initialRender,
-      lastFieldValidatorKeys = _ref.lastFieldValidatorKeys,
-      fieldValidatorKeys = _ref.fieldValidatorKeys,
-      structure = _ref.structure;
-
-  if (initialRender) {
-    return true;
-  }
-  return !structure.deepEqual(values, nextProps && nextProps.values) || !structure.deepEqual(lastFieldValidatorKeys, fieldValidatorKeys);
-};
-
-
-/* harmony default export */ __webpack_exports__["default"] = (defaultShouldError);
 
 /***/ }),
 
@@ -36225,8 +35556,6 @@ var defaultShouldError = function defaultShouldError(_ref) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-
-
 var defaultShouldValidate = function defaultShouldValidate(_ref) {
   var values = _ref.values,
       nextProps = _ref.nextProps,
@@ -36238,41 +35567,10 @@ var defaultShouldValidate = function defaultShouldValidate(_ref) {
   if (initialRender) {
     return true;
   }
-  return !structure.deepEqual(values, nextProps && nextProps.values) || !structure.deepEqual(lastFieldValidatorKeys, fieldValidatorKeys);
+  return !structure.deepEqual(values, nextProps.values) || !structure.deepEqual(lastFieldValidatorKeys, fieldValidatorKeys);
 };
-
 
 /* harmony default export */ __webpack_exports__["default"] = (defaultShouldValidate);
-
-/***/ }),
-
-/***/ "../node_modules/redux-form/es/defaultShouldWarn.js":
-/*!**********************************************************!*\
-  !*** ../node_modules/redux-form/es/defaultShouldWarn.js ***!
-  \**********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-
-
-var defaultShouldWarn = function defaultShouldWarn(_ref) {
-  var values = _ref.values,
-      nextProps = _ref.nextProps,
-      initialRender = _ref.initialRender,
-      lastFieldValidatorKeys = _ref.lastFieldValidatorKeys,
-      fieldValidatorKeys = _ref.fieldValidatorKeys,
-      structure = _ref.structure;
-
-  if (initialRender) {
-    return true;
-  }
-  return !structure.deepEqual(values, nextProps && nextProps.values) || !structure.deepEqual(lastFieldValidatorKeys, fieldValidatorKeys);
-};
-
-
-/* harmony default export */ __webpack_exports__["default"] = (defaultShouldWarn);
 
 /***/ }),
 
@@ -36289,54 +35587,42 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function createDeleteInWithCleanUp(structure) {
-  var shouldDeleteDefault = function shouldDeleteDefault(structure) {
-    return function (state, path) {
-      return structure.getIn(state, path) !== undefined;
-    };
-  };
+var createDeleteInWithCleanUp = function createDeleteInWithCleanUp(_ref) {
+  var deepEqual = _ref.deepEqual,
+      empty = _ref.empty,
+      getIn = _ref.getIn,
+      deleteIn = _ref.deleteIn,
+      setIn = _ref.setIn;
 
-  var deepEqual = structure.deepEqual,
-      empty = structure.empty,
-      getIn = structure.getIn,
-      deleteIn = structure.deleteIn,
-      setIn = structure.setIn;
+  var deleteInWithCleanUp = function deleteInWithCleanUp(state, path) {
+    if (path[path.length - 1] === ']') {
+      // array path
+      var pathTokens = Object(lodash_es_toPath__WEBPACK_IMPORTED_MODULE_0__["default"])(path);
+      pathTokens.pop();
+      var parent = getIn(state, pathTokens.join('.'));
+      return parent ? setIn(state, path, undefined) : state;
+    }
 
+    var result = state;
+    if (getIn(state, path) !== undefined) {
+      result = deleteIn(state, path);
+    }
 
-  return function () {
-    var shouldDelete = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : shouldDeleteDefault;
-
-    var deleteInWithCleanUp = function deleteInWithCleanUp(state, path) {
-      if (path[path.length - 1] === ']') {
-        // array path
-        var pathTokens = Object(lodash_es_toPath__WEBPACK_IMPORTED_MODULE_0__["default"])(path);
-        pathTokens.pop();
-        var parent = getIn(state, pathTokens.join('.'));
-        return parent ? setIn(state, path) : state;
-      }
-
-      var result = state;
-
-      if (shouldDelete(structure)(state, path)) {
-        result = deleteIn(state, path);
-      }
-
-      var dotIndex = path.lastIndexOf('.');
-      if (dotIndex > 0) {
-        var parentPath = path.substring(0, dotIndex);
-        if (parentPath[parentPath.length - 1] !== ']') {
-          var _parent = getIn(result, parentPath);
-          if (deepEqual(_parent, empty)) {
-            return deleteInWithCleanUp(result, parentPath);
-          }
+    var dotIndex = path.lastIndexOf('.');
+    if (dotIndex > 0) {
+      var parentPath = path.substring(0, dotIndex);
+      if (parentPath[parentPath.length - 1] !== ']') {
+        var _parent = getIn(result, parentPath);
+        if (deepEqual(_parent, empty)) {
+          return deleteInWithCleanUp(result, parentPath);
         }
       }
-      return result;
-    };
-
-    return deleteInWithCleanUp;
+    }
+    return result;
   };
-}
+
+  return deleteInWithCleanUp;
+};
 
 /* harmony default export */ __webpack_exports__["default"] = (createDeleteInWithCleanUp);
 
@@ -36352,7 +35638,6 @@ function createDeleteInWithCleanUp(structure) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _isEvent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isEvent */ "../node_modules/redux-form/es/events/isEvent.js");
-
 
 
 var getSelectedValues = function getSelectedValues(options) {
@@ -36376,16 +35661,15 @@ var getValue = function getValue(event, isReactNative) {
     if (isReactNative && event.nativeEvent !== undefined) {
       return event.nativeEvent.text;
     }
-    var detypedEvent = event;
-    var _detypedEvent$target = detypedEvent.target,
-        type = _detypedEvent$target.type,
-        value = _detypedEvent$target.value,
-        checked = _detypedEvent$target.checked,
-        files = _detypedEvent$target.files,
-        dataTransfer = detypedEvent.dataTransfer;
+    var _event$target = event.target,
+        type = _event$target.type,
+        value = _event$target.value,
+        checked = _event$target.checked,
+        files = _event$target.files,
+        dataTransfer = event.dataTransfer;
 
     if (type === 'checkbox') {
-      return !!checked;
+      return checked || '';
     }
     if (type === 'file') {
       return files || dataTransfer && dataTransfer.files;
@@ -36433,17 +35717,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var onChangeValue = function onChangeValue(event, _ref) {
   var name = _ref.name,
       parse = _ref.parse,
       normalize = _ref.normalize;
 
   // read value from input
-  var value = Object(_getValue__WEBPACK_IMPORTED_MODULE_0__["default"])(event, _isReactNative__WEBPACK_IMPORTED_MODULE_1__["default"]);
+  var value = Object(_getValue__WEBPACK_IMPORTED_MODULE_0__["default"])(event, _isReactNative__WEBPACK_IMPORTED_MODULE_1__["default"]
 
   // parse value if we have a parser
-  if (parse) {
+  );if (parse) {
     value = parse(value, name);
   }
 
@@ -36557,15 +35840,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _structure_plain__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./structure/plain */ "../node_modules/redux-form/es/structure/plain/index.js");
 
 
-
 var toArray = function toArray(value) {
   return Array.isArray(value) ? value : [value];
 };
 
-var getError = function getError(value, values, props, validators, name) {
+var getError = function getError(value, values, props, validators) {
   var array = toArray(validators);
   for (var i = 0; i < array.length; i++) {
-    var error = array[i](value, values, props, name);
+    var error = array[i](value, values, props);
     if (error) {
       return error;
     }
@@ -36578,7 +35860,7 @@ var generateValidator = function generateValidator(validators, _ref) {
     var errors = {};
     Object.keys(validators).forEach(function (name) {
       var value = getIn(values, name);
-      var error = getError(value, values, props, validators[name], name);
+      var error = getError(value, values, props, validators[name]);
       if (error) {
         errors = _structure_plain__WEBPACK_IMPORTED_MODULE_0__["default"].setIn(errors, name, error);
       }
@@ -36606,24 +35888,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(_selectors_getFormAsyncErrors__WEBPACK_IMPORTED_MODULE_0__["default"])(_structure_plain__WEBPACK_IMPORTED_MODULE_1__["default"]));
-
-/***/ }),
-
-/***/ "../node_modules/redux-form/es/getFormError.js":
-/*!*****************************************************!*\
-  !*** ../node_modules/redux-form/es/getFormError.js ***!
-  \*****************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _selectors_getFormError__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./selectors/getFormError */ "../node_modules/redux-form/es/selectors/getFormError.js");
-/* harmony import */ var _structure_plain__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./structure/plain */ "../node_modules/redux-form/es/structure/plain/index.js");
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(_selectors_getFormError__WEBPACK_IMPORTED_MODULE_0__["default"])(_structure_plain__WEBPACK_IMPORTED_MODULE_1__["default"]));
 
 /***/ }),
 
@@ -36765,10 +36029,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var is_promise__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! is-promise */ "../node_modules/is-promise/index.js");
 /* harmony import */ var is_promise__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(is_promise__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _SubmissionError__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SubmissionError */ "../node_modules/redux-form/es/SubmissionError.js");
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 
 
 
@@ -36782,7 +36043,6 @@ var handleSubmit = function handleSubmit(submit, props, valid, asyncValidate, fi
       setSubmitFailed = props.setSubmitFailed,
       setSubmitSucceeded = props.setSubmitSucceeded,
       syncErrors = props.syncErrors,
-      asyncErrors = props.asyncErrors,
       touch = props.touch,
       values = props.values,
       persistentSubmitErrors = props.persistentSubmitErrors;
@@ -36860,11 +36120,10 @@ var handleSubmit = function handleSubmit(submit, props, valid, asyncValidate, fi
     }
   } else {
     setSubmitFailed.apply(undefined, _toConsumableArray(fields));
-    var errors = _extends({}, asyncErrors, syncErrors);
     if (onSubmitFail) {
-      onSubmitFail(errors, dispatch, null, props);
+      onSubmitFail(syncErrors, dispatch, null, props);
     }
-    return errors;
+    return syncErrors;
   }
 };
 
@@ -36881,8 +36140,6 @@ var handleSubmit = function handleSubmit(submit, props, valid, asyncValidate, fi
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-
-
 var getErrorKeys = function getErrorKeys(name, type) {
   switch (type) {
     case 'Field':
@@ -36893,7 +36150,6 @@ var getErrorKeys = function getErrorKeys(name, type) {
       throw new Error('Unknown field type');
   }
 };
-
 
 var createHasError = function createHasError(_ref) {
   var getIn = _ref.getIn;
@@ -36956,12 +36212,13 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************************!*\
   !*** ../node_modules/redux-form/es/index.js ***!
   \**********************************************/
-/*! exports provided: defaultShouldAsyncValidate, defaultShouldValidate, defaultShouldError, defaultShouldWarn, Form, FormName, FormSection, SubmissionError, propTypes, fieldInputPropTypes, fieldMetaPropTypes, fieldPropTypes, fieldArrayFieldsPropTypes, fieldArrayMetaPropTypes, fieldArrayPropTypes, formPropTypes, Field, Fields, FieldArray, formValueSelector, formValues, getFormError, getFormNames, getFormValues, getFormInitialValues, getFormSyncErrors, getFormMeta, getFormAsyncErrors, getFormSyncWarnings, getFormSubmitErrors, isAsyncValidating, isDirty, isInvalid, isPristine, isValid, isSubmitting, hasSubmitSucceeded, hasSubmitFailed, reduxForm, reducer, values, actionTypes, arrayInsert, arrayMove, arrayPop, arrayPush, arrayRemove, arrayRemoveAll, arrayShift, arraySplice, arraySwap, arrayUnshift, autofill, blur, change, clearAsyncError, clearFields, clearSubmitErrors, destroy, focus, initialize, registerField, reset, resetSection, setSubmitFailed, setSubmitSucceeded, startAsyncValidation, startSubmit, stopAsyncValidation, stopSubmit, submit, touch, unregisterField, untouch, updateSyncWarnings */
+/*! exports provided: defaultShouldAsyncValidate, defaultShouldValidate, Form, FormSection, SubmissionError, propTypes, fieldInputPropTypes, fieldMetaPropTypes, fieldPropTypes, formPropTypes, Field, Fields, FieldArray, formValueSelector, formValues, getFormNames, getFormValues, getFormInitialValues, getFormSyncErrors, getFormMeta, getFormAsyncErrors, getFormSyncWarnings, getFormSubmitErrors, isDirty, isInvalid, isPristine, isValid, isSubmitting, hasSubmitSucceeded, hasSubmitFailed, reduxForm, reducer, values, actionTypes, actions, arrayInsert, arrayMove, arrayPop, arrayPush, arrayRemove, arrayRemoveAll, arrayShift, arraySplice, arraySwap, arrayUnshift, autofill, blur, change, clearSubmitErrors, destroy, focus, initialize, registerField, reset, setSubmitFailed, setSubmitSucceeded, startAsyncValidation, startSubmit, stopAsyncValidation, stopSubmit, submit, touch, unregisterField, untouch */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actionTypes", function() { return actionTypes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "actions", function() { return actions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "arrayInsert", function() { return arrayInsert; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "arrayMove", function() { return arrayMove; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "arrayPop", function() { return arrayPop; });
@@ -36975,15 +36232,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "autofill", function() { return autofill; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "blur", function() { return blur; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "change", function() { return change; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearAsyncError", function() { return clearAsyncError; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearFields", function() { return clearFields; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearSubmitErrors", function() { return clearSubmitErrors; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "destroy", function() { return destroy; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "focus", function() { return focus; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initialize", function() { return initialize; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "registerField", function() { return registerField; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reset", function() { return reset; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resetSection", function() { return resetSection; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSubmitFailed", function() { return setSubmitFailed; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSubmitSucceeded", function() { return setSubmitSucceeded; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startAsyncValidation", function() { return startAsyncValidation; });
@@ -36994,7 +36248,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "touch", function() { return touch; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unregisterField", function() { return unregisterField; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "untouch", function() { return untouch; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateSyncWarnings", function() { return updateSyncWarnings; });
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "../node_modules/redux-form/es/actions.js");
 /* harmony import */ var _actionTypes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./actionTypes */ "../node_modules/redux-form/es/actionTypes.js");
 /* harmony import */ var _defaultShouldAsyncValidate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./defaultShouldAsyncValidate */ "../node_modules/redux-form/es/defaultShouldAsyncValidate.js");
@@ -37003,118 +36256,94 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _defaultShouldValidate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./defaultShouldValidate */ "../node_modules/redux-form/es/defaultShouldValidate.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defaultShouldValidate", function() { return _defaultShouldValidate__WEBPACK_IMPORTED_MODULE_3__["default"]; });
 
-/* harmony import */ var _defaultShouldError__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./defaultShouldError */ "../node_modules/redux-form/es/defaultShouldError.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defaultShouldError", function() { return _defaultShouldError__WEBPACK_IMPORTED_MODULE_4__["default"]; });
+/* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Form */ "../node_modules/redux-form/es/Form.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Form", function() { return _Form__WEBPACK_IMPORTED_MODULE_4__["default"]; });
 
-/* harmony import */ var _defaultShouldWarn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./defaultShouldWarn */ "../node_modules/redux-form/es/defaultShouldWarn.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "defaultShouldWarn", function() { return _defaultShouldWarn__WEBPACK_IMPORTED_MODULE_5__["default"]; });
+/* harmony import */ var _FormSection__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FormSection */ "../node_modules/redux-form/es/FormSection.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormSection", function() { return _FormSection__WEBPACK_IMPORTED_MODULE_5__["default"]; });
 
-/* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Form */ "../node_modules/redux-form/es/Form.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Form", function() { return _Form__WEBPACK_IMPORTED_MODULE_6__["default"]; });
+/* harmony import */ var _SubmissionError__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./SubmissionError */ "../node_modules/redux-form/es/SubmissionError.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SubmissionError", function() { return _SubmissionError__WEBPACK_IMPORTED_MODULE_6__["default"]; });
 
-/* harmony import */ var _FormName__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./FormName */ "../node_modules/redux-form/es/FormName.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormName", function() { return _FormName__WEBPACK_IMPORTED_MODULE_7__["default"]; });
+/* harmony import */ var _propTypes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./propTypes */ "../node_modules/redux-form/es/propTypes.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "propTypes", function() { return _propTypes__WEBPACK_IMPORTED_MODULE_7__["default"]; });
 
-/* harmony import */ var _FormSection__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./FormSection */ "../node_modules/redux-form/es/FormSection.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FormSection", function() { return _FormSection__WEBPACK_IMPORTED_MODULE_8__["default"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "fieldInputPropTypes", function() { return _propTypes__WEBPACK_IMPORTED_MODULE_7__["fieldInputPropTypes"]; });
 
-/* harmony import */ var _SubmissionError__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./SubmissionError */ "../node_modules/redux-form/es/SubmissionError.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "SubmissionError", function() { return _SubmissionError__WEBPACK_IMPORTED_MODULE_9__["default"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "fieldMetaPropTypes", function() { return _propTypes__WEBPACK_IMPORTED_MODULE_7__["fieldMetaPropTypes"]; });
 
-/* harmony import */ var _propTypes__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./propTypes */ "../node_modules/redux-form/es/propTypes.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "propTypes", function() { return _propTypes__WEBPACK_IMPORTED_MODULE_10__["default"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "fieldPropTypes", function() { return _propTypes__WEBPACK_IMPORTED_MODULE_7__["fieldPropTypes"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "fieldInputPropTypes", function() { return _propTypes__WEBPACK_IMPORTED_MODULE_10__["fieldInputPropTypes"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "formPropTypes", function() { return _propTypes__WEBPACK_IMPORTED_MODULE_7__["formPropTypes"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "fieldMetaPropTypes", function() { return _propTypes__WEBPACK_IMPORTED_MODULE_10__["fieldMetaPropTypes"]; });
+/* harmony import */ var _Field__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Field */ "../node_modules/redux-form/es/Field.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Field", function() { return _Field__WEBPACK_IMPORTED_MODULE_8__["default"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "fieldPropTypes", function() { return _propTypes__WEBPACK_IMPORTED_MODULE_10__["fieldPropTypes"]; });
+/* harmony import */ var _Fields__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Fields */ "../node_modules/redux-form/es/Fields.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Fields", function() { return _Fields__WEBPACK_IMPORTED_MODULE_9__["default"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "fieldArrayFieldsPropTypes", function() { return _propTypes__WEBPACK_IMPORTED_MODULE_10__["fieldArrayFieldsPropTypes"]; });
+/* harmony import */ var _FieldArray__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./FieldArray */ "../node_modules/redux-form/es/FieldArray.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FieldArray", function() { return _FieldArray__WEBPACK_IMPORTED_MODULE_10__["default"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "fieldArrayMetaPropTypes", function() { return _propTypes__WEBPACK_IMPORTED_MODULE_10__["fieldArrayMetaPropTypes"]; });
+/* harmony import */ var _formValueSelector__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./formValueSelector */ "../node_modules/redux-form/es/formValueSelector.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "formValueSelector", function() { return _formValueSelector__WEBPACK_IMPORTED_MODULE_11__["default"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "fieldArrayPropTypes", function() { return _propTypes__WEBPACK_IMPORTED_MODULE_10__["fieldArrayPropTypes"]; });
+/* harmony import */ var _formValues__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./formValues */ "../node_modules/redux-form/es/formValues.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "formValues", function() { return _formValues__WEBPACK_IMPORTED_MODULE_12__["default"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "formPropTypes", function() { return _propTypes__WEBPACK_IMPORTED_MODULE_10__["formPropTypes"]; });
+/* harmony import */ var _getFormNames__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./getFormNames */ "../node_modules/redux-form/es/getFormNames.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getFormNames", function() { return _getFormNames__WEBPACK_IMPORTED_MODULE_13__["default"]; });
 
-/* harmony import */ var _Field__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Field */ "../node_modules/redux-form/es/Field.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Field", function() { return _Field__WEBPACK_IMPORTED_MODULE_11__["default"]; });
+/* harmony import */ var _getFormValues__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./getFormValues */ "../node_modules/redux-form/es/getFormValues.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getFormValues", function() { return _getFormValues__WEBPACK_IMPORTED_MODULE_14__["default"]; });
 
-/* harmony import */ var _Fields__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Fields */ "../node_modules/redux-form/es/Fields.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Fields", function() { return _Fields__WEBPACK_IMPORTED_MODULE_12__["default"]; });
+/* harmony import */ var _getFormInitialValues__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./getFormInitialValues */ "../node_modules/redux-form/es/getFormInitialValues.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getFormInitialValues", function() { return _getFormInitialValues__WEBPACK_IMPORTED_MODULE_15__["default"]; });
 
-/* harmony import */ var _FieldArray__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./FieldArray */ "../node_modules/redux-form/es/FieldArray.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FieldArray", function() { return _FieldArray__WEBPACK_IMPORTED_MODULE_13__["default"]; });
+/* harmony import */ var _getFormSyncErrors__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./getFormSyncErrors */ "../node_modules/redux-form/es/getFormSyncErrors.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getFormSyncErrors", function() { return _getFormSyncErrors__WEBPACK_IMPORTED_MODULE_16__["default"]; });
 
-/* harmony import */ var _formValueSelector__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./formValueSelector */ "../node_modules/redux-form/es/formValueSelector.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "formValueSelector", function() { return _formValueSelector__WEBPACK_IMPORTED_MODULE_14__["default"]; });
+/* harmony import */ var _getFormMeta__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./getFormMeta */ "../node_modules/redux-form/es/getFormMeta.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getFormMeta", function() { return _getFormMeta__WEBPACK_IMPORTED_MODULE_17__["default"]; });
 
-/* harmony import */ var _formValues__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./formValues */ "../node_modules/redux-form/es/formValues.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "formValues", function() { return _formValues__WEBPACK_IMPORTED_MODULE_15__["default"]; });
+/* harmony import */ var _getFormAsyncErrors__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./getFormAsyncErrors */ "../node_modules/redux-form/es/getFormAsyncErrors.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getFormAsyncErrors", function() { return _getFormAsyncErrors__WEBPACK_IMPORTED_MODULE_18__["default"]; });
 
-/* harmony import */ var _getFormError__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./getFormError */ "../node_modules/redux-form/es/getFormError.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getFormError", function() { return _getFormError__WEBPACK_IMPORTED_MODULE_16__["default"]; });
+/* harmony import */ var _getFormSyncWarnings__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./getFormSyncWarnings */ "../node_modules/redux-form/es/getFormSyncWarnings.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getFormSyncWarnings", function() { return _getFormSyncWarnings__WEBPACK_IMPORTED_MODULE_19__["default"]; });
 
-/* harmony import */ var _getFormNames__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./getFormNames */ "../node_modules/redux-form/es/getFormNames.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getFormNames", function() { return _getFormNames__WEBPACK_IMPORTED_MODULE_17__["default"]; });
+/* harmony import */ var _getFormSubmitErrors__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./getFormSubmitErrors */ "../node_modules/redux-form/es/getFormSubmitErrors.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getFormSubmitErrors", function() { return _getFormSubmitErrors__WEBPACK_IMPORTED_MODULE_20__["default"]; });
 
-/* harmony import */ var _getFormValues__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./getFormValues */ "../node_modules/redux-form/es/getFormValues.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getFormValues", function() { return _getFormValues__WEBPACK_IMPORTED_MODULE_18__["default"]; });
+/* harmony import */ var _isDirty__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./isDirty */ "../node_modules/redux-form/es/isDirty.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isDirty", function() { return _isDirty__WEBPACK_IMPORTED_MODULE_21__["default"]; });
 
-/* harmony import */ var _getFormInitialValues__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./getFormInitialValues */ "../node_modules/redux-form/es/getFormInitialValues.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getFormInitialValues", function() { return _getFormInitialValues__WEBPACK_IMPORTED_MODULE_19__["default"]; });
+/* harmony import */ var _isInvalid__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./isInvalid */ "../node_modules/redux-form/es/isInvalid.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isInvalid", function() { return _isInvalid__WEBPACK_IMPORTED_MODULE_22__["default"]; });
 
-/* harmony import */ var _getFormSyncErrors__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./getFormSyncErrors */ "../node_modules/redux-form/es/getFormSyncErrors.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getFormSyncErrors", function() { return _getFormSyncErrors__WEBPACK_IMPORTED_MODULE_20__["default"]; });
+/* harmony import */ var _isPristine__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./isPristine */ "../node_modules/redux-form/es/isPristine.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isPristine", function() { return _isPristine__WEBPACK_IMPORTED_MODULE_23__["default"]; });
 
-/* harmony import */ var _getFormMeta__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./getFormMeta */ "../node_modules/redux-form/es/getFormMeta.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getFormMeta", function() { return _getFormMeta__WEBPACK_IMPORTED_MODULE_21__["default"]; });
+/* harmony import */ var _isValid__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./isValid */ "../node_modules/redux-form/es/isValid.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isValid", function() { return _isValid__WEBPACK_IMPORTED_MODULE_24__["default"]; });
 
-/* harmony import */ var _getFormAsyncErrors__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./getFormAsyncErrors */ "../node_modules/redux-form/es/getFormAsyncErrors.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getFormAsyncErrors", function() { return _getFormAsyncErrors__WEBPACK_IMPORTED_MODULE_22__["default"]; });
+/* harmony import */ var _isSubmitting__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./isSubmitting */ "../node_modules/redux-form/es/isSubmitting.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isSubmitting", function() { return _isSubmitting__WEBPACK_IMPORTED_MODULE_25__["default"]; });
 
-/* harmony import */ var _getFormSyncWarnings__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./getFormSyncWarnings */ "../node_modules/redux-form/es/getFormSyncWarnings.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getFormSyncWarnings", function() { return _getFormSyncWarnings__WEBPACK_IMPORTED_MODULE_23__["default"]; });
+/* harmony import */ var _hasSubmitSucceeded__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./hasSubmitSucceeded */ "../node_modules/redux-form/es/hasSubmitSucceeded.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "hasSubmitSucceeded", function() { return _hasSubmitSucceeded__WEBPACK_IMPORTED_MODULE_26__["default"]; });
 
-/* harmony import */ var _getFormSubmitErrors__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./getFormSubmitErrors */ "../node_modules/redux-form/es/getFormSubmitErrors.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getFormSubmitErrors", function() { return _getFormSubmitErrors__WEBPACK_IMPORTED_MODULE_24__["default"]; });
+/* harmony import */ var _hasSubmitFailed__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./hasSubmitFailed */ "../node_modules/redux-form/es/hasSubmitFailed.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "hasSubmitFailed", function() { return _hasSubmitFailed__WEBPACK_IMPORTED_MODULE_27__["default"]; });
 
-/* harmony import */ var _isAsyncValidating__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./isAsyncValidating */ "../node_modules/redux-form/es/isAsyncValidating.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isAsyncValidating", function() { return _isAsyncValidating__WEBPACK_IMPORTED_MODULE_25__["default"]; });
+/* harmony import */ var _reduxForm__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./reduxForm */ "../node_modules/redux-form/es/reduxForm.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "reduxForm", function() { return _reduxForm__WEBPACK_IMPORTED_MODULE_28__["default"]; });
 
-/* harmony import */ var _isDirty__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./isDirty */ "../node_modules/redux-form/es/isDirty.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isDirty", function() { return _isDirty__WEBPACK_IMPORTED_MODULE_26__["default"]; });
+/* harmony import */ var _reducer__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./reducer */ "../node_modules/redux-form/es/reducer.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "reducer", function() { return _reducer__WEBPACK_IMPORTED_MODULE_29__["default"]; });
 
-/* harmony import */ var _isInvalid__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./isInvalid */ "../node_modules/redux-form/es/isInvalid.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isInvalid", function() { return _isInvalid__WEBPACK_IMPORTED_MODULE_27__["default"]; });
-
-/* harmony import */ var _isPristine__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./isPristine */ "../node_modules/redux-form/es/isPristine.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isPristine", function() { return _isPristine__WEBPACK_IMPORTED_MODULE_28__["default"]; });
-
-/* harmony import */ var _isValid__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./isValid */ "../node_modules/redux-form/es/isValid.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isValid", function() { return _isValid__WEBPACK_IMPORTED_MODULE_29__["default"]; });
-
-/* harmony import */ var _isSubmitting__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./isSubmitting */ "../node_modules/redux-form/es/isSubmitting.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "isSubmitting", function() { return _isSubmitting__WEBPACK_IMPORTED_MODULE_30__["default"]; });
-
-/* harmony import */ var _hasSubmitSucceeded__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./hasSubmitSucceeded */ "../node_modules/redux-form/es/hasSubmitSucceeded.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "hasSubmitSucceeded", function() { return _hasSubmitSucceeded__WEBPACK_IMPORTED_MODULE_31__["default"]; });
-
-/* harmony import */ var _hasSubmitFailed__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./hasSubmitFailed */ "../node_modules/redux-form/es/hasSubmitFailed.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "hasSubmitFailed", function() { return _hasSubmitFailed__WEBPACK_IMPORTED_MODULE_32__["default"]; });
-
-/* harmony import */ var _reduxForm__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./reduxForm */ "../node_modules/redux-form/es/reduxForm.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "reduxForm", function() { return _reduxForm__WEBPACK_IMPORTED_MODULE_33__["default"]; });
-
-/* harmony import */ var _reducer__WEBPACK_IMPORTED_MODULE_34__ = __webpack_require__(/*! ./reducer */ "../node_modules/redux-form/es/reducer.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "reducer", function() { return _reducer__WEBPACK_IMPORTED_MODULE_34__["default"]; });
-
-/* harmony import */ var _values__WEBPACK_IMPORTED_MODULE_35__ = __webpack_require__(/*! ./values */ "../node_modules/redux-form/es/values.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "values", function() { return _values__WEBPACK_IMPORTED_MODULE_35__["default"]; });
-
-
-
+/* harmony import */ var _values__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./values */ "../node_modules/redux-form/es/values.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "values", function() { return _values__WEBPACK_IMPORTED_MODULE_30__["default"]; });
 
 
 
@@ -37148,60 +36377,38 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
 var actionTypes = _actionTypes__WEBPACK_IMPORTED_MODULE_1__;
-var arrayInsert = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].arrayInsert;
-var arrayMove = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].arrayMove;
-var arrayPop = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].arrayPop;
-var arrayPush = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].arrayPush;
-var arrayRemove = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].arrayRemove;
-var arrayRemoveAll = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].arrayRemoveAll;
-var arrayShift = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].arrayShift;
-var arraySplice = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].arraySplice;
-var arraySwap = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].arraySwap;
-var arrayUnshift = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].arrayUnshift;
-var autofill = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].autofill;
-var blur = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].blur;
-var change = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].change;
-var clearAsyncError = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].clearAsyncError;
-var clearFields = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].clearFields;
-var clearSubmitErrors = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].clearSubmitErrors;
-var destroy = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].destroy;
-var focus = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].focus;
-var initialize = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].initialize;
-var registerField = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].registerField;
-var reset = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].reset;
-var resetSection = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].resetSection;
-var setSubmitFailed = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].setSubmitFailed;
-var setSubmitSucceeded = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].setSubmitSucceeded;
-var startAsyncValidation = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].startAsyncValidation;
-var startSubmit = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].startSubmit;
-var stopAsyncValidation = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].stopAsyncValidation;
-var stopSubmit = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].stopSubmit;
-var submit = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].submit;
-var touch = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].touch;
-var unregisterField = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].unregisterField;
-var untouch = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].untouch;
-var updateSyncWarnings = _actions__WEBPACK_IMPORTED_MODULE_0__["default"].updateSyncWarnings;
+var actions = _actions__WEBPACK_IMPORTED_MODULE_0__;
+var arrayInsert = _actions__WEBPACK_IMPORTED_MODULE_0__["arrayInsert"],
+    arrayMove = _actions__WEBPACK_IMPORTED_MODULE_0__["arrayMove"],
+    arrayPop = _actions__WEBPACK_IMPORTED_MODULE_0__["arrayPop"],
+    arrayPush = _actions__WEBPACK_IMPORTED_MODULE_0__["arrayPush"],
+    arrayRemove = _actions__WEBPACK_IMPORTED_MODULE_0__["arrayRemove"],
+    arrayRemoveAll = _actions__WEBPACK_IMPORTED_MODULE_0__["arrayRemoveAll"],
+    arrayShift = _actions__WEBPACK_IMPORTED_MODULE_0__["arrayShift"],
+    arraySplice = _actions__WEBPACK_IMPORTED_MODULE_0__["arraySplice"],
+    arraySwap = _actions__WEBPACK_IMPORTED_MODULE_0__["arraySwap"],
+    arrayUnshift = _actions__WEBPACK_IMPORTED_MODULE_0__["arrayUnshift"],
+    autofill = _actions__WEBPACK_IMPORTED_MODULE_0__["autofill"],
+    blur = _actions__WEBPACK_IMPORTED_MODULE_0__["blur"],
+    change = _actions__WEBPACK_IMPORTED_MODULE_0__["change"],
+    clearSubmitErrors = _actions__WEBPACK_IMPORTED_MODULE_0__["clearSubmitErrors"],
+    destroy = _actions__WEBPACK_IMPORTED_MODULE_0__["destroy"],
+    focus = _actions__WEBPACK_IMPORTED_MODULE_0__["focus"],
+    initialize = _actions__WEBPACK_IMPORTED_MODULE_0__["initialize"],
+    registerField = _actions__WEBPACK_IMPORTED_MODULE_0__["registerField"],
+    reset = _actions__WEBPACK_IMPORTED_MODULE_0__["reset"],
+    setSubmitFailed = _actions__WEBPACK_IMPORTED_MODULE_0__["setSubmitFailed"],
+    setSubmitSucceeded = _actions__WEBPACK_IMPORTED_MODULE_0__["setSubmitSucceeded"],
+    startAsyncValidation = _actions__WEBPACK_IMPORTED_MODULE_0__["startAsyncValidation"],
+    startSubmit = _actions__WEBPACK_IMPORTED_MODULE_0__["startSubmit"],
+    stopAsyncValidation = _actions__WEBPACK_IMPORTED_MODULE_0__["stopAsyncValidation"],
+    stopSubmit = _actions__WEBPACK_IMPORTED_MODULE_0__["stopSubmit"],
+    submit = _actions__WEBPACK_IMPORTED_MODULE_0__["submit"],
+    touch = _actions__WEBPACK_IMPORTED_MODULE_0__["touch"],
+    unregisterField = _actions__WEBPACK_IMPORTED_MODULE_0__["unregisterField"],
+    untouch = _actions__WEBPACK_IMPORTED_MODULE_0__["untouch"];
 
-/***/ }),
-
-/***/ "../node_modules/redux-form/es/isAsyncValidating.js":
-/*!**********************************************************!*\
-  !*** ../node_modules/redux-form/es/isAsyncValidating.js ***!
-  \**********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _selectors_isAsyncValidating__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./selectors/isAsyncValidating */ "../node_modules/redux-form/es/selectors/isAsyncValidating.js");
-/* harmony import */ var _structure_plain__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./structure/plain */ "../node_modules/redux-form/es/structure/plain/index.js");
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(_selectors_isAsyncValidating__WEBPACK_IMPORTED_MODULE_0__["default"])(_structure_plain__WEBPACK_IMPORTED_MODULE_1__["default"]));
 
 /***/ }),
 
@@ -37314,7 +36521,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!**************************************************!*\
   !*** ../node_modules/redux-form/es/propTypes.js ***!
   \**************************************************/
-/*! exports provided: formPropTypes, fieldInputPropTypes, fieldMetaPropTypes, fieldArrayMetaPropTypes, fieldArrayFieldsPropTypes, fieldPropTypes, fieldArrayPropTypes, default */
+/*! exports provided: formPropTypes, fieldInputPropTypes, fieldMetaPropTypes, fieldPropTypes, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -37322,10 +36529,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formPropTypes", function() { return formPropTypes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fieldInputPropTypes", function() { return fieldInputPropTypes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fieldMetaPropTypes", function() { return fieldMetaPropTypes; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fieldArrayMetaPropTypes", function() { return fieldArrayMetaPropTypes; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fieldArrayFieldsPropTypes", function() { return fieldArrayFieldsPropTypes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fieldPropTypes", function() { return fieldPropTypes; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fieldArrayPropTypes", function() { return fieldArrayPropTypes; });
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -37336,8 +36540,7 @@ var any = prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.any,
     shape = prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.shape,
     string = prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
     oneOfType = prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.oneOfType,
-    object = prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object,
-    number = prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.number;
+    object = prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.object;
 
 
 var formPropTypes = {
@@ -37375,14 +36578,11 @@ var formPropTypes = {
   blur: func.isRequired, // action to mark a field as blurred
   change: func.isRequired, // action to change the value of a field
   clearAsyncError: func.isRequired, // action to clear the async error of a field
-  clearFields: func.isRequired, // action to clean fields values for all fields
-  clearSubmitErrors: func.isRequired, // action to remove submitErrors and error
   destroy: func.isRequired, // action to destroy the form's data in Redux
   dispatch: func.isRequired, // the Redux dispatch action
   handleSubmit: func.isRequired, // function to submit the form
   initialize: func.isRequired, // action to initialize form data
   reset: func.isRequired, // action to reset the form data to previously initialized values
-  resetSection: func.isRequired, // action to reset the form sections data to previously initialized values
   touch: func.isRequired, // action to mark fields as touched
   submit: func.isRequired, // action to trigger a submission of the specified form
   untouch: func.isRequired, // action to mark fields as untouched
@@ -37409,7 +36609,7 @@ var fieldMetaPropTypes = {
   autofilled: bool.isRequired,
   dirty: bool.isRequired,
   dispatch: func.isRequired,
-  error: any,
+  error: string,
   form: string.isRequired,
   invalid: bool.isRequired,
   pristine: bool.isRequired,
@@ -37421,45 +36621,10 @@ var fieldMetaPropTypes = {
   warning: string
 };
 
-var fieldArrayMetaPropTypes = {
-  dirty: bool.isRequired,
-  error: any,
-  form: string.isRequired,
-  invalid: bool.isRequired,
-  pristine: bool.isRequired,
-  submitFailed: bool,
-  submitting: bool,
-  valid: bool.isRequired,
-  warning: string
-};
-
-var fieldArrayFieldsPropTypes = {
-  name: string.isRequired,
-  forEach: func.isRequired,
-  get: func.isRequired,
-  getAll: func.isRequired,
-  insert: func.isRequired,
-  length: number.isRequired,
-  map: func.isRequired,
-  move: func.isRequired,
-  pop: func.isRequired,
-  push: func.isRequired,
-  reduce: func.isRequired,
-  remove: func.isRequired,
-  removeAll: func.isRequired,
-  shift: func.isRequired,
-  swap: func.isRequired,
-  unshift: func.isRequired
-};
-
 var fieldPropTypes = {
   input: shape(fieldInputPropTypes).isRequired,
-  meta: shape(fieldMetaPropTypes).isRequired
-};
-
-var fieldArrayPropTypes = {
-  fields: shape(fieldArrayFieldsPropTypes).isRequired,
-  meta: shape(fieldArrayMetaPropTypes).isRequired
+  meta: shape(fieldMetaPropTypes).isRequired,
+  custom: object.isRequired
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (formPropTypes);
@@ -37513,42 +36678,17 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 var createGetFormAsyncErrors = function createGetFormAsyncErrors(_ref) {
   var getIn = _ref.getIn;
-  return function (form, getFormState) {
+  return function (form) {
+    var getFormState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function (state) {
+      return getIn(state, 'form');
+    };
     return function (state) {
-      var nonNullGetFormState = getFormState || function (state) {
-        return getIn(state, 'form');
-      };
-      return getIn(nonNullGetFormState(state), form + '.asyncErrors');
+      return getIn(getFormState(state), form + '.asyncErrors');
     };
   };
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (createGetFormAsyncErrors);
-
-/***/ }),
-
-/***/ "../node_modules/redux-form/es/selectors/getFormError.js":
-/*!***************************************************************!*\
-  !*** ../node_modules/redux-form/es/selectors/getFormError.js ***!
-  \***************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var createGetFormError = function createGetFormError(_ref) {
-  var getIn = _ref.getIn;
-  return function (form, getFormState) {
-    return function (state) {
-      var nonNullGetFormState = getFormState || function (state) {
-        return getIn(state, 'form');
-      };
-      return getIn(nonNullGetFormState(state), form + '.error');
-    };
-  };
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (createGetFormError);
 
 /***/ }),
 
@@ -37563,12 +36703,12 @@ var createGetFormError = function createGetFormError(_ref) {
 __webpack_require__.r(__webpack_exports__);
 var createGetFormInitialValues = function createGetFormInitialValues(_ref) {
   var getIn = _ref.getIn;
-  return function (form, getFormState) {
+  return function (form) {
+    var getFormState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function (state) {
+      return getIn(state, 'form');
+    };
     return function (state) {
-      var nonNullGetFormState = getFormState || function (state) {
-        return getIn(state, 'form');
-      };
-      return getIn(nonNullGetFormState(state), form + '.initial');
+      return getIn(getFormState(state), form + '.initial');
     };
   };
 };
@@ -37587,14 +36727,13 @@ var createGetFormInitialValues = function createGetFormInitialValues(_ref) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var createGetFormMeta = function createGetFormMeta(_ref) {
-  var getIn = _ref.getIn,
-      empty = _ref.empty;
-  return function (form, getFormState) {
+  var getIn = _ref.getIn;
+  return function (form) {
+    var getFormState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function (state) {
+      return getIn(state, 'form');
+    };
     return function (state) {
-      var nonNullGetFormState = getFormState || function (state) {
-        return getIn(state, 'form');
-      };
-      return getIn(nonNullGetFormState(state), form + '.fields') || empty;
+      return getIn(getFormState(state), form + '.fields');
     };
   };
 };
@@ -37612,19 +36751,18 @@ var createGetFormMeta = function createGetFormMeta(_ref) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function createGetFormNames(_ref) {
+var createGetFormNames = function createGetFormNames(_ref) {
   var getIn = _ref.getIn,
       keys = _ref.keys;
-
-  return function (getFormState) {
+  return function () {
+    var getFormState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function (state) {
+      return getIn(state, 'form');
+    };
     return function (state) {
-      var nonNullGetFormState = getFormState || function (state) {
-        return getIn(state, 'form');
-      };
-      return keys(nonNullGetFormState(state));
+      return keys(getFormState(state));
     };
   };
-}
+};
 
 /* harmony default export */ __webpack_exports__["default"] = (createGetFormNames);
 
@@ -37640,14 +36778,13 @@ function createGetFormNames(_ref) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var createGetFormSubmitErrors = function createGetFormSubmitErrors(_ref) {
-  var getIn = _ref.getIn,
-      empty = _ref.empty;
-  return function (form, getFormState) {
+  var getIn = _ref.getIn;
+  return function (form) {
+    var getFormState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function (state) {
+      return getIn(state, 'form');
+    };
     return function (state) {
-      var nonNullGetFormState = getFormState || function (state) {
-        return getIn(state, 'form');
-      };
-      return getIn(nonNullGetFormState(state), form + '.submitErrors') || empty;
+      return getIn(getFormState(state), form + '.submitErrors');
     };
   };
 };
@@ -37666,14 +36803,13 @@ var createGetFormSubmitErrors = function createGetFormSubmitErrors(_ref) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var createGetFormSyncErrors = function createGetFormSyncErrors(_ref) {
-  var getIn = _ref.getIn,
-      empty = _ref.empty;
-  return function (form, getFormState) {
+  var getIn = _ref.getIn;
+  return function (form) {
+    var getFormState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function (state) {
+      return getIn(state, 'form');
+    };
     return function (state) {
-      var nonNullGetFormState = getFormState || function (state) {
-        return getIn(state, 'form');
-      };
-      return getIn(nonNullGetFormState(state), form + '.syncErrors') || empty;
+      return getIn(getFormState(state), form + '.syncErrors');
     };
   };
 };
@@ -37692,14 +36828,13 @@ var createGetFormSyncErrors = function createGetFormSyncErrors(_ref) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 var createGetFormSyncWarnings = function createGetFormSyncWarnings(_ref) {
-  var getIn = _ref.getIn,
-      empty = _ref.empty;
-  return function (form, getFormState) {
+  var getIn = _ref.getIn;
+  return function (form) {
+    var getFormState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function (state) {
+      return getIn(state, 'form');
+    };
     return function (state) {
-      var nonNullGetFormState = getFormState || function (state) {
-        return getIn(state, 'form');
-      };
-      return getIn(nonNullGetFormState(state), form + '.syncWarnings') || empty;
+      return getIn(getFormState(state), form + '.syncWarnings');
     };
   };
 };
@@ -37719,12 +36854,12 @@ var createGetFormSyncWarnings = function createGetFormSyncWarnings(_ref) {
 __webpack_require__.r(__webpack_exports__);
 var createGetFormValues = function createGetFormValues(_ref) {
   var getIn = _ref.getIn;
-  return function (form, getFormState) {
+  return function (form) {
+    var getFormState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function (state) {
+      return getIn(state, 'form');
+    };
     return function (state) {
-      var nonNullGetFormState = getFormState || function (state) {
-        return getIn(state, 'form');
-      };
-      return getIn(nonNullGetFormState(state), form + '.values');
+      return getIn(getFormState(state), form + '.values');
     };
   };
 };
@@ -37744,12 +36879,13 @@ var createGetFormValues = function createGetFormValues(_ref) {
 __webpack_require__.r(__webpack_exports__);
 var createHasSubmitFailed = function createHasSubmitFailed(_ref) {
   var getIn = _ref.getIn;
-  return function (form, getFormState) {
+  return function (form) {
+    var getFormState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function (state) {
+      return getIn(state, 'form');
+    };
     return function (state) {
-      var nonNullGetFormState = getFormState || function (state) {
-        return getIn(state, 'form');
-      };
-      return !!getIn(nonNullGetFormState(state), form + '.submitFailed');
+      var formState = getFormState(state);
+      return getIn(formState, form + '.submitFailed') || false;
     };
   };
 };
@@ -37769,42 +36905,18 @@ var createHasSubmitFailed = function createHasSubmitFailed(_ref) {
 __webpack_require__.r(__webpack_exports__);
 var createHasSubmitSucceeded = function createHasSubmitSucceeded(_ref) {
   var getIn = _ref.getIn;
-  return function (form, getFormState) {
+  return function (form) {
+    var getFormState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function (state) {
+      return getIn(state, 'form');
+    };
     return function (state) {
-      var nonNullGetFormState = getFormState || function (state) {
-        return getIn(state, 'form');
-      };
-      return !!getIn(nonNullGetFormState(state), form + '.submitSucceeded');
+      var formState = getFormState(state);
+      return getIn(formState, form + '.submitSucceeded') || false;
     };
   };
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (createHasSubmitSucceeded);
-
-/***/ }),
-
-/***/ "../node_modules/redux-form/es/selectors/isAsyncValidating.js":
-/*!********************************************************************!*\
-  !*** ../node_modules/redux-form/es/selectors/isAsyncValidating.js ***!
-  \********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-var createIsAsyncValidating = function createIsAsyncValidating(_ref) {
-  var getIn = _ref.getIn;
-  return function (form, getFormState) {
-    return function (state) {
-      var nonNullGetFormState = getFormState || function (state) {
-        return getIn(state, 'form');
-      };
-      return !!getIn(nonNullGetFormState(state), form + '.asyncValidating');
-    };
-  };
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (createIsAsyncValidating);
 
 /***/ }),
 
@@ -37818,20 +36930,13 @@ var createIsAsyncValidating = function createIsAsyncValidating(_ref) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _isPristine__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isPristine */ "../node_modules/redux-form/es/selectors/isPristine.js");
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-
 
 
 var createIsDirty = function createIsDirty(structure) {
   return function (form, getFormState) {
     var isPristine = Object(_isPristine__WEBPACK_IMPORTED_MODULE_0__["default"])(structure)(form, getFormState);
     return function (state) {
-      for (var _len = arguments.length, fields = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-        fields[_key - 1] = arguments[_key];
-      }
-
-      return !isPristine.apply(undefined, [state].concat(_toConsumableArray(fields)));
+      return !isPristine(state);
     };
   };
 };
@@ -37850,7 +36955,6 @@ var createIsDirty = function createIsDirty(structure) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _isValid__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./isValid */ "../node_modules/redux-form/es/selectors/isValid.js");
-
 
 
 var createIsInvalid = function createIsInvalid(structure) {
@@ -37879,23 +36983,12 @@ var createIsPristine = function createIsPristine(_ref) {
   var deepEqual = _ref.deepEqual,
       empty = _ref.empty,
       getIn = _ref.getIn;
-  return function (form, getFormState) {
+  return function (form) {
+    var getFormState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function (state) {
+      return getIn(state, 'form');
+    };
     return function (state) {
-      for (var _len = arguments.length, fields = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-        fields[_key - 1] = arguments[_key];
-      }
-
-      var nonNullGetFormState = getFormState || function (state) {
-        return getIn(state, 'form');
-      };
-      var formState = nonNullGetFormState(state);
-      if (fields && fields.length) {
-        return fields.every(function (field) {
-          var fieldInitial = getIn(formState, form + '.initial.' + field);
-          var fieldValue = getIn(formState, form + '.values.' + field);
-          return deepEqual(fieldInitial, fieldValue);
-        });
-      }
+      var formState = getFormState(state);
       var initial = getIn(formState, form + '.initial') || empty;
       var values = getIn(formState, form + '.values') || initial;
       return deepEqual(initial, values);
@@ -37918,12 +37011,13 @@ var createIsPristine = function createIsPristine(_ref) {
 __webpack_require__.r(__webpack_exports__);
 var createIsSubmitting = function createIsSubmitting(_ref) {
   var getIn = _ref.getIn;
-  return function (form, getFormState) {
+  return function (form) {
+    var getFormState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function (state) {
+      return getIn(state, 'form');
+    };
     return function (state) {
-      var nonNullGetFormState = getFormState || function (state) {
-        return getIn(state, 'form');
-      };
-      return !!getIn(nonNullGetFormState(state), form + '.submitting');
+      var formState = getFormState(state);
+      return getIn(formState, form + '.submitting') || false;
     };
   };
 };
@@ -37944,19 +37038,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _hasError__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../hasError */ "../node_modules/redux-form/es/hasError.js");
 
 
-
 var createIsValid = function createIsValid(structure) {
   var getIn = structure.getIn,
       keys = structure.keys;
 
   var hasError = Object(_hasError__WEBPACK_IMPORTED_MODULE_0__["default"])(structure);
-  return function (form, getFormState) {
+  return function (form) {
+    var getFormState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function (state) {
+      return getIn(state, 'form');
+    };
     var ignoreSubmitErrors = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
     return function (state) {
-      var nonNullGetFormState = getFormState || function (state) {
-        return getIn(state, 'form');
-      };
-      var formState = nonNullGetFormState(state);
+      var formState = getFormState(state);
       var syncError = getIn(formState, form + '.syncError');
       if (syncError) {
         return false;
@@ -38002,24 +37095,15 @@ var createIsValid = function createIsValid(structure) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_es_isEqualWith__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash-es/isEqualWith */ "../node_modules/lodash-es/isEqualWith.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-
 
 
 
 var customizer = function customizer(obj, other) {
   if (obj === other) return true;
-
-  if (!obj && !other) {
-    var objIsEmpty = obj === null || obj === undefined || obj === '';
-    var otherIsEmpty = other === null || other === undefined || other === '';
-    return objIsEmpty === otherIsEmpty;
-  }
+  if ((obj == null || obj === '' || obj === false) && (other == null || other === '' || other === false)) return true;
 
   if (obj && other && obj._error !== other._error) return false;
   if (obj && other && obj._warning !== other._warning) return false;
-  if (react__WEBPACK_IMPORTED_MODULE_1___default.a.isValidElement(obj) || react__WEBPACK_IMPORTED_MODULE_1___default.a.isValidElement(other)) return false;
 };
 
 var deepEqual = function deepEqual(a, b) {
@@ -38048,45 +37132,39 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-function deleteInWithPath(state, first) {
-  if (state === undefined || state === null || first === undefined || first === null) {
-    return state;
-  }
-
+var deleteInWithPath = function deleteInWithPath(state, first) {
   for (var _len = arguments.length, rest = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
     rest[_key - 2] = arguments[_key];
   }
 
+  if (state === undefined || first === undefined) {
+    return state;
+  }
   if (rest.length) {
     if (Array.isArray(state)) {
-      if (isNaN(first)) {
-        throw new Error('Must access array elements with a number, not "' + String(first) + '".');
-      }
-      var firstIndex = Number(first);
-      if (firstIndex < state.length) {
-        var result = deleteInWithPath.apply(undefined, [state && state[firstIndex]].concat(_toConsumableArray(rest)));
-        if (result !== state[firstIndex]) {
+      if (first < state.length) {
+        var result = deleteInWithPath.apply(undefined, [state && state[first]].concat(rest));
+        if (result !== state[first]) {
           var copy = [].concat(_toConsumableArray(state));
-          copy[firstIndex] = result;
+          copy[first] = result;
           return copy;
         }
       }
       return state;
     }
     if (first in state) {
-      var _result = deleteInWithPath.apply(undefined, [state && state[first]].concat(_toConsumableArray(rest)));
+      var _result = deleteInWithPath.apply(undefined, [state && state[first]].concat(rest));
       return state[first] === _result ? state : _extends({}, state, _defineProperty({}, first, _result));
     }
     return state;
   }
   if (Array.isArray(state)) {
     if (isNaN(first)) {
-      throw new Error('Cannot delete non-numerical index from an array. Given: "' + String(first));
+      throw new Error('Cannot delete non-numerical index from an array');
     }
-    var _firstIndex = Number(first);
-    if (_firstIndex < state.length) {
+    if (first < state.length) {
       var _copy = [].concat(_toConsumableArray(state));
-      _copy.splice(_firstIndex, 1);
+      _copy.splice(first, 1);
       return _copy;
     }
     return state;
@@ -38097,7 +37175,7 @@ function deleteInWithPath(state, first) {
     return _copy2;
   }
   return state;
-}
+};
 
 var deleteIn = function deleteIn(state, field) {
   return deleteInWithPath.apply(undefined, [state].concat(_toConsumableArray(Object(lodash_es_toPath__WEBPACK_IMPORTED_MODULE_0__["default"])(field))));
@@ -38132,7 +37210,7 @@ var getIn = function getIn(state, field) {
   }
 
   var result = state;
-  for (var i = 0; i < length && result; ++i) {
+  for (var i = 0; i < length && !!result; ++i) {
     result = result[path[i]];
   }
 
@@ -38165,7 +37243,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var structure = {
   allowsArrayErrors: true,
   empty: {},
@@ -38174,18 +37251,12 @@ var structure = {
   setIn: _setIn__WEBPACK_IMPORTED_MODULE_2__["default"],
   deepEqual: _deepEqual__WEBPACK_IMPORTED_MODULE_3__["default"],
   deleteIn: _deleteIn__WEBPACK_IMPORTED_MODULE_4__["default"],
-  forEach: function forEach(items, callback) {
-    return items.forEach(callback);
-  },
   fromJS: function fromJS(value) {
     return value;
   },
   keys: _keys__WEBPACK_IMPORTED_MODULE_5__["default"],
   size: function size(array) {
     return array ? array.length : 0;
-  },
-  some: function some(items, callback) {
-    return items.some(callback);
   },
   splice: _splice__WEBPACK_IMPORTED_MODULE_0__["default"],
   toJS: function toJS(value) {
@@ -38206,9 +37277,7 @@ var structure = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-
-
-function keys(value) {
+var keys = function keys(value) {
   if (!value) {
     return [];
   }
@@ -38220,8 +37289,7 @@ function keys(value) {
   }
 
   return Object.keys(value);
-}
-
+};
 
 /* harmony default export */ __webpack_exports__["default"] = (keys);
 
@@ -38249,21 +37317,17 @@ var setInWithPath = function setInWithPath(state, value, path, pathIndex) {
   }
 
   var first = path[pathIndex];
-  var firstState = state && (Array.isArray(state) ? state[Number(first)] : state[first]);
-  var next = setInWithPath(firstState, value, path, pathIndex + 1);
+  var next = setInWithPath(state && state[first], value, path, pathIndex + 1);
 
   if (!state) {
-    if (isNaN(first)) {
-      return _defineProperty({}, first, next);
-    }
-    var initialized = [];
-    initialized[parseInt(first, 10)] = next;
+    var initialized = isNaN(first) ? {} : [];
+    initialized[first] = next;
     return initialized;
   }
 
   if (Array.isArray(state)) {
     var copy = [].concat(state);
-    copy[parseInt(first, 10)] = next;
+    copy[first] = next;
     return copy;
   }
 
@@ -38296,18 +37360,18 @@ var splice = function splice(array, index, removeNum, value) {
     if (value === undefined && !removeNum) {
       // inserting undefined
       var _copy2 = [].concat(_toConsumableArray(array));
-      _copy2.splice(index, 0, true); // temporary placeholder
-      _copy2[index] = undefined; // set to undefined
+      _copy2.splice(index, 0, null);
+      _copy2[index] = undefined;
       return _copy2;
     }
     if (value != null) {
       var _copy3 = [].concat(_toConsumableArray(array));
-      _copy3.splice(index, removeNum, value); // removing and adding
-      return _copy3;
+      _copy3.splice(index, removeNum, value // removing and adding
+      );return _copy3;
     }
     var _copy = [].concat(_toConsumableArray(array));
-    _copy.splice(index, removeNum); // removing
-    return _copy;
+    _copy.splice(index, removeNum // removing
+    );return _copy;
   }
   if (removeNum) {
     // trying to remove non-existant item: return original array
@@ -38346,32 +37410,11 @@ var dataKey = 'text';
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-
-
 var getDisplayName = function getDisplayName(Comp) {
   return Comp.displayName || Comp.name || 'Component';
 };
 
-
 /* harmony default export */ __webpack_exports__["default"] = (getDisplayName);
-
-/***/ }),
-
-/***/ "../node_modules/redux-form/es/util/isHotReloading.js":
-/*!************************************************************!*\
-  !*** ../node_modules/redux-form/es/util/isHotReloading.js ***!
-  \************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(module) {var isHotReloading = function isHotReloading() {
-  return !!(typeof module !== 'undefined' && module.hot && typeof module.hot.status === 'function' && module.hot.status() === 'apply');
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (isHotReloading);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../webpack/buildin/harmony-module.js */ "../node_modules/webpack/buildin/harmony-module.js")(module)))
 
 /***/ }),
 
@@ -38384,15 +37427,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return formatName; });
+function formatName(context, name) {
+  var sectionPrefix = context._reduxForm.sectionPrefix;
 
-
-var formatName = function formatName(_ref, name) {
-  var sectionPrefix = _ref._reduxForm.sectionPrefix;
-  return sectionPrefix ? sectionPrefix + '.' + name : name;
-};
-
-
-/* harmony default export */ __webpack_exports__["default"] = (formatName);
+  return !sectionPrefix ? name : sectionPrefix + "." + name;
+}
 
 /***/ }),
 
@@ -38422,10 +37462,7 @@ var customizer = function customizer(objectValue, otherValue, indexOrkey, object
 };
 
 var shallowCompare = function shallowCompare(instance, nextProps, nextState) {
-  var propsEqual = Object(lodash_es_isEqualWith__WEBPACK_IMPORTED_MODULE_0__["default"])(instance.props, nextProps, customizer);
-  var stateEqual = Object(lodash_es_isEqualWith__WEBPACK_IMPORTED_MODULE_0__["default"])(instance.state, nextState, customizer);
-
-  return !propsEqual || !stateEqual;
+  return !Object(lodash_es_isEqualWith__WEBPACK_IMPORTED_MODULE_0__["default"])(instance.props, nextProps, customizer) || !Object(lodash_es_isEqualWith__WEBPACK_IMPORTED_MODULE_0__["default"])(instance.state, nextState, customizer);
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (shallowCompare);
@@ -38450,6 +37487,68 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "../node_modules/redux-form/node_modules/hoist-non-react-statics/index.js":
+/*!********************************************************************************!*\
+  !*** ../node_modules/redux-form/node_modules/hoist-non-react-statics/index.js ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright 2015, Yahoo! Inc.
+ * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
+ */
+
+
+var REACT_STATICS = {
+    childContextTypes: true,
+    contextTypes: true,
+    defaultProps: true,
+    displayName: true,
+    getDefaultProps: true,
+    mixins: true,
+    propTypes: true,
+    type: true
+};
+
+var KNOWN_STATICS = {
+    name: true,
+    length: true,
+    prototype: true,
+    caller: true,
+    arguments: true,
+    arity: true
+};
+
+var isGetOwnPropertySymbolsAvailable = typeof Object.getOwnPropertySymbols === 'function';
+
+module.exports = function hoistNonReactStatics(targetComponent, sourceComponent, customStatics) {
+    if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
+        var keys = Object.getOwnPropertyNames(sourceComponent);
+
+        /* istanbul ignore else */
+        if (isGetOwnPropertySymbolsAvailable) {
+            keys = keys.concat(Object.getOwnPropertySymbols(sourceComponent));
+        }
+
+        for (var i = 0; i < keys.length; ++i) {
+            if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]] && (!customStatics || !customStatics[keys[i]])) {
+                try {
+                    targetComponent[keys[i]] = sourceComponent[keys[i]];
+                } catch (error) {
+
+                }
+            }
+        }
+    }
+
+    return targetComponent;
+};
+
+
+/***/ }),
+
 /***/ "../node_modules/redux/es/redux.js":
 /*!*****************************************!*\
   !*** ../node_modules/redux/es/redux.js ***!
@@ -38465,7 +37564,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "applyMiddleware", function() { return applyMiddleware; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "compose", function() { return compose; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__DO_NOT_USE__ActionTypes", function() { return ActionTypes; });
-/* harmony import */ var symbol_observable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! symbol-observable */ "../node_modules/symbol-observable/es/index.js");
+/* harmony import */ var symbol_observable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! symbol-observable */ "../node_modules/redux/node_modules/symbol-observable/es/index.js");
 
 
 /**
@@ -39058,6 +38157,69 @@ if ("development" !== 'production' && typeof isCrushed.name === 'string' && isCr
 
 /***/ }),
 
+/***/ "../node_modules/redux/node_modules/symbol-observable/es/index.js":
+/*!************************************************************************!*\
+  !*** ../node_modules/redux/node_modules/symbol-observable/es/index.js ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(global, module) {/* harmony import */ var _ponyfill_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ponyfill.js */ "../node_modules/redux/node_modules/symbol-observable/es/ponyfill.js");
+/* global window */
+
+
+var root;
+
+if (typeof self !== 'undefined') {
+  root = self;
+} else if (typeof window !== 'undefined') {
+  root = window;
+} else if (typeof global !== 'undefined') {
+  root = global;
+} else if (true) {
+  root = module;
+} else {}
+
+var result = Object(_ponyfill_js__WEBPACK_IMPORTED_MODULE_0__["default"])(root);
+/* harmony default export */ __webpack_exports__["default"] = (result);
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../webpack/buildin/global.js */ "../node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../../../../webpack/buildin/harmony-module.js */ "../node_modules/webpack/buildin/harmony-module.js")(module)))
+
+/***/ }),
+
+/***/ "../node_modules/redux/node_modules/symbol-observable/es/ponyfill.js":
+/*!***************************************************************************!*\
+  !*** ../node_modules/redux/node_modules/symbol-observable/es/ponyfill.js ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return symbolObservablePonyfill; });
+function symbolObservablePonyfill(root) {
+	var result;
+	var Symbol = root.Symbol;
+
+	if (typeof Symbol === 'function') {
+		if (Symbol.observable) {
+			result = Symbol.observable;
+		} else {
+			result = Symbol('observable');
+			Symbol.observable = result;
+		}
+	} else {
+		result = '@@observable';
+	}
+
+	return result;
+};
+
+
+/***/ }),
+
 /***/ "../node_modules/resolve-pathname/index.js":
 /*!*************************************************!*\
   !*** ../node_modules/resolve-pathname/index.js ***!
@@ -39137,69 +38299,6 @@ function resolvePathname(to) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (resolvePathname);
-
-/***/ }),
-
-/***/ "../node_modules/symbol-observable/es/index.js":
-/*!*****************************************************!*\
-  !*** ../node_modules/symbol-observable/es/index.js ***!
-  \*****************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(global, module) {/* harmony import */ var _ponyfill_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ponyfill.js */ "../node_modules/symbol-observable/es/ponyfill.js");
-/* global window */
-
-
-var root;
-
-if (typeof self !== 'undefined') {
-  root = self;
-} else if (typeof window !== 'undefined') {
-  root = window;
-} else if (typeof global !== 'undefined') {
-  root = global;
-} else if (true) {
-  root = module;
-} else {}
-
-var result = Object(_ponyfill_js__WEBPACK_IMPORTED_MODULE_0__["default"])(root);
-/* harmony default export */ __webpack_exports__["default"] = (result);
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "../node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../../webpack/buildin/harmony-module.js */ "../node_modules/webpack/buildin/harmony-module.js")(module)))
-
-/***/ }),
-
-/***/ "../node_modules/symbol-observable/es/ponyfill.js":
-/*!********************************************************!*\
-  !*** ../node_modules/symbol-observable/es/ponyfill.js ***!
-  \********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return symbolObservablePonyfill; });
-function symbolObservablePonyfill(root) {
-	var result;
-	var Symbol = root.Symbol;
-
-	if (typeof Symbol === 'function') {
-		if (Symbol.observable) {
-			result = Symbol.observable;
-		} else {
-			result = Symbol('observable');
-			Symbol.observable = result;
-		}
-	} else {
-		result = '@@observable';
-	}
-
-	return result;
-};
-
 
 /***/ }),
 

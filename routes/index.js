@@ -15,8 +15,8 @@ const Routes = [
         exact: true,
     },
     {
-        path: '/artist/:artist',
-        component: loadable( () => import( 'components/pages/artist' ) ),
+        path: '/band/:band',
+        component: loadable( () => import( 'components/pages/band' ) ),
         exact: true,
     },
 ]

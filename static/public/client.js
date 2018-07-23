@@ -5750,15 +5750,15 @@ var Routes = [{
     }),
     exact: true
 }, {
-    path: '/artist/:artist',
+    path: '/band/:band',
     component: (0, _loadableComponents2.default)(function () {
         return new Promise(function (resolve) {
             __webpack_require__.e(/*! require.ensure */ 2).then((function (require) {
-                resolve(__webpack_require__(/*! ../components/pages/artist */ "../components/pages/artist.js"));
+                resolve(__webpack_require__(/*! ../components/pages/band */ "../components/pages/band.js"));
             }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
         });
     }, {
-        modules: ['../components/pages/artist']
+        modules: ['../components/pages/band']
     }),
     exact: true
 }];
@@ -5879,6 +5879,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var loadableState = window.__LOADABLE_STATE__;
 
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js');
+}
+
 (0, _loadableComponents.loadComponents)().then(function () {
     (0, _reactDom.hydrate)(_react2.default.createElement(
         _reactRedux.Provider,
@@ -5900,7 +5904,7 @@ var loadableState = window.__LOADABLE_STATE__;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/anakin/Projects/code-challenge/client/index.js */"./index.js");
+module.exports = __webpack_require__(/*! /home/dumitras/Projects/code-challenge/client/index.js */"./index.js");
 
 
 /***/ })

@@ -11,7 +11,7 @@ console.log( 'Running Webpack: ' + Env )
 
 const PATHS = {
     input: path.join( __dirname, `/client/index.js` ),
-    output: path.join( __dirname, `/public` ),
+    output: path.join( __dirname, `/static/public` ),
     src: path.join( __dirname, `/client` ),
 }
 
@@ -22,9 +22,6 @@ const plugins = [
         }
     } ),
 ]
-
-if ( Env === 'production' )
-    plugins.push( new webpack.optimize.UglifyJsPlugin() )
 
 if ( Analyze )
     plugins.push( new BundleAnalyzerPlugin() )

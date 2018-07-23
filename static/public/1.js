@@ -255,13 +255,17 @@ var LazyImage = function (_PureComponent) {
 
             this.Image = new Image();
             this.Image.onload = function (e) {
-                console.log('loaded');
                 _this2.setState({
                     loaded: true,
                     src: src
                 });
             };
             return this.Image.src = src;
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            this.Image.onload = null;
         }
     }, {
         key: 'componentDidUpdate',
@@ -307,7 +311,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _templateObject = _taggedTemplateLiteral(['\n    display: flex;\n    margin: 32px 0px;\n    border: 1px solid #e0e0e0;\n    border-radius: 2px;\n    line-height: 64px;\n    padding: 12px;\n    > input[type="text"] {\n        display: inline-block;\n        vertical-align: middle;\n        width: 100%;\n        line-height: 1;\n        border: none;\n        font-size: 2.4rem;\n        padding: 0px 12px;\n    }\n'], ['\n    display: flex;\n    margin: 32px 0px;\n    border: 1px solid #e0e0e0;\n    border-radius: 2px;\n    line-height: 64px;\n    padding: 12px;\n    > input[type="text"] {\n        display: inline-block;\n        vertical-align: middle;\n        width: 100%;\n        line-height: 1;\n        border: none;\n        font-size: 2.4rem;\n        padding: 0px 12px;\n    }\n']);
+var _templateObject = _taggedTemplateLiteral(['\n    display: flex;\n    margin: 32px 0px;\n    border: 1px solid #e0e0e0;\n    border-radius: 2px;\n    line-height: 64px;\n    padding: 12px;\n    > input[type="text"] {\n        display: inline-block;\n        vertical-align: middle;\n        width: 100%;\n        line-height: 1;\n        border: none;\n        font-size: 2.4rem;\n        padding: 0px 12px;\n        background: #fff;\n        color: #212121;\n    }\n'], ['\n    display: flex;\n    margin: 32px 0px;\n    border: 1px solid #e0e0e0;\n    border-radius: 2px;\n    line-height: 64px;\n    padding: 12px;\n    > input[type="text"] {\n        display: inline-block;\n        vertical-align: middle;\n        width: 100%;\n        line-height: 1;\n        border: none;\n        font-size: 2.4rem;\n        padding: 0px 12px;\n        background: #fff;\n        color: #212121;\n    }\n']);
 
 var _react = __webpack_require__(/*! react */ "../node_modules/react/index.js");
 
@@ -332,8 +336,6 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 var SearchForm = _styledComponents2.default.form(_templateObject);
 
 var Form = function Form(props) {
-
-    var query = props.query || '';
     var handleSubmit = props.handleSubmit;
 
 
@@ -350,21 +352,22 @@ var Form = function Form(props) {
 };
 
 var ReduxForm = (0, _reduxForm.reduxForm)({
-    form: 'search'
+    form: 'search',
+    enableReinitialize: true,
+    destroyOnUnmount: false
 })(Form);
 
 exports.default = function (props) {
     var history = props.history,
         query = props.query;
 
-    console.log(query);
+    var initialValues = {
+        query: query || ''
+    };
+
     return _react2.default.createElement(ReduxForm, {
-        enableReinitialize: true,
-        initialValues: {
-            query: query || ''
-        },
+        initialValues: initialValues,
         onSubmit: function onSubmit(data) {
-            console.log(data);
             var query = data.query;
 
             return history.push('/search?query=' + query);

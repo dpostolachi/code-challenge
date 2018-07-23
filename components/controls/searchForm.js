@@ -19,12 +19,13 @@ const SearchForm = styled.form`
         border: none;
         font-size: 2.4rem;
         padding: 0px 12px;
+        background: #fff;
+        color: #212121;
     }
 `
 
 const Form = ( props ) => {
 
-    const query = props.query || ''
     const { handleSubmit } = props
 
     return (
@@ -39,21 +40,22 @@ const Form = ( props ) => {
 }
 
 const ReduxForm = reduxForm( {
-    form: 'search'
+    form: 'search',
+    enableReinitialize: true,
+    destroyOnUnmount: false
 } )( Form )
 
 
 export default ( props ) => {
 
     const { history, query } = props
-    console.log( query )
+    const initialValues = {
+      query: query || '',
+    }
+
     return <ReduxForm
-        enableReinitialize
-        initialValues={ {
-            query: query || '',
-        } }
+        initialValues={ initialValues }
         onSubmit={ ( data ) => {
-            console.log( data )
             const { query } = data
             return history.push( `/search?query=${query}` )
         } } />
