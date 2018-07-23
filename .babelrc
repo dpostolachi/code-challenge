@@ -1,0 +1,68 @@
+{
+    "env": {
+
+        "server": {
+
+            "presets": [
+
+                "react",
+                [
+                    "env", {
+                    "targets": {
+                        "node": "8.0"
+                    }
+                } ]
+
+            ],
+
+            "plugins": [
+
+                "transform-object-rest-spread",
+                "transform-decorators-legacy",
+                "dynamic-import-node",
+                "loadable-components/babel",
+                [
+                    "module-resolver",
+                    {
+                        "root": [
+                            "./"
+                        ]
+                    }
+                ]
+
+            ]
+        },
+
+        "client": {
+
+            "presets": [
+
+                "react",
+                [
+                    "env", {
+                    "targets": {
+                        "browsers": [ ">1%" ]
+                    }
+                } ]
+
+            ],
+
+            "plugins": [
+
+                "transform-object-rest-spread",
+                "transform-decorators-legacy",
+                "dynamic-import-webpack",
+                "loadable-components/babel",
+                [
+                    "module-resolver",
+                    {
+                        "root": [
+                            "./"
+                        ]
+                    }
+                ]
+
+            ]
+        }
+    }
+}
