@@ -1,6 +1,26 @@
 {
     "env": {
 
+        "test": {
+          "presets": ["env", "react"],
+          "plugins": [
+
+              "transform-object-rest-spread",
+              "transform-decorators-legacy",
+              "dynamic-import-node",
+              "loadable-components/babel",
+              [
+                  "module-resolver",
+                  {
+                      "root": [
+                          "./"
+                      ]
+                  }
+              ]
+
+          ]
+        },
+
         "server": {
 
             "presets": [

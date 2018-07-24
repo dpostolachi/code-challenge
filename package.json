@@ -1,11 +1,19 @@
 {
   "scripts": {
+    "test": "BABEL_ENV=server jest",
     "start": "BABEL_ENV=server NODE_ENV=development node index.js",
     "watch": "BABEL_ENV=client NODE_ENV=development webpack -w",
     "analyze": "BABEL_ENV=client NODE_ENV=production ANALYZE=yep webpack"
   },
+  "jest": {
+    "verbose": true,
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    }
+  },
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-jest": "^23.4.0",
     "babel-loader": "^7.1.5",
     "babel-plugin-dynamic-import-node": "^2.0.0",
     "babel-plugin-dynamic-import-webpack": "^1.0.2",
@@ -46,5 +54,8 @@
     "webpack": "^4.16.2",
     "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^3.1.0"
+  },
+  "devDependencies": {
+    "jest": "^23.4.1"
   }
 }
