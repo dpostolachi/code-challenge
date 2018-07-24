@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import Container from 'components/common/container'
 import Heading from 'components/common/heading'
 import { parse } from 'query-string'
-import { searchBand } from 'actions/search'
+import { fetchFavouriteBands } from 'actions/favouriteBands'
 import { connect } from 'react-redux'
 import LazyImage from 'components/common/lazyImage'
 import BandThumb from 'components/blocks/bandThumb'
@@ -12,7 +12,12 @@ import SearchForm from 'components/controls/searchForm'
 import ResultsContainer from 'components/common/resultsContainer'
 import Placeholder from 'components/common/placeholder'
 
-@connect( ( store ) => store.search )
+@connect( ( store ) => {
+    return {
+        favouriteBands: store.favouriteBands,
+        favourite: store.favourite,
+    }
+} )
 
 export default class SearchPage extends PureComponent {
 
@@ -21,48 +26,41 @@ export default class SearchPage extends PureComponent {
         super( props )
 
         this.state = {
-            query: null,
-        }
-
-    }
-
-    static getParams ( search ) {
-
-        const params = parse( search )
-
-        return {
-            query: params.query || ''
+            bands: [],
         }
 
     }
 
     static getDerivedStateFromProps( nextProps, prevState ) {
-        const newQuery = SearchPage.getParams( nextProps.location.search ).query
-        const thisQuery = ( prevState ) ? prevState.query : null
+        console.log( nextProps )
+        const { favourite } = nextProps
+        const prevBands = ( prevState ) ? prevState.bands : []
 
-        if ( newQuery !== thisQuery ) {
-            console.log( 'fetching' )
-            nextProps.dispatch( searchBand( newQuery ) )
+        if ( favourite.toString() !== prevBands.toString() ) {
+            nextProps.dispatch( fetchFavouriteBands( favourite ) )
         }
         return {
-            query: newQuery
+            bands: favourite
         }
     }
 
     render () {
 
-        const { query } = this.state
-        const { band, pending, history, fetched } = this.props
+        const { fetched, pending, data } = this.props.favouriteBands
+        const { favourite } = this.props
+
         return (
             <Container>
-                <SearchForm history={ history } query={ query } />
-                <Heading>Search result for "{ query }"</Heading>
+                <Heading>Favourite bands</Heading>
                 <ResultsContainer className={ ( pending ) ? 'loading' : null }>
+                    { ( favourite.length === 0 ) ? <Placeholder>You have no favourite bands, yet</Placeholder> : null  }
                     {
-                        ( fetched && band ) ? (
-                            <BandThumb { ...band } />
+                        ( fetched && data ) ? (
+                            data.map( ( band, key ) => {
+                                return <BandThumb { ...band } key={ key } />
+                            } )
                         ) : (
-                            <Placeholder>{ ( pending ) ? 'Loading...' : 'No band found' }</Placeholder>
+                            <Placeholder>{ ( pending ) ? 'Loading...' : 'No events found' }</Placeholder>
                         )
                     }
                 </ResultsContainer>

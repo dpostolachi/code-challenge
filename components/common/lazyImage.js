@@ -9,6 +9,11 @@ const Preloader = styled.div`
     background: #E0E0E0;
     display: inline-block;
     vertical-align: middle;
+    > img {
+        position: relative;
+        max-width: 100%;
+        max-height: 100%;
+    }
 `
 
 export default class LazyImage extends PureComponent {
@@ -68,9 +73,11 @@ export default class LazyImage extends PureComponent {
         const title = this.props.title || ''
         const { loaded, src } = this.state
 
-        return ( loaded ) ? (
-            <img src={ src } alt={ title } title={ title } />
-        ) : <Preloader { ...this.props } />
+        return (
+            <Preloader { ...this.props }>
+                { ( loaded ) ? <img src={ src } alt={ title } title={ title } /> : null }
+            </Preloader>
+        )
     }
 
 }

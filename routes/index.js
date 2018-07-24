@@ -15,6 +15,11 @@ const Routes = [
         exact: true,
     },
     {
+        path: '/favourites',
+        component: loadable( () => import( 'components/pages/favourites' ) ),
+        exact: true,
+    },
+    {
         path: '/band/:band',
         component: loadable( () => import( 'components/pages/band' ) ),
         exact: true,

@@ -221,6 +221,93 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "../actions/band.js":
+/*!**************************!*\
+  !*** ../actions/band.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.pushFavouriteBand = exports.loadFavouriteBands = exports.fetchBand = undefined;
+
+var _api = __webpack_require__(/*! ../settings/api */ "../settings/api.js");
+
+var _nodeFetch = __webpack_require__(/*! node-fetch */ "../node_modules/node-fetch/browser.js");
+
+var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
+
+var _browserCookies = __webpack_require__(/*! browser-cookies */ "../node_modules/browser-cookies/src/browser-cookies.js");
+
+var _browserCookies2 = _interopRequireDefault(_browserCookies);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var fetchBand = exports.fetchBand = function fetchBand(bandName) {
+
+    return function (dispatch) {
+
+        dispatch({
+            type: 'FETCH_BAND_PENDING'
+        });
+
+        return (0, _nodeFetch2.default)(_api.ARTISTS_URL + '/' + bandName + '?app_id=' + _api.API_KEY, { cache: "force-cache" }).then(function (resp) {
+            return resp.json();
+        }).then(function (data) {
+            return data && !data.error ? dispatch({
+                type: 'FETCH_BAND_FULFILLED',
+                payload: data
+            }) : dispatch({
+                type: 'FETCH_BAND_NO_RESULT',
+                payload: null
+            });
+        }).catch(function (e) {
+            return dispatch({
+                type: 'FETCH_BAND_REJECTED'
+            });
+        });
+    };
+};
+
+var getBandsFromCookies = function getBandsFromCookies() {
+    var favBands = _browserCookies2.default.get('favouriteBands') || [];
+    if (typeof favBands === 'string') favBands = JSON.parse(favBands);
+    return favBands;
+};
+
+var loadFavouriteBands = exports.loadFavouriteBands = function loadFavouriteBands() {
+    return function (dispatch) {
+        return dispatch({
+            type: 'UPDATE_FAVORITES',
+            payload: getBandsFromCookies()
+        });
+    };
+};
+
+var pushFavouriteBand = exports.pushFavouriteBand = function pushFavouriteBand(bandName) {
+
+    return function (dispatch) {
+
+        var favBands = getBandsFromCookies();
+
+        if (favBands.indexOf(bandName) == -1) favBands.push(bandName);else favBands.splice(favBands.indexOf(bandName), 1);
+
+        _browserCookies2.default.set('favouriteBands', JSON.stringify(favBands), { expires: 30 });
+
+        return dispatch({
+            type: 'UPDATE_FAVORITES',
+            payload: favBands
+        });
+    };
+};
+
+/***/ }),
+
 /***/ "../components/common/button.js":
 /*!**************************************!*\
   !*** ../components/common/button.js ***!
@@ -301,8 +388,10 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _templateObject = _taggedTemplateLiteral(['\n    line-height: 80px;\n    background: #000;\n    color: #fff;\n    margin-bottom: 80px;\n'], ['\n    line-height: 80px;\n    background: #000;\n    color: #fff;\n    margin-bottom: 80px;\n']),
-    _templateObject2 = _taggedTemplateLiteral(['\n    display: flex;\n    justify-content: space-between;\n'], ['\n    display: flex;\n    justify-content: space-between;\n']);
+var _templateObject = _taggedTemplateLiteral(['\n    display: block;\n    position: absolute;\n    top: 0px;\n    left: 0px;\n    right: 0px;\n    bottom: 0px;\n    line-height: 64px;\n    font-size: 1.4rem;\n    color: ', ';\n    font-weight: bold;\n'], ['\n    display: block;\n    position: absolute;\n    top: 0px;\n    left: 0px;\n    right: 0px;\n    bottom: 0px;\n    line-height: 64px;\n    font-size: 1.4rem;\n    color: ', ';\n    font-weight: bold;\n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n    line-height: 80px;\n    background: #000;\n    color: #fff;\n    margin-bottom: 80px;\n'], ['\n    line-height: 80px;\n    background: #000;\n    color: #fff;\n    margin-bottom: 80px;\n']),
+    _templateObject3 = _taggedTemplateLiteral(['\n    display: flex;\n    justify-content: space-between;\n'], ['\n    display: flex;\n    justify-content: space-between;\n']),
+    _templateObject4 = _taggedTemplateLiteral(['\n    &:hover{\n        > span{\n            color: #ffffff;\n        }\n    }\n'], ['\n    &:hover{\n        > span{\n            color: #ffffff;\n        }\n    }\n']);
 
 var _react = __webpack_require__(/*! react */ "../node_modules/react/index.js");
 
@@ -328,13 +417,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var Header = _styledComponents2.default.header(_templateObject);
+var Badge = _styledComponents2.default.span(_templateObject, _colors.mainColor);
 
-var Nav = _styledComponents2.default.nav(_templateObject2);
+var Header = _styledComponents2.default.header(_templateObject2);
 
-exports.default = function () {
+var Nav = _styledComponents2.default.nav(_templateObject3);
 
-    console.log(_colors.mainColor);
+var FavButton = (0, _styledComponents2.default)(_button2.default)(_templateObject4);
+
+exports.default = function (props) {
+    var favourite = props.favourite;
+
 
     return _react2.default.createElement(
         Header,
@@ -356,11 +449,16 @@ exports.default = function () {
                 ),
                 _react2.default.createElement(
                     _reactRouterDom.Link,
-                    { to: '/favorites' },
+                    { to: '/favourites' },
                     _react2.default.createElement(
-                        _button2.default,
+                        FavButton,
                         { color: '#ffffff', hoverColor: _colors.mainColor, hoverBackground: 'none', background: 'none', type: 'button' },
-                        _react2.default.createElement('i', { className: 'icon icon-heart' })
+                        _react2.default.createElement('i', { className: 'icon icon-heart' }),
+                        _react2.default.createElement(
+                            Badge,
+                            null,
+                            favourite.length
+                        )
                     )
                 )
             )
@@ -383,6 +481,11 @@ exports.default = function () {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.default = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _dec, _class;
 
 var _templateObject = _taggedTemplateLiteral(['\n    font-size: 62.5%;\n    * {\n        box-sizing: border-box;\n        transition: all 0.2s ease-in-out;\n    }\n'], ['\n    font-size: 62.5%;\n    * {\n        box-sizing: border-box;\n        transition: all 0.2s ease-in-out;\n    }\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n    font-size: 1.6rem;\n    font-family: sans-serif;\n    margin: 0;\n    color: #212121;\n'], ['\n    font-size: 1.6rem;\n    font-family: sans-serif;\n    margin: 0;\n    color: #212121;\n']);
@@ -399,7 +502,17 @@ var _header = __webpack_require__(/*! ../controls/header */ "../components/contr
 
 var _header2 = _interopRequireDefault(_header);
 
+var _reactRedux = __webpack_require__(/*! react-redux */ "../node_modules/react-redux/es/index.js");
+
+var _band = __webpack_require__(/*! ../../actions/band */ "../actions/band.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -407,35 +520,61 @@ var Html = _styledComponents2.default.html(_templateObject);
 
 var Body = _styledComponents2.default.body(_templateObject2);
 
-exports.default = function (props) {
-    var stylesheet = props.stylesheet,
-        loadableState = props.loadableState;
+var Layout = (_dec = (0, _reactRedux.connect)(function (store) {
+    return { favourite: store.favourite };
+}), _dec(_class = function (_PureComponent) {
+    _inherits(Layout, _PureComponent);
 
-    return _react2.default.createElement(
-        Html,
-        null,
-        _react2.default.createElement(
-            'head',
-            null,
-            _react2.default.createElement(
-                'title',
+    function Layout() {
+        _classCallCheck(this, Layout);
+
+        return _possibleConstructorReturn(this, (Layout.__proto__ || Object.getPrototypeOf(Layout)).apply(this, arguments));
+    }
+
+    _createClass(Layout, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.props.dispatch((0, _band.loadFavouriteBands)());
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var _props = this.props,
+                stylesheet = _props.stylesheet,
+                loadableState = _props.loadableState,
+                favourite = _props.favourite;
+
+            console.log('l', this.props);
+            return _react2.default.createElement(
+                Html,
                 null,
-                'Hello world'
-            ),
-            _react2.default.createElement('link', { rel: 'stylesheet', type: 'text/css', href: '/public/fontello/css/fontello.css' }),
-            stylesheet ? stylesheet.getStyleElement() : null
-        ),
-        _react2.default.createElement(
-            Body,
-            null,
-            _react2.default.createElement(_header2.default, null),
-            props.children,
-            loadableState === null ? null : loadableState.getScriptElement ? loadableState.getScriptElement() : _react2.default.createElement('script', { dangerouslySetInnerHTML: { __html: 'window.__LOADABLE_STATE__ = ' + JSON.stringify(loadableState) + ';' } }),
-            _react2.default.createElement('script', { src: '/public/vendor.js' }),
-            _react2.default.createElement('script', { src: '/public/client.js' })
-        )
-    );
-};
+                _react2.default.createElement(
+                    'head',
+                    null,
+                    _react2.default.createElement(
+                        'title',
+                        null,
+                        'Hello world'
+                    ),
+                    _react2.default.createElement('link', { rel: 'stylesheet', type: 'text/css', href: '/public/fontello/css/fontello.css' }),
+                    stylesheet ? stylesheet.getStyleElement() : null
+                ),
+                _react2.default.createElement(
+                    Body,
+                    null,
+                    _react2.default.createElement(_header2.default, { favourite: favourite }),
+                    this.props.children,
+                    loadableState === null ? null : loadableState.getScriptElement ? loadableState.getScriptElement() : _react2.default.createElement('script', { dangerouslySetInnerHTML: { __html: 'window.__LOADABLE_STATE__ = ' + JSON.stringify(loadableState) + ';' } }),
+                    _react2.default.createElement('script', { src: '/public/vendor.js' }),
+                    _react2.default.createElement('script', { src: '/public/client.js' })
+                )
+            );
+        }
+    }]);
+
+    return Layout;
+}(_react.PureComponent)) || _class);
+exports.default = Layout;
 
 /***/ }),
 
@@ -454,6 +593,110 @@ Object.defineProperty(exports, "__esModule", {
 });
 var mainColor = exports.mainColor = '#E91E63';
 var mainColorDark = exports.mainColorDark = "#D81B60";
+
+/***/ }),
+
+/***/ "../node_modules/browser-cookies/src/browser-cookies.js":
+/*!**************************************************************!*\
+  !*** ../node_modules/browser-cookies/src/browser-cookies.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+exports.defaults = {};
+
+exports.set = function(name, value, options) {
+  // Retrieve options and defaults
+  var opts = options || {};
+  var defaults = exports.defaults;
+
+  // Apply default value for unspecified options
+  var expires  = opts.expires  || defaults.expires;
+  var domain   = opts.domain   || defaults.domain;
+  var path     = opts.path     !== undefined ? opts.path     : (defaults.path !== undefined ? defaults.path : '/');
+  var secure   = opts.secure   !== undefined ? opts.secure   : defaults.secure;
+  var httponly = opts.httponly !== undefined ? opts.httponly : defaults.httponly;
+  var samesite = opts.samesite !== undefined ? opts.samesite : defaults.samesite;
+
+  // Determine cookie expiration date
+  // If succesful the result will be a valid Date, otherwise it will be an invalid Date or false(ish)
+  var expDate = expires ? new Date(
+      // in case expires is an integer, it should specify the number of days till the cookie expires
+      typeof expires === 'number' ? new Date().getTime() + (expires * 864e5) :
+      // else expires should be either a Date object or in a format recognized by Date.parse()
+      expires
+  ) : 0;
+
+  // Set cookie
+  document.cookie = name.replace(/[^+#$&^`|]/g, encodeURIComponent)                // Encode cookie name
+  .replace('(', '%28')
+  .replace(')', '%29') +
+  '=' + value.replace(/[^+#$&/:<-\[\]-}]/g, encodeURIComponent) +                  // Encode cookie value (RFC6265)
+  (expDate && expDate.getTime() >= 0 ? ';expires=' + expDate.toUTCString() : '') + // Add expiration date
+  (domain   ? ';domain=' + domain     : '') +                                      // Add domain
+  (path     ? ';path='   + path       : '') +                                      // Add path
+  (secure   ? ';secure'               : '') +                                      // Add secure option
+  (httponly ? ';httponly'             : '') +                                      // Add httponly option
+  (samesite ? ';samesite=' + samesite : '');                                       // Add samesite option
+};
+
+exports.get = function(name) {
+  var cookies = document.cookie.split(';');
+  
+  // Iterate all cookies
+  while(cookies.length) {
+    var cookie = cookies.pop();
+
+    // Determine separator index ("name=value")
+    var separatorIndex = cookie.indexOf('=');
+
+    // IE<11 emits the equal sign when the cookie value is empty
+    separatorIndex = separatorIndex < 0 ? cookie.length : separatorIndex;
+
+    var cookie_name = decodeURIComponent(cookie.slice(0, separatorIndex).replace(/^\s+/, ''));
+
+    // Return cookie value if the name matches
+    if (cookie_name === name) {
+      return decodeURIComponent(cookie.slice(separatorIndex + 1));
+    }
+  }
+
+  // Return `null` as the cookie was not found
+  return null;
+};
+
+exports.erase = function(name, options) {
+  exports.set(name, '', {
+    expires:  -1,
+    domain:   options && options.domain,
+    path:     options && options.path,
+    secure:   0,
+    httponly: 0}
+  );
+};
+
+exports.all = function() {
+  var all = {};
+  var cookies = document.cookie.split(';');
+
+  // Iterate all cookies
+  while(cookies.length) {
+    var cookie = cookies.pop();
+
+    // Determine separator index ("name=value")
+    var separatorIndex = cookie.indexOf('=');
+
+    // IE<11 emits the equal sign when the cookie value is empty
+    separatorIndex = separatorIndex < 0 ? cookie.length : separatorIndex;
+
+    // add the cookie name and value to the `all` object
+    var cookie_name = decodeURIComponent(cookie.slice(0, separatorIndex).replace(/^\s+/, ''));
+    all[cookie_name] = decodeURIComponent(cookie.slice(separatorIndex + 1));
+  }
+
+  return all;
+};
+
 
 /***/ }),
 
@@ -817,6 +1060,28 @@ var componentTracker = tracker;
 /* harmony default export */ __webpack_exports__["default"] = (loadable);
 
 //# sourceMappingURL=loadable-components.es.js.map
+
+
+/***/ }),
+
+/***/ "../node_modules/node-fetch/browser.js":
+/*!*********************************************!*\
+  !*** ../node_modules/node-fetch/browser.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = exports = self.fetch;
+
+// Needed for TypeScript and Webpack.
+exports.default = self.fetch.bind(self);
+
+exports.Headers = self.Headers;
+exports.Request = self.Request;
+exports.Response = self.Response;
 
 
 /***/ }),
@@ -5626,6 +5891,163 @@ var styled = _styled(StyledComponent, constructWithOptions);
 
 /***/ }),
 
+/***/ "../reducers/band.js":
+/*!***************************!*\
+  !*** ../reducers/band.js ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+// For displaying band details
+
+exports.default = function (state, action) {
+
+    switch (action.type) {
+
+        case 'FETCH_BAND_PENDING':
+            return _extends({}, state, { pending: true, fetched: false });
+
+        case 'FETCH_BAND_NO_RESULT':
+            return _extends({}, state, { pending: false, fetched: true, data: null });
+
+        case 'FETCH_BAND_REJECTED':
+            return _extends({}, state, { pending: false, data: null, fetched: true });
+
+        case 'FETCH_BAND_FULFILLED':
+            return _extends({}, state, { pending: false, data: action.payload, fetched: true });
+
+        default:
+            return _extends({}, state);
+    }
+};
+
+/***/ }),
+
+/***/ "../reducers/events.js":
+/*!*****************************!*\
+  !*** ../reducers/events.js ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+// For displating band's events
+
+exports.default = function (state, action) {
+
+    switch (action.type) {
+
+        case 'EVENTS_PENDING':
+            return _extends({}, state, { pending: true, fetched: false });
+
+        case 'EVENTS_NO_RESULT':
+            return _extends({}, state, { pending: false, fetched: true, data: [] });
+
+        case 'EVENTS_REJECTED':
+            return _extends({}, state, { pending: false, data: [], fetched: true });
+
+        case 'EVENTS_FULFILLED':
+            return _extends({}, state, { pending: false, data: action.payload, fetched: true });
+
+        default:
+            return _extends({}, state);
+    }
+};
+
+/***/ }),
+
+/***/ "../reducers/favourite.js":
+/*!********************************!*\
+  !*** ../reducers/favourite.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+// For synchronizing redux with cookies
+
+exports.default = function () {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+    var action = arguments[1];
+
+    switch (action.type) {
+
+        case 'UPDATE_FAVORITES':
+            return [].concat(_toConsumableArray(action.payload));
+
+        default:
+            return [].concat(_toConsumableArray(state));
+    }
+};
+
+/***/ }),
+
+/***/ "../reducers/favouriteBands.js":
+/*!*************************************!*\
+  !*** ../reducers/favouriteBands.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+// For displaying favourite bands
+
+exports.default = function (state, action) {
+
+    switch (action.type) {
+
+        case 'FAVOURITE_BANDS_PENDING':
+            return _extends({}, state, { pending: true, fetched: false });
+
+        case 'FAVOURITE_BANDS_NO_RESULT':
+            return _extends({}, state, { pending: false, fetched: true, data: [] });
+
+        case 'FAVOURITE_BANDS_REJECTED':
+            return _extends({}, state, { pending: false, data: [], fetched: true });
+
+        case 'FAVOURITE_BANDS_FULFILLED':
+            return _extends({}, state, { pending: false, data: action.payload, fetched: true });
+
+        default:
+            return _extends({}, state);
+    }
+};
+
+/***/ }),
+
 /***/ "../reducers/index.js":
 /*!****************************!*\
   !*** ../reducers/index.js ***!
@@ -5646,12 +6068,32 @@ var _search = __webpack_require__(/*! ./search */ "../reducers/search.js");
 
 var _search2 = _interopRequireDefault(_search);
 
+var _band = __webpack_require__(/*! ./band */ "../reducers/band.js");
+
+var _band2 = _interopRequireDefault(_band);
+
+var _favourite = __webpack_require__(/*! ./favourite */ "../reducers/favourite.js");
+
+var _favourite2 = _interopRequireDefault(_favourite);
+
+var _favouriteBands = __webpack_require__(/*! ./favouriteBands */ "../reducers/favouriteBands.js");
+
+var _favouriteBands2 = _interopRequireDefault(_favouriteBands);
+
+var _events = __webpack_require__(/*! ./events */ "../reducers/events.js");
+
+var _events2 = _interopRequireDefault(_events);
+
 var _reduxForm = __webpack_require__(/*! redux-form */ "../node_modules/redux-form/es/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _redux.combineReducers)({
     search: _search2.default,
+    band: _band2.default,
+    favouriteBands: _favouriteBands2.default,
+    events: _events2.default,
+    favourite: _favourite2.default,
     form: _reduxForm.reducer
 });
 
@@ -5673,18 +6115,23 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+// For displaying search result
+
 exports.default = function (state, action) {
 
     switch (action.type) {
 
         case 'SEARCH_PENDING':
-            return _extends({}, state, { pending: true });
+            return _extends({}, state, { pending: true, fetched: false });
+
+        case 'SEARCH_NO_RESULT':
+            return _extends({}, state, { pending: false, fetched: true, band: null });
 
         case 'SEARCH_REJECTED':
-            return _extends({}, state, { pending: false, band: null });
+            return _extends({}, state, { pending: false, band: null, fetched: true });
 
         case 'SEARCH_FULFILLED':
-            return _extends({}, state, { pending: false, band: action.payload });
+            return _extends({}, state, { pending: false, band: action.payload, fetched: true });
 
         default:
             return _extends({}, state);
@@ -5729,7 +6176,7 @@ var Routes = [{
     path: '/',
     component: (0, _loadableComponents2.default)(function () {
         return new Promise(function (resolve) {
-            __webpack_require__.e(/*! require.ensure */ 0).then((function (require) {
+            __webpack_require__.e(/*! require.ensure */ 1).then((function (require) {
                 resolve(__webpack_require__(/*! ../components/pages/home */ "../components/pages/home.js"));
             }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
         });
@@ -5741,7 +6188,7 @@ var Routes = [{
     path: '/search',
     component: (0, _loadableComponents2.default)(function () {
         return new Promise(function (resolve) {
-            __webpack_require__.e(/*! require.ensure */ 1).then((function (require) {
+            Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(2)]).then((function (require) {
                 resolve(__webpack_require__(/*! ../components/pages/search */ "../components/pages/search.js"));
             }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
         });
@@ -5750,10 +6197,22 @@ var Routes = [{
     }),
     exact: true
 }, {
+    path: '/favourites',
+    component: (0, _loadableComponents2.default)(function () {
+        return new Promise(function (resolve) {
+            Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3)]).then((function (require) {
+                resolve(__webpack_require__(/*! ../components/pages/favourites */ "../components/pages/favourites.js"));
+            }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+        });
+    }, {
+        modules: ['../components/pages/favourites']
+    }),
+    exact: true
+}, {
     path: '/band/:band',
     component: (0, _loadableComponents2.default)(function () {
         return new Promise(function (resolve) {
-            __webpack_require__.e(/*! require.ensure */ 2).then((function (require) {
+            Promise.all(/*! require.ensure */[__webpack_require__.e(5), __webpack_require__.e(4)]).then((function (require) {
                 resolve(__webpack_require__(/*! ../components/pages/band */ "../components/pages/band.js"));
             }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
         });
@@ -5780,6 +6239,27 @@ exports.default = function (props) {
 
 /***/ }),
 
+/***/ "../settings/api.js":
+/*!**************************!*\
+  !*** ../settings/api.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var API_KEY = exports.API_KEY = 'anykey';
+// export const API_KEY = 'eyJUb2tlblR5cGUiOiJBUEkiLCJzYWx0IjoiZmMwNjhjYzItNGY3NC00ZTI2LThmZjMtY2M5ZWQwNWIzZDFhIiwiYWxnIjoiSFM1MTIifQ.eyJqdGkiOiJjNzRhNTlmOC1kYjE2LTQzNWEtYWIzYS1hNjc4MzcwYjU5YzgiLCJpYXQiOjE1MzIzNTkwMTd9.H65fOpHvQPgeAG3sLViMXXYVao8GpLMn6paB5gSfQgkkjxjJykL8RPhivoORlrfKaiHK2GZIoanJAWRHDxbgjQ'
+
+var ENDPOINT = exports.ENDPOINT = 'https://rest.bandsintown.com';
+var ARTISTS_URL = exports.ARTISTS_URL = ENDPOINT + '/artists';
+
+/***/ }),
+
 /***/ "../store/default.js":
 /*!***************************!*\
   !*** ../store/default.js ***!
@@ -5798,7 +6278,18 @@ exports.default = {
         pending: false,
         band: null,
         fetched: false
-    }
+    },
+    band: {
+        pending: false,
+        data: null,
+        fetched: false
+    },
+    events: {
+        pending: false,
+        data: null,
+        fetched: false
+    },
+    favourite: []
 };
 
 /***/ }),
@@ -5904,7 +6395,7 @@ if ('serviceWorker' in navigator) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/dumitras/Projects/code-challenge/client/index.js */"./index.js");
+module.exports = __webpack_require__(/*! /Users/anakin/Projects/code-challenge/client/index.js */"./index.js");
 
 
 /***/ })

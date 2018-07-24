@@ -3,18 +3,28 @@ import LazyImage from 'components/common/lazyImage'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { mainColor } from 'components/variables/colors'
-
+import { device } from 'components/variables/media'
 
 const BandContainer = styled.div`
     display: flex;
+    flex-wrap: wrap;
+    @media ${device.mobileL}{
+        flex-wrap: nowrap;
+    }
+    &:hover{
+        background: #FAFAFA;
+    }
 `
+
 const BandThumb = styled.span`
     display: block;
-    width: 160px;
     height: 160px;
-    img {
-        position: relative;
-        max-width: 100%;
+    width: 100%;
+    margin: 24px 0px;
+    text-align: center;
+    @media ${device.mobileL}{
+        width: 160px;
+        margin: 0px;
     }
 `
 
@@ -31,7 +41,7 @@ const BandName = styled.span`
         color: #212121;
         text-decoration: none;
         &:hover{
-            color: ${mainColor};
+            color: ${ mainColor };
         }
     }
 `
@@ -40,28 +50,29 @@ const BandUpcomingEvents = styled.span`
     display: table;
     font-size: 1.8rem;
     margin: 12px 0px;
+    > i {
+        color: ${ mainColor };
+        font-style: normal;
+    }
 `
 
 export default ( props ) => {
     const {
         name,
-        url,
         thumb_url,
-        facebook_page_url,
-        id,
         upcoming_event_count,
     } = props
 
     return (
         <BandContainer>
             <BandThumb>
-                <Link to={ `/band/${id}` }>
+                <Link to={ `/band/${name}` }>
                     <LazyImage width={ 160 } height={ 160 } image={ thumb_url } title={ name } />
                 </Link>
             </BandThumb>
             <BandDetails>
-                <BandName to={ `/band/${id}` }>
-                    <Link to={ `/band/${id}` }>
+                <BandName>
+                    <Link to={ `/band/${name}` }>
                         { name }
                     </Link>
                 </BandName>

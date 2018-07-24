@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Button from 'components/common/button'
 import { mainColor, mainColorDark } from 'components/variables/colors'
 import { Field, reduxForm } from 'redux-form'
+import { device } from 'components/variables/media'
 
 const SearchForm = styled.form`
     display: flex;
@@ -14,13 +15,16 @@ const SearchForm = styled.form`
     > input[type="text"] {
         display: inline-block;
         vertical-align: middle;
-        width: 100%;
+        width: calc( 100% - 64px );
         line-height: 1;
         border: none;
-        font-size: 2.4rem;
+        font-size: 2rem;
         padding: 0px 12px;
         background: #fff;
         color: #212121;
+        @media ${device.mobileL} {
+            font-size: 2.4rem;
+        }
     }
 `
 

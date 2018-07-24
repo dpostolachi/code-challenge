@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import Header from 'components/controls/header'
+import { connect } from 'react-redux'
+import { loadFavouriteBands } from 'actions/band'
 
 const Html = styled.html`
     font-size: 62.5%;
@@ -17,26 +19,38 @@ const Body = styled.body`
     color: #212121;
 `
 
-export default ( props ) => {
-    const { stylesheet, loadableState } = props
-    return (
-        <Html>
-            <head>
-                <title>Hello world</title>
-                 <link rel="stylesheet" type="text/css" href="/public/fontello/css/fontello.css" />
-                { ( stylesheet ) ? stylesheet.getStyleElement() : null }
-            </head>
-            <Body>
-                <Header />
-                { props.children }
-                {
-                    ( loadableState === null ) ? null
-                        : ( loadableState.getScriptElement ) ? loadableState.getScriptElement()
-                            : <script dangerouslySetInnerHTML={ { __html: `window.__LOADABLE_STATE__ = ${ JSON.stringify( loadableState ) };` } } />
-                }
-                <script src="/public/vendor.js" />
-                <script src="/public/client.js" />
-            </Body>
-        </Html>
-    )
+@connect( ( store ) => {
+    return { favourite: store.favourite }
+} )
+
+export default class Layout extends PureComponent {
+
+    componentDidMount() {
+        this.props.dispatch( loadFavouriteBands() )
+    }
+
+    render () {
+        const { stylesheet, loadableState, favourite } = this.props
+        console.log( 'l', this.props )
+        return (
+            <Html>
+                <head>
+                    <title>Hello world</title>
+                     <link rel="stylesheet" type="text/css" href="/public/fontello/css/fontello.css" />
+                    { ( stylesheet ) ? stylesheet.getStyleElement() : null }
+                </head>
+                <Body>
+                    <Header favourite={ favourite }/>
+                    { this.props.children }
+                    {
+                        ( loadableState === null ) ? null
+                            : ( loadableState.getScriptElement ) ? loadableState.getScriptElement()
+                                : <script dangerouslySetInnerHTML={ { __html: `window.__LOADABLE_STATE__ = ${ JSON.stringify( loadableState ) };` } } />
+                    }
+                    <script src="/public/vendor.js" />
+                    <script src="/public/client.js" />
+                </Body>
+            </Html>
+        )
+    }
 }

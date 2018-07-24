@@ -5,6 +5,19 @@ import Button from 'components/common/button'
 import { mainColor } from 'components/variables/colors'
 import { Link } from 'react-router-dom'
 
+const Badge = styled.span`
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    line-height: 64px;
+    font-size: 1.4rem;
+    color: ${ mainColor };
+    font-weight: bold;
+`
+
 const Header = styled.header`
     line-height: 80px;
     background: #000;
@@ -17,9 +30,17 @@ const Nav = styled.nav`
     justify-content: space-between;
 `
 
-export default () => {
+const FavButton = styled(Button)`
+    &:hover{
+        > span{
+            color: #ffffff;
+        }
+    }
+`
 
-    console.log( mainColor )
+export default ( props ) => {
+
+    const { favourite } = props
 
     return (
         <Header>
@@ -30,10 +51,11 @@ export default () => {
                             <i className="icon icon-home" />
                         </Button>
                     </Link>
-                    <Link to="/favorites">
-                        <Button color="#ffffff" hoverColor={ mainColor } hoverBackground="none" background="none" type="button">
+                    <Link to="/favourites">
+                        <FavButton color="#ffffff" hoverColor={ mainColor } hoverBackground="none" background="none" type="button">
                             <i className="icon icon-heart" />
-                        </Button>
+                            <Badge>{ favourite.length }</Badge>
+                        </FavButton>
                     </Link>
                 </Nav>
             </Container>
