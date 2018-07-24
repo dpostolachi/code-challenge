@@ -30,8 +30,9 @@ export default class Layout extends PureComponent {
     }
 
     render () {
+
         const { stylesheet, loadableState, favourite } = this.props
-        console.log( 'l', this.props )
+        
         return (
             <Html>
                 <head>

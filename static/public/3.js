@@ -201,7 +201,6 @@ var SearchPage = (_dec = (0, _reactRedux.connect)(function (store) {
     }], [{
         key: 'getDerivedStateFromProps',
         value: function getDerivedStateFromProps(nextProps, prevState) {
-            console.log(nextProps);
             var favourite = nextProps.favourite;
 
             var prevBands = prevState ? prevState.bands : [];

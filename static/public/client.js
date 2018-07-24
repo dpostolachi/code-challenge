@@ -295,7 +295,7 @@ var pushFavouriteBand = exports.pushFavouriteBand = function pushFavouriteBand(b
 
         var favBands = getBandsFromCookies();
 
-        if (favBands.indexOf(bandName) == -1) favBands.push(bandName);else favBands.splice(favBands.indexOf(bandName), 1);
+        if (favBands.indexOf(bandName) == -1) favBands.unshift(bandName);else favBands.splice(favBands.indexOf(bandName), 1);
 
         _browserCookies2.default.set('favouriteBands', JSON.stringify(favBands), { expires: 30 });
 
@@ -544,7 +544,7 @@ var Layout = (_dec = (0, _reactRedux.connect)(function (store) {
                 loadableState = _props.loadableState,
                 favourite = _props.favourite;
 
-            console.log('l', this.props);
+
             return _react2.default.createElement(
                 Html,
                 null,

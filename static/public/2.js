@@ -188,7 +188,6 @@ var SearchPage = (_dec = (0, _reactRedux.connect)(function (store) {
             var thisQuery = prevState ? prevState.query : null;
 
             if (newQuery !== thisQuery) {
-                console.log('fetching');
                 nextProps.dispatch((0, _search.searchBand)(newQuery));
             }
             return {

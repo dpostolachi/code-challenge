@@ -41,7 +41,6 @@ export default class SearchPage extends PureComponent {
         const thisQuery = ( prevState ) ? prevState.query : null
 
         if ( newQuery !== thisQuery ) {
-            console.log( 'fetching' )
             nextProps.dispatch( searchBand( newQuery ) )
         }
         return {

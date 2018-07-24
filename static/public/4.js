@@ -556,10 +556,24 @@ var BandPage = (_dec = (0, _reactRedux.connect)(function (store) {
                 band = _props.band,
                 favourite = _props.favourite,
                 events = _props.events;
+            var fetched = band.fetched,
+                pending = band.pending;
 
 
-            if (!band.data) {
-                return null;
+            if (pending || !band.data) {
+                return _react2.default.createElement(
+                    _container2.default,
+                    null,
+                    _react2.default.createElement(
+                        EventsContainer,
+                        { className: pending ? 'loading' : null },
+                        _react2.default.createElement(
+                            _placeholder2.default,
+                            null,
+                            pending ? 'Loading...' : 'Band not found'
+                        )
+                    )
+                );
             } else {
                 var _band$data = band.data,
                     image_url = _band$data.image_url,

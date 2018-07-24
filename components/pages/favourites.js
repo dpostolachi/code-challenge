@@ -32,7 +32,7 @@ export default class SearchPage extends PureComponent {
     }
 
     static getDerivedStateFromProps( nextProps, prevState ) {
-        console.log( nextProps )
+        
         const { favourite } = nextProps
         const prevBands = ( prevState ) ? prevState.bands : []
 

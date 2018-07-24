@@ -56,7 +56,7 @@ export const pushFavouriteBand = ( bandName ) => {
         const favBands = getBandsFromCookies()
 
         if ( favBands.indexOf( bandName ) == -1 )
-            favBands.push( bandName )
+            favBands.unshift( bandName )
         else
             favBands.splice( favBands.indexOf( bandName ), 1 )
 

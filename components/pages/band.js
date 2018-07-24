@@ -133,8 +133,16 @@ export default class BandPage extends PureComponent {
 
         const { band, favourite, events } = this.props
 
-        if ( !band.data ) {
-            return null
+        const { fetched, pending } = band
+
+        if ( pending || !band.data ) {
+            return (
+                <Container>
+                    <EventsContainer className={ ( pending ) ? 'loading' : null }>
+                        <Placeholder>{ ( pending ) ? 'Loading...' : 'Band not found' }</Placeholder>
+                    </EventsContainer>
+                </Container>
+            )
         } else {
 
             const { image_url, thumb_url, name, facebook_page_url } = band.data
