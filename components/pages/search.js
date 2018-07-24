@@ -61,7 +61,7 @@ export default class SearchPage extends PureComponent {
                         ( fetched && band ) ? (
                             <BandThumb { ...band } />
                         ) : (
-                            <Placeholder>{ ( pending ) ? 'Loading...' : 'No band found' }</Placeholder>
+                            <Placeholder>{ ( !fetched ) ? 'Loading...' : 'No band found' }</Placeholder>
                         )
                     }
                 </ResultsContainer>

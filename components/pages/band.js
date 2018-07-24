@@ -139,7 +139,7 @@ export default class BandPage extends PureComponent {
             return (
                 <Container>
                     <EventsContainer className={ ( pending ) ? 'loading' : null }>
-                        <Placeholder>{ ( pending ) ? 'Loading...' : 'Band not found' }</Placeholder>
+                        <Placeholder>{ ( !fetched ) ? 'Loading...' : 'Band not found' }</Placeholder>
                     </EventsContainer>
                 </Container>
             )
@@ -183,7 +183,7 @@ export default class BandPage extends PureComponent {
                                         return <EventThumb { ...event } key={ key } />
                                     } )
                                 ) : (
-                                    <Placeholder>{ ( events.pending ) ? 'Loading...' : 'No events found' }</Placeholder>
+                                    <Placeholder>{ ( !events.fetched ) ? 'Loading...' : 'No events found' }</Placeholder>
                                 )
                             }
                         </EventsContainer>

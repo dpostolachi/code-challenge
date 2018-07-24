@@ -32,7 +32,7 @@ export default class SearchPage extends PureComponent {
     }
 
     static getDerivedStateFromProps( nextProps, prevState ) {
-        
+
         const { favourite } = nextProps
         const prevBands = ( prevState ) ? prevState.bands : []
 
@@ -60,7 +60,7 @@ export default class SearchPage extends PureComponent {
                                 return <BandThumb { ...band } key={ key } />
                             } )
                         ) : (
-                            <Placeholder>{ ( pending ) ? 'Loading...' : 'No events found' }</Placeholder>
+                            <Placeholder>{ ( !fetched ) ? 'Loading...' : 'No events found' }</Placeholder>
                         )
                     }
                 </ResultsContainer>
