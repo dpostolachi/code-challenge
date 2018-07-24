@@ -6,7 +6,7 @@ const mockStore = configureMockStore( [ thunk ] )
 
 describe( 'search actions', () => {
 
-    it( 'should dipatch SEARCH_FULFILLED action', () => {
+    it( 'should dispatch SEARCH_FULFILLED action', () => {
 
         const expectedActions = [
             {

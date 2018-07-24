@@ -24,6 +24,11 @@ const Routes = [
         component: loadable( () => import( 'components/pages/band' ) ),
         exact: true,
     },
+    {
+        path: '/',
+        component: loadable( () => import( 'components/pages/notFound' ) ),
+        exact: false,
+    },
 ]
 
 export default ( props ) => {

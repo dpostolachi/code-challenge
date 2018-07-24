@@ -6,7 +6,7 @@ const mockStore = configureMockStore( [ thunk ] )
 
 describe( 'favouriteBands actions', () => {
 
-    it( 'should dipatch EVENTS_FULFILLED action', () => {
+    it( 'should dispatch FAVOURITE_BANDS_FULFILLED action', () => {
 
         const expectedActions = [
             {

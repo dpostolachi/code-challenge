@@ -6,7 +6,7 @@ const mockStore = configureMockStore( [ thunk ] )
 
 describe( 'events actions', () => {
 
-    it( 'should dipatch EVENTS_FULFILLED action', () => {
+    it( 'should dispatch EVENTS_FULFILLED action', () => {
 
         const expectedActions = [
             {

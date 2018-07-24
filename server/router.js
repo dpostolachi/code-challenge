@@ -28,10 +28,17 @@ Router.get( '/*', async ( ctx ) => {
     const sheet = new ServerStyleSheet()
     const context = {}
 
+    // Collecting Stylsheet
     await sheet.collectStyles( App(ctx.url, context, store, null, null) )
+    // Collecting loadable State for code splitting
     const loadableState = await getLoadableState( App( ctx.url, context, store, null, null ) )
 
+    // Rendering App
     const html = renderToString( App( ctx.url, context, store, sheet, loadableState ) )
+
+    // Checking for 404 error
+    if ( context.is404 )
+        ctx.status = 404
 
     ctx.body = `<!DOCTYPE html>${html}`
 
