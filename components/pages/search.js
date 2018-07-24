@@ -51,15 +51,15 @@ export default class SearchPage extends PureComponent {
     render () {
 
         const { query } = this.state
-        const { band, pending, history, fetched } = this.props
+        const { data, pending, history, fetched } = this.props
         return (
             <Container>
                 <SearchForm history={ history } query={ query } />
                 <Heading>Search result for "{ query }"</Heading>
                 <ResultsContainer className={ ( pending ) ? 'loading' : null }>
                     {
-                        ( fetched && band ) ? (
-                            <BandThumb { ...band } />
+                        ( fetched && data ) ? (
+                            <BandThumb { ...data } />
                         ) : (
                             <Placeholder>{ ( !fetched ) ? 'Loading...' : 'No band found' }</Placeholder>
                         )

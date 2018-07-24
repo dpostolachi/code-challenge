@@ -1,6 +1,7 @@
 import { API_KEY, ARTISTS_URL } from 'settings/api'
 import fetch from 'node-fetch'
 
+// Fetch all favourite bands
 export const fetchFavouriteBands = ( bandNames ) => {
 
     return ( dispatch ) => {

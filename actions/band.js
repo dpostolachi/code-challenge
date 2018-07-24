@@ -2,6 +2,7 @@ import { API_KEY, ARTISTS_URL } from 'settings/api'
 import fetch from 'node-fetch'
 import cookies from 'browser-cookies'
 
+// Fetchin band details
 export const fetchBand = ( bandName ) => {
 
     return ( dispatch ) => {
@@ -32,7 +33,6 @@ export const fetchBand = ( bandName ) => {
 
 }
 
-
 const getBandsFromCookies = () => {
     let favBands = cookies.get('favouriteBands') || []
     if ( typeof favBands === 'string' )
@@ -40,6 +40,7 @@ const getBandsFromCookies = () => {
     return favBands
 }
 
+// To load favourites from cookies to Redux
 export const loadFavouriteBands = () => {
     return ( dispatch ) => {
         return dispatch( {
@@ -49,6 +50,7 @@ export const loadFavouriteBands = () => {
     }
 }
 
+// Add/Remove band from cookie
 export const pushFavouriteBand = ( bandName ) => {
 
     return ( dispatch ) => {

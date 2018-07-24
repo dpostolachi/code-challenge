@@ -1,6 +1,7 @@
 import { API_KEY, ARTISTS_URL } from 'settings/api'
 import fetch from 'node-fetch'
 
+// Searching for band
 export const searchBand = ( bandName ) => {
 
     return ( dispatch ) => {

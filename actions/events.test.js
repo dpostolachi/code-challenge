@@ -1,24 +1,24 @@
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
-import { searchBand } from './search'
+import { fetchEvents } from './events'
 
 const mockStore = configureMockStore( [ thunk ] )
 
-describe( 'search actions', () => {
+describe( 'events actions', () => {
 
-    it( 'should dipatch SEARCH_FULFILLED action', () => {
+    it( 'should dipatch EVENTS_FULFILLED action', () => {
 
         const expectedActions = [
             {
-                type: 'SEARCH_PENDING',
+                type: 'EVENTS_PENDING',
             }, {
-                type: 'SEARCH_FULFILLED',
+                type: 'EVENTS_FULFILLED',
             }
         ]
 
         const store = mockStore( {} )
 
-        return store.dispatch( searchBand( 'Maroon 5' ) )
+        return store.dispatch( fetchEvents( 'Maroon 5' ) )
         .then( () => {
             expect( store.getActions().map( ( action ) => {
                 const { type } = action

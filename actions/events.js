@@ -1,6 +1,7 @@
 import { API_KEY, ARTISTS_URL } from 'settings/api'
 import fetch from 'node-fetch'
 
+// Fetching band's events
 export const fetchEvents = ( bandName ) => {
 
     return ( dispatch ) => {

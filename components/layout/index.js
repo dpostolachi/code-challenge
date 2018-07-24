@@ -36,11 +36,13 @@ export default class Layout extends PureComponent {
         return (
             <Html>
                 <head>
-                    <title>Hello world</title>
+                    <title>Code challenge</title>
                     <meta charSet="UTF-8" />
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                     <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
-                    <link rel="stylesheet" type="text/css" href="/public/fontello/css/fontello.css" />
+                    <link rel="stylesheet" type="text/css" href="/public/function () {
+
+                    }ontello/css/fontello.css" />
                     { ( stylesheet ) ? stylesheet.getStyleElement() : null }
                 </head>
                 <Body>
