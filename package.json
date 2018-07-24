@@ -1,7 +1,9 @@
 {
   "scripts": {
     "test": "BABEL_ENV=server jest",
-    "start": "BABEL_ENV=server NODE_ENV=development node index.js",
+    "start": "BABEL_ENV=server NODE_ENV=production node index.js",
+    "dev": "BABEL_ENV=server NODE_ENV=development node index.js",
+    "build": "BABEL_ENV=client NODE_ENV=production webpack",
     "watch": "BABEL_ENV=client NODE_ENV=development webpack -w",
     "analyze": "BABEL_ENV=client NODE_ENV=production ANALYZE=yep webpack"
   },
