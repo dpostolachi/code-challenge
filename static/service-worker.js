@@ -27,19 +27,19 @@ this.addEventListener('fetch', (evt) => {
             caches.match( evt.request )
             .then( ( resp ) => {
 
-                // It it's in cache, return from cache
+				const newRequest = fetch( request ).then( resp => {
+					caches.open("v0").then(cache => {
+						cache.put(request, resp.clone());
+						return;
+					});
+					return resp.clone();
+				})
+
                 if ( resp ) {
+					// It it's in cache, return from cache and update cache
                     return resp
                 } else {
                     // If it's not fetch and cache it
-                    const newRequest = fetch( request ).then( resp => {
-                        caches.open("v0").then(cache => {
-                            cache.put(request, resp.clone());
-                            return;
-                        });
-                        return resp.clone();
-                    })
-
                     return newRequest
                 }
             } )
