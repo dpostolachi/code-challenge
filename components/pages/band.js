@@ -18,6 +18,7 @@ const EventsContainer = styled(ResultsContainer)`
     flex-wrap: wrap;
     border: none;
     background: #F5F5F5;
+    margin: 0px -12px;
     > span {
         display: block;
         width: 100%;
@@ -26,9 +27,11 @@ const EventsContainer = styled(ResultsContainer)`
 
 const BandWall = styled.div`
     display: block;
-    margin-top: -80px;
     padding: 80px 0px;
     background: ${ ( props ) => ( props.image ) ? `url(${ props.image }) #FAFAFA` : '#FAFAFA' };
+    @media ${device.tablet} {
+        margin-top: -80px;
+    }
 `
 
 const BandContainer = styled(Container)`

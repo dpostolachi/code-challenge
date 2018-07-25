@@ -14,17 +14,19 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _templateObject = _taggedTemplateLiteral(['\n    font-size: 3rem;\n    font-weight: normal;\n    margin: 32px 0px;\n'], ['\n    font-size: 3rem;\n    font-weight: normal;\n    margin: 32px 0px;\n']);
+var _templateObject = _taggedTemplateLiteral(['\n    font-size: 2rem;\n    font-weight: normal;\n    margin: 24px 0px;\n    @media ', ' {\n      font-size: 3rem;\n      margin: 32px 0px;\n    }\n'], ['\n    font-size: 2rem;\n    font-weight: normal;\n    margin: 24px 0px;\n    @media ', ' {\n      font-size: 3rem;\n      margin: 32px 0px;\n    }\n']);
 
 var _styledComponents = __webpack_require__(/*! styled-components */ "../node_modules/styled-components/dist/styled-components.browser.es.js");
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
+var _media = __webpack_require__(/*! ../variables/media */ "../components/variables/media.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-exports.default = _styledComponents2.default.h1(_templateObject);
+exports.default = _styledComponents2.default.h1(_templateObject, _media.device.tablet);
 
 /***/ }),
 
@@ -156,33 +158,6 @@ exports.default = function (props) {
         _react2.default.createElement(_searchForm2.default, { history: history })
     );
 };
-
-/***/ }),
-
-/***/ "../components/variables/media.js":
-/*!****************************************!*\
-  !*** ../components/variables/media.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var sizes = {
-    mobileS: '320px',
-    mobileL: '480px',
-    tablet: '768px',
-    laptop: '1024px'
-};
-
-var device = exports.device = Object.keys(sizes).reduce(function (acc, key) {
-    acc[key] = '(min-width: ' + sizes[key] + ')';
-    return acc;
-}, {});
 
 /***/ })
 

@@ -53,8 +53,7 @@ export default class SearchPage extends PureComponent {
             <Container>
                 <Heading>Favourite bands</Heading>
                 <ResultsContainer className={ ( pending ) ? 'loading' : null }>
-                    { ( favourite.length === 0 ) ? <Placeholder>You have no favourite bands, yet</Placeholder> : null  }
-                    {
+                    { ( favourite.length === 0 ) ? <Placeholder>You have no favourite bands, yet</Placeholder> : (
                         ( fetched && data ) ? (
                             data.map( ( band, key ) => {
                                 return <BandThumb { ...band } key={ key } />
@@ -62,7 +61,7 @@ export default class SearchPage extends PureComponent {
                         ) : (
                             <Placeholder>{ ( !fetched ) ? 'Loading...' : 'No events found' }</Placeholder>
                         )
-                    }
+                    )  }
                 </ResultsContainer>
             </Container>
         )

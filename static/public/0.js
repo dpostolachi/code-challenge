@@ -17,8 +17,8 @@ Object.defineProperty(exports, "__esModule", {
 var _templateObject = _taggedTemplateLiteral(['\n    display: flex;\n    flex-wrap: wrap;\n    @media ', '{\n        flex-wrap: nowrap;\n    }\n    &:hover{\n        background: #FAFAFA;\n    }\n'], ['\n    display: flex;\n    flex-wrap: wrap;\n    @media ', '{\n        flex-wrap: nowrap;\n    }\n    &:hover{\n        background: #FAFAFA;\n    }\n']),
     _templateObject2 = _taggedTemplateLiteral(['\n    display: block;\n    height: 160px;\n    width: 100%;\n    margin: 24px 0px;\n    text-align: center;\n    @media ', '{\n        width: 160px;\n        margin: 0px;\n    }\n'], ['\n    display: block;\n    height: 160px;\n    width: 100%;\n    margin: 24px 0px;\n    text-align: center;\n    @media ', '{\n        width: 160px;\n        margin: 0px;\n    }\n']),
     _templateObject3 = _taggedTemplateLiteral(['\n    display: block;\n    width: auto;\n    padding: 12px;\n'], ['\n    display: block;\n    width: auto;\n    padding: 12px;\n']),
-    _templateObject4 = _taggedTemplateLiteral(['\n    display: table;\n    font-size: 3rem;\n    a {\n        color: #212121;\n        text-decoration: none;\n        &:hover{\n            color: ', ';\n        }\n    }\n'], ['\n    display: table;\n    font-size: 3rem;\n    a {\n        color: #212121;\n        text-decoration: none;\n        &:hover{\n            color: ', ';\n        }\n    }\n']),
-    _templateObject5 = _taggedTemplateLiteral(['\n    display: table;\n    font-size: 1.8rem;\n    margin: 12px 0px;\n    > i {\n        color: ', ';\n        font-style: normal;\n    }\n'], ['\n    display: table;\n    font-size: 1.8rem;\n    margin: 12px 0px;\n    > i {\n        color: ', ';\n        font-style: normal;\n    }\n']);
+    _templateObject4 = _taggedTemplateLiteral(['\n    display: table;\n    font-size: 2.2rem;\n    a {\n        color: #212121;\n        text-decoration: none;\n        &:hover{\n            color: ', ';\n        }\n    }\n    @media ', ' {\n      font-size: 3rem;\n    }\n'], ['\n    display: table;\n    font-size: 2.2rem;\n    a {\n        color: #212121;\n        text-decoration: none;\n        &:hover{\n            color: ', ';\n        }\n    }\n    @media ', ' {\n      font-size: 3rem;\n    }\n']),
+    _templateObject5 = _taggedTemplateLiteral(['\n    display: table;\n    font-size: 1.6rem;\n    margin: 12px 0px;\n    > i {\n        color: ', ';\n        font-style: normal;\n    }\n    @media ', ' {\n      font-size: 1.8rem;\n    }\n'], ['\n    display: table;\n    font-size: 1.6rem;\n    margin: 12px 0px;\n    > i {\n        color: ', ';\n        font-style: normal;\n    }\n    @media ', ' {\n      font-size: 1.8rem;\n    }\n']);
 
 var _react = __webpack_require__(/*! react */ "../node_modules/react/index.js");
 
@@ -48,9 +48,9 @@ var BandThumb = _styledComponents2.default.span(_templateObject2, _media.device.
 
 var BandDetails = _styledComponents2.default.div(_templateObject3);
 
-var BandName = _styledComponents2.default.span(_templateObject4, _colors.mainColor);
+var BandName = _styledComponents2.default.span(_templateObject4, _colors.mainColor, _media.device.tablet);
 
-var BandUpcomingEvents = _styledComponents2.default.span(_templateObject5, _colors.mainColor);
+var BandUpcomingEvents = _styledComponents2.default.span(_templateObject5, _colors.mainColor, _media.device.tablet);
 
 exports.default = function (props) {
     var name = props.name,
@@ -112,17 +112,19 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _templateObject = _taggedTemplateLiteral(['\n    font-size: 3rem;\n    font-weight: normal;\n    margin: 32px 0px;\n'], ['\n    font-size: 3rem;\n    font-weight: normal;\n    margin: 32px 0px;\n']);
+var _templateObject = _taggedTemplateLiteral(['\n    font-size: 2rem;\n    font-weight: normal;\n    margin: 24px 0px;\n    @media ', ' {\n      font-size: 3rem;\n      margin: 32px 0px;\n    }\n'], ['\n    font-size: 2rem;\n    font-weight: normal;\n    margin: 24px 0px;\n    @media ', ' {\n      font-size: 3rem;\n      margin: 32px 0px;\n    }\n']);
 
 var _styledComponents = __webpack_require__(/*! styled-components */ "../node_modules/styled-components/dist/styled-components.browser.es.js");
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
+var _media = __webpack_require__(/*! ../variables/media */ "../components/variables/media.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-exports.default = _styledComponents2.default.h1(_templateObject);
+exports.default = _styledComponents2.default.h1(_templateObject, _media.device.tablet);
 
 /***/ }),
 
@@ -264,17 +266,34 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _templateObject = _taggedTemplateLiteral(['\n    display: block;\n    text-align: center;\n    color: #9E9E9E;\n    font-size: 3rem;\n    line-height: 160px;\n'], ['\n    display: block;\n    text-align: center;\n    color: #9E9E9E;\n    font-size: 3rem;\n    line-height: 160px;\n']);
+var _templateObject = _taggedTemplateLiteral(['\n    display: inline-block;\n    vertical-align: middle;\n    line-height: 1;\n'], ['\n    display: inline-block;\n    vertical-align: middle;\n    line-height: 1;\n']),
+    _templateObject2 = _taggedTemplateLiteral(['\n    display: block;\n    text-align: center;\n    color: #9E9E9E;\n    font-size: 2rem;\n    line-height: 160px;\n    padding: 0px 12px;\n    text-align: center;\n    width: 100%;\n    @media ', ' {\n      font-size: 3rem;\n    }\n'], ['\n    display: block;\n    text-align: center;\n    color: #9E9E9E;\n    font-size: 2rem;\n    line-height: 160px;\n    padding: 0px 12px;\n    text-align: center;\n    width: 100%;\n    @media ', ' {\n      font-size: 3rem;\n    }\n']);
+
+var _react = __webpack_require__(/*! react */ "../node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
 
 var _styledComponents = __webpack_require__(/*! styled-components */ "../node_modules/styled-components/dist/styled-components.browser.es.js");
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
+var _media = __webpack_require__(/*! ../variables/media */ "../components/variables/media.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-exports.default = _styledComponents2.default.span(_templateObject);
+var InnnerText = _styledComponents2.default.span(_templateObject);
+
+var Container = _styledComponents2.default.div(_templateObject2, _media.device.tablet);
+
+exports.default = function (props) {
+    return _react2.default.createElement(
+        Container,
+        null,
+        _react2.default.createElement(InnnerText, props)
+    );
+};
 
 /***/ }),
 
@@ -292,7 +311,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _templateObject = _taggedTemplateLiteral(['\n    display: block;\n    border: 1px solid #e0e0e0;\n    border-radius 2px;\n    min-height: 160px;\n    position: relative;\n    margin: 60px 0px;\n    &.loading:before{\n        display: block;\n        position: absolute;\n        content: \'\';\n        width: 32px;\n        height: 32px;\n        border-radius: 50%;\n        animation: ', ' 2s linear infinite;\n        border: 6px solid #E0E0E0;\n        border-top: 6px solid ', ';\n        top: 16px;\n        left: 50%;\n        margin-left: -28px;\n    }\n'], ['\n    display: block;\n    border: 1px solid #e0e0e0;\n    border-radius 2px;\n    min-height: 160px;\n    position: relative;\n    margin: 60px 0px;\n    &.loading:before{\n        display: block;\n        position: absolute;\n        content: \'\';\n        width: 32px;\n        height: 32px;\n        border-radius: 50%;\n        animation: ', ' 2s linear infinite;\n        border: 6px solid #E0E0E0;\n        border-top: 6px solid ', ';\n        top: 16px;\n        left: 50%;\n        margin-left: -28px;\n    }\n']);
+var _templateObject = _taggedTemplateLiteral(['\n    display: block;\n    border: 1px solid #e0e0e0;\n    border-radius 2px;\n    min-height: 160px;\n    position: relative;\n    margin: 32px 0px;\n    &.loading:before{\n        display: block;\n        position: absolute;\n        content: \'\';\n        width: 32px;\n        height: 32px;\n        border-radius: 50%;\n        animation: ', ' 2s linear infinite;\n        border: 6px solid #E0E0E0;\n        border-top: 6px solid ', ';\n        top: 16px;\n        left: 50%;\n        margin-left: -28px;\n    }\n    @media ', ' {\n      margin: 60px 0px;\n    }\n'], ['\n    display: block;\n    border: 1px solid #e0e0e0;\n    border-radius 2px;\n    min-height: 160px;\n    position: relative;\n    margin: 32px 0px;\n    &.loading:before{\n        display: block;\n        position: absolute;\n        content: \'\';\n        width: 32px;\n        height: 32px;\n        border-radius: 50%;\n        animation: ', ' 2s linear infinite;\n        border: 6px solid #E0E0E0;\n        border-top: 6px solid ', ';\n        top: 16px;\n        left: 50%;\n        margin-left: -28px;\n    }\n    @media ', ' {\n      margin: 60px 0px;\n    }\n']);
 
 var _styledComponents = __webpack_require__(/*! styled-components */ "../node_modules/styled-components/dist/styled-components.browser.es.js");
 
@@ -304,11 +323,13 @@ var _spin2 = _interopRequireDefault(_spin);
 
 var _colors = __webpack_require__(/*! ../variables/colors */ "../components/variables/colors.js");
 
+var _media = __webpack_require__(/*! ../variables/media */ "../components/variables/media.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-exports.default = _styledComponents2.default.div(_templateObject, _spin2.default, _colors.mainColor);
+exports.default = _styledComponents2.default.div(_templateObject, _spin2.default, _colors.mainColor, _media.device.tablet);
 
 /***/ }),
 
@@ -414,33 +435,6 @@ exports.default = function (props) {
             return history.push('/search?query=' + query);
         } });
 };
-
-/***/ }),
-
-/***/ "../components/variables/media.js":
-/*!****************************************!*\
-  !*** ../components/variables/media.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var sizes = {
-    mobileS: '320px',
-    mobileL: '480px',
-    tablet: '768px',
-    laptop: '1024px'
-};
-
-var device = exports.device = Object.keys(sizes).reduce(function (acc, key) {
-    acc[key] = '(min-width: ' + sizes[key] + ')';
-    return acc;
-}, {});
 
 /***/ }),
 

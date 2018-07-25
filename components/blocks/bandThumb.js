@@ -36,7 +36,7 @@ const BandDetails = styled.div`
 
 const BandName = styled.span`
     display: table;
-    font-size: 3rem;
+    font-size: 2.2rem;
     a {
         color: #212121;
         text-decoration: none;
@@ -44,15 +44,21 @@ const BandName = styled.span`
             color: ${ mainColor };
         }
     }
+    @media ${device.tablet} {
+      font-size: 3rem;
+    }
 `
 
 const BandUpcomingEvents = styled.span`
     display: table;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     margin: 12px 0px;
     > i {
         color: ${ mainColor };
         font-style: normal;
+    }
+    @media ${device.tablet} {
+      font-size: 1.8rem;
     }
 `
 

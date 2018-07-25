@@ -4,6 +4,7 @@ import Container from 'components/common/container'
 import Button from 'components/common/button'
 import { mainColor } from 'components/variables/colors'
 import { Link } from 'react-router-dom'
+import { device } from 'components/variables/media'
 
 const Badge = styled.span`
     display: block;
@@ -22,7 +23,9 @@ const Header = styled.header`
     line-height: 80px;
     background: #000;
     color: #fff;
-    margin-bottom: 80px;
+    @media ${device.tablet} {
+      margin-bottom: 80px
+    }
 `
 
 const Nav = styled.nav`

@@ -9,6 +9,12 @@ const Html = styled.html`
     * {
         box-sizing: border-box;
         transition: all 0.2s ease-in-out;
+        &:focus{
+          outline: none;
+        }
+        &::-moz-focus-inner{
+          border: none;
+        }
     }
 `
 

@@ -1,13 +1,15 @@
 import styled from 'styled-components'
 import Spin from 'components/common/spin'
 import { mainColor } from 'components/variables/colors'
+import { device } from 'components/variables/media'
+
 export default styled.div`
     display: block;
     border: 1px solid #e0e0e0;
     border-radius 2px;
     min-height: 160px;
     position: relative;
-    margin: 60px 0px;
+    margin: 32px 0px;
     &.loading:before{
         display: block;
         position: absolute;
@@ -21,5 +23,8 @@ export default styled.div`
         top: 16px;
         left: 50%;
         margin-left: -28px;
+    }
+    @media ${device.tablet} {
+      margin: 60px 0px;
     }
 `
