@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router'
 import loadable from 'loadable-components'
 import Layout from 'components/layout'
 
+// loadable is used for code splitting, every page gets an separate script
 const Routes = [
     {
         path: '/',

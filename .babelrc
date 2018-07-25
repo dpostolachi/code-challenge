@@ -1,6 +1,5 @@
 {
     "env": {
-
         "test": {
           "presets": ["env", "react"],
           "plugins": [
@@ -20,11 +19,8 @@
 
           ]
         },
-
         "server": {
-
             "presets": [
-
                 "react",
                 [
                     "env", {
@@ -32,9 +28,7 @@
                         "node": "8.0"
                     }
                 } ]
-
             ],
-
             "plugins": [
 
                 "transform-object-rest-spread",
@@ -49,14 +43,10 @@
                         ]
                     }
                 ]
-
             ]
         },
-
         "client": {
-
             "presets": [
-
                 "react",
                 [
                     "env", {
@@ -64,9 +54,7 @@
                         "browsers": [ ">1%" ]
                     }
                 } ]
-
             ],
-
             "plugins": [
 
                 "transform-object-rest-spread",
@@ -81,7 +69,6 @@
                         ]
                     }
                 ]
-
             ]
         }
     }
