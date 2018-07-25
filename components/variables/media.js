@@ -1,3 +1,4 @@
+// For media queries
 const sizes = {
     mobileS: '320px',
     mobileL: '480px',

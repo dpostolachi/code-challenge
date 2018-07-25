@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 
-
 const Preloader = styled.div`
     display: block;
     height: ${ props => ( props.height ) ? `${props.height}px` : '100px' };

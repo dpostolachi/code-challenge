@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
-import Header from 'components/controls/header'
 import { connect } from 'react-redux'
 import { loadFavouriteBands } from 'actions/band'
+import Header from 'components/controls/header'
 
 const Html = styled.html`
     font-size: 62.5%;
