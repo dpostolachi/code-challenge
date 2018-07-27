@@ -5,7 +5,8 @@ import Container from 'components/common/container'
 export default ( props ) => {
 
     // for setting 404 status on backend
-    if ( props.staticContex )
+
+    if ( props.staticContext )
         props.staticContext.is404 = true
 
     return (
