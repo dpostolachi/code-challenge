@@ -381,13 +381,13 @@ var _styledComponents = __webpack_require__(/*! styled-components */ "../node_mo
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
+var _reduxForm = __webpack_require__(/*! redux-form */ "../node_modules/redux-form/es/index.js");
+
 var _button = __webpack_require__(/*! ../common/button */ "../components/common/button.js");
 
 var _button2 = _interopRequireDefault(_button);
 
 var _colors = __webpack_require__(/*! ../variables/colors */ "../components/variables/colors.js");
-
-var _reduxForm = __webpack_require__(/*! redux-form */ "../node_modules/redux-form/es/index.js");
 
 var _media = __webpack_require__(/*! ../variables/media */ "../components/variables/media.js");
 

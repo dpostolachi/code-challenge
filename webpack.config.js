@@ -21,6 +21,7 @@ const plugins = [
             'NODE_ENV': JSON.stringify( Env )
         }
     } ),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
 ]
 
 if ( Analyze )

@@ -9,10 +9,12 @@ import getState from 'store/get'
 
 const loadableState = window.__LOADABLE_STATE__
 
+// Register Service Worker for cache control
 if ( 'serviceWorker' in navigator ) {
   navigator.serviceWorker.register('/service-worker.js')
 }
 
+// loadComponents for code splitting
 loadComponents().then( () => {
     hydrate(
         <Provider store={ getState( initialState ) }>

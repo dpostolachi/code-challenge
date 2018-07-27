@@ -1,16 +1,16 @@
 import React, { PureComponent } from 'react'
-import Container from 'components/common/container'
-import Heading from 'components/common/heading'
+import { connect } from 'react-redux'
+import styled, { keyframes } from 'styled-components'
 import { parse } from 'query-string'
 import { fetchFavouriteBands } from 'actions/favouriteBands'
-import { connect } from 'react-redux'
-import LazyImage from 'components/common/lazyImage'
 import BandThumb from 'components/blocks/bandThumb'
-import styled, { keyframes } from 'styled-components'
-import { mainColor } from 'components/variables/colors'
 import SearchForm from 'components/controls/searchForm'
+import Container from 'components/common/container'
+import Heading from 'components/common/heading'
+import LazyImage from 'components/common/lazyImage'
 import ResultsContainer from 'components/common/resultsContainer'
 import Placeholder from 'components/common/placeholder'
+import { mainColor } from 'components/variables/colors'
 
 @connect( ( store ) => {
     return {

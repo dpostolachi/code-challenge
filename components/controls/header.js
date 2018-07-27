@@ -1,9 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Container from 'components/common/container'
 import Button from 'components/common/button'
 import { mainColor } from 'components/variables/colors'
-import { Link } from 'react-router-dom'
 import { device } from 'components/variables/media'
 
 const Badge = styled.span`

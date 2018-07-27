@@ -1,24 +1,41 @@
 import React, { PureComponent } from 'react'
-import Container from 'components/common/container'
 import { connect } from 'react-redux'
 import { fetchBand, pushFavouriteBand } from 'actions/band'
 import { fetchEvents } from 'actions/events'
 import styled, { keyframes } from 'styled-components'
+import EventThumb from 'components/blocks/eventThumb'
 import LazyImage from 'components/common/lazyImage'
 import Button from 'components/common/button'
 import Heading from 'components/common/heading'
-import { mainColor, mainColorDark } from 'components/variables/colors'
-import EventThumb from 'components/blocks/eventThumb'
 import ResultsContainer from 'components/common/resultsContainer'
 import Placeholder from 'components/common/placeholder'
+import Container from 'components/common/container'
+import Spin from 'components/common/spin'
+import { mainColor, mainColorDark } from 'components/variables/colors'
 import { device } from 'components/variables/media'
 
-const EventsContainer = styled(ResultsContainer)`
+const EventsContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
-    border: none;
-    background: #F5F5F5;
+    border-radius 2px;
+    min-height: 160px;
+    position: relative;
     margin: 0px -12px;
+    background: #F5F5F5;
+    &.loading:before{
+        display: block;
+        position: absolute;
+        content: '';
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        animation: ${Spin} 2s linear infinite;
+        border: 6px solid #E0E0E0;
+        border-top: 6px solid ${mainColor};
+        top: 16px;
+        left: 50%;
+        margin-left: -28px;
+    }
     > span {
         display: block;
         width: 100%;
@@ -83,10 +100,6 @@ const BandButton = styled(Button)`
     line-height: 42px;
     font-size: 2rem;
     padding: 0px;
-`
-const Spin = keyframes`
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
 `
 
 @connect( ( store ) => {

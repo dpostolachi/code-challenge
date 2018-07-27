@@ -1,5 +1,5 @@
 import { API_KEY, ARTISTS_URL } from 'settings/api'
-import fetch from 'node-fetch'
+import { get } from 'actions/utils'
 import cookies from 'browser-cookies'
 
 // Fetchin band details
@@ -11,7 +11,7 @@ export const fetchBand = ( bandName ) => {
             type: 'FETCH_BAND_PENDING'
         } )
 
-        return fetch( `${ARTISTS_URL}/${bandName}?app_id=${API_KEY}`, { cache: "force-cache" } )
+        return get( `${ARTISTS_URL}/${bandName}?app_id=${API_KEY}` )
         .then( ( resp ) => resp.json() )
         .then( ( data ) => {
             return ( data && !data.error ) ?

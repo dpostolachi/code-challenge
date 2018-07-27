@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Field, reduxForm } from 'redux-form'
 import Button from 'components/common/button'
 import { mainColor, mainColorDark } from 'components/variables/colors'
-import { Field, reduxForm } from 'redux-form'
 import { device } from 'components/variables/media'
 
 const SearchForm = styled.form`
