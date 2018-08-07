@@ -100,7 +100,7 @@ export default ( props ) => {
                 ( lineup.length > 1 ) ? (
                     [
                         <LinupHeading key={ 0 }>Lineup:</LinupHeading>,
-                        lineup.splice(0, 10).map( ( band, key ) => {
+                        lineup.slice(0, 10).map( ( band, key ) => {
                             return (
                                 <LineupBand key={ key }>
                                     <Link to={ `/band/${band}` }>{ band }</Link>

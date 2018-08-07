@@ -37,7 +37,7 @@ export default class Layout extends PureComponent {
 
     render () {
 
-        const { stylesheet, loadableState, favourite } = this.props
+        const { stylesheet, loadableState, favourite, store } = this.props
 
         return (
             <Html>
@@ -59,6 +59,7 @@ export default class Layout extends PureComponent {
                 <Body>
                     <Header favourite={ favourite }/>
                     { this.props.children }
+                    <script dangerouslySetInnerHTML={ { __html: `window.__REDUX_STATE__ = ${ JSON.stringify( store.getState() ) };` } }/>
                     {
                         ( loadableState === null ) ? null
                             : ( loadableState.getScriptElement ) ? loadableState.getScriptElement()

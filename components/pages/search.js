@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import styled, { keyframes } from 'styled-components'
 import { parse } from 'query-string'
-import { searchBand } from 'actions/search'
+import { searchBand, resetSearch } from 'actions/search'
 import BandThumb from 'components/blocks/bandThumb'
 import Container from 'components/common/container'
 import Heading from 'components/common/heading'
@@ -11,7 +11,9 @@ import SearchForm from 'components/controls/searchForm'
 import ResultsContainer from 'components/common/resultsContainer'
 import Placeholder from 'components/common/placeholder'
 import { mainColor } from 'components/variables/colors'
+import { WithRoutePromises } from 'components/utils/routePromise'
 
+@WithRoutePromises
 @connect( ( store ) => store.search )
 
 export default class SearchPage extends PureComponent {
@@ -20,8 +22,10 @@ export default class SearchPage extends PureComponent {
 
         super( props )
 
+        const { query } = SearchPage.getParams( props.location.search )
+
         this.state = {
-            query: null,
+            query,
         }
 
     }
@@ -37,15 +41,31 @@ export default class SearchPage extends PureComponent {
     }
 
     static getDerivedStateFromProps( nextProps, prevState ) {
+
         const newQuery = SearchPage.getParams( nextProps.location.search ).query
         const thisQuery = ( prevState ) ? prevState.query : null
 
-        if ( newQuery !== thisQuery ) {
-            nextProps.dispatch( searchBand( newQuery ) )
+        const { fetched, pending } = nextProps
+
+        if ( newQuery !== thisQuery || ( !fetched && !pending ) ) {
+
+            // typeof window === 'undefined' is used to check if it's backend
+            if ( typeof window === 'undefined' && nextProps.promises !== null ) {
+                nextProps.promises.push( nextProps.dispatch( searchBand( newQuery ) ) )
+            } else {
+                nextProps.dispatch( searchBand( newQuery ) )
+            }
         }
+
         return {
             query: newQuery
         }
+    }
+
+    componentWillUnmount(){
+        // Reseting fetched and pending to false on unmount
+        return this.props.dispatch( resetSearch() )
+
     }
 
     render () {

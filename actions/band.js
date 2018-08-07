@@ -2,6 +2,18 @@ import { API_KEY, ARTISTS_URL } from 'settings/api'
 import { get } from 'actions/utils'
 import cookies from 'browser-cookies'
 
+// Reset band details
+export const resetBand = () => {
+
+    return ( dispatch ) => {
+
+        return dispatch( {
+            type: 'BAND_RESET',
+        } )
+
+    }
+}
+
 // Fetchin band details
 export const fetchBand = ( bandName ) => {
 
@@ -24,7 +36,7 @@ export const fetchBand = ( bandName ) => {
                 payload: null,
             } )
         } )
-        .catch( (e ) => {
+        .catch( ( e ) => {
             return dispatch( {
                 type: 'FETCH_BAND_REJECTED',
             } )
@@ -34,9 +46,12 @@ export const fetchBand = ( bandName ) => {
 }
 
 const getBandsFromCookies = () => {
+
     let favBands = cookies.get('favouriteBands') || []
+
     if ( typeof favBands === 'string' )
         favBands = JSON.parse( favBands )
+
     return favBands
 }
 

@@ -16,6 +16,9 @@ export default ( state, action ) => {
         case 'SEARCH_FULFILLED':
             return { ...state, pending: false, fetched: true, data: action.payload }
 
+        case 'SEARCH_RESET':
+            return { ...state, pending: false, fetched: false, data: null }
+
         default:
             return { ...state }
     }

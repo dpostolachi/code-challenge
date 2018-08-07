@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { fetchBand, pushFavouriteBand } from 'actions/band'
+import { fetchBand, pushFavouriteBand, resetBand } from 'actions/band'
 import { fetchEvents } from 'actions/events'
 import styled, { keyframes } from 'styled-components'
 import EventThumb from 'components/blocks/eventThumb'
@@ -13,6 +13,7 @@ import Container from 'components/common/container'
 import Spin from 'components/common/spin'
 import { mainColor, mainColorDark } from 'components/variables/colors'
 import { device } from 'components/variables/media'
+import { WithRoutePromises } from 'components/utils/routePromise'
 
 const EventsContainer = styled.div`
     display: flex;
@@ -111,22 +112,20 @@ const BandButton = styled(Button)`
     }
 } )
 
+
+@WithRoutePromises
+
 export default class BandPage extends PureComponent {
 
     constructor ( props ) {
         super( props )
 
+        const { band } = props.match.params
+
         this.state = {
-            band: null,
+            band: band,
         }
 
-    }
-
-    toggleFavourite( bandName ) {
-        return ( e ) => {
-            e.preventDefault()
-            this.props.dispatch( pushFavouriteBand( bandName ) )
-        }
     }
 
     static getDerivedStateFromProps( nextProps, prevState ) {
@@ -134,13 +133,40 @@ export default class BandPage extends PureComponent {
         const { band } = nextProps.match.params
         const prevBand = ( prevState ) ? prevState.band : null
 
-        if ( band !== prevBand ) {
-            nextProps.dispatch( fetchBand( band ) )
-            nextProps.dispatch( fetchEvents( band ) )
+        // Loading state of the band
+        const { fetched, pending } = nextProps.band
+
+        if ( band !== prevBand || ( !fetched && !pending ) ) {
+
+            // typeof window === 'undefined' is used to check if it's backend
+            if ( typeof window === 'undefined' && nextProps.promises !== null ) {
+                nextProps.promises.push( nextProps.dispatch( fetchBand( band ) ) )
+                nextProps.promises.push( nextProps.dispatch( fetchEvents( band ) ) )
+            } else {
+                nextProps.dispatch( fetchBand( band ) )
+                nextProps.dispatch( fetchEvents( band ) )
+            }
         }
 
         return {
             band: band
+        }
+
+    }
+
+    componentWillUnmount() {
+        // Reseting fetched and pending to false on unmount
+        return this.props.dispatch( resetBand() )
+
+    }
+
+    toggleFavourite( bandName ) {
+
+        return ( e ) => {
+
+            e.preventDefault()
+            this.props.dispatch( pushFavouriteBand( bandName ) )
+
         }
 
     }

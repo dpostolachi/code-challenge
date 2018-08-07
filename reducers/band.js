@@ -14,8 +14,11 @@ export default ( state, action ) => {
             return { ...state, pending: false, fetched: true, data: null }
 
         case 'FETCH_BAND_FULFILLED':
-            return { ...state, pending: false, data: action.payload, fetched: true }
+            return { ...state, pending: false, fetched: true, data: action.payload }
 
+        case 'BAND_RESET':
+            return { ...state, pending: false, fetched: false, data: null }
+            
         default:
             return { ...state }
     }

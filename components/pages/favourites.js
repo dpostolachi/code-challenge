@@ -36,7 +36,7 @@ export default class SearchPage extends PureComponent {
         const { favourite } = nextProps
         const prevBands = ( prevState ) ? prevState.bands : []
 
-        if ( favourite.toString() !== prevBands.toString() ) {
+        if ( typeof window !== 'undefined' && favourite.toString() !== prevBands.toString() ) {
             nextProps.dispatch( fetchFavouriteBands( favourite ) )
         }
         return {
