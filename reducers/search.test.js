@@ -19,6 +19,10 @@ const SEARCH_FULFILLED = {
     }
 }
 
+const SEARCH_RESET = {
+    type: 'SEARCH_RESET',
+}
+
 describe( 'testing search reducer', () => {
     it( 'should return the initial state', () => {
         expect( reducer( undefined, {} ) )
@@ -62,4 +66,14 @@ describe( 'testing search reducer', () => {
             },
         } )
     } )
+
+    it( 'should set pending => false, fetched => false, data => null on reset', () => {
+        expect( reducer( {}, SEARCH_RESET ) )
+        .toEqual( {
+            pending: false,
+            fetched: false,
+            data: null,
+        } )
+    } )
+
 } )

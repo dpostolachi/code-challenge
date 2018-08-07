@@ -1,6 +1,18 @@
 import { API_KEY, ARTISTS_URL } from 'settings/api'
 import { get } from 'actions/utils'
 
+// Reset search
+export const resetSearch = () => {
+
+    return ( dispatch ) => {
+
+        return dispatch( {
+            type: 'SEARCH_RESET',
+        } )
+
+    }
+}
+
 // Searching for band
 export const searchBand = ( bandName ) => {
 

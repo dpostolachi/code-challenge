@@ -16,6 +16,9 @@ export default ( state, action ) => {
         case 'EVENTS_FULFILLED':
             return { ...state, pending: false, fetched: true, data: action.payload }
 
+        case 'BAND_RESET':
+            return { ...state, pending: false, fetched: false, data: [] }
+
         default:
             return { ...state }
     }

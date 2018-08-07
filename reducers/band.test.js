@@ -19,6 +19,10 @@ const FETCH_BAND_FULFILLED = {
     }
 }
 
+const BAND_RESET = {
+    type: 'BAND_RESET',
+}
+
 describe( 'testing band reducer', () => {
     it( 'should return the initial state', () => {
         expect( reducer( undefined, {} ) )
@@ -62,4 +66,14 @@ describe( 'testing band reducer', () => {
             },
         } )
     } )
+
+    it( 'should set pending => false, fetched => false, data => null on reset', () => {
+        expect( reducer( {}, BAND_RESET ) )
+        .toEqual( {
+            pending: false,
+            fetched: false,
+            data: null,
+        } )
+    } )
+
 } )

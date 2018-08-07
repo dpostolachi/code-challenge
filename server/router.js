@@ -8,16 +8,19 @@ import { ServerStyleSheet } from 'styled-components'
 import getStore from 'store/get'
 import initialState from 'store/default'
 import { Provider } from 'react-redux'
+import { RoutePromiseProvider } from 'components/utils/routePromise'
 
 const Router = new router()
 
-const App = ( location, context, store , stylesheet, loadableState ) => {
+const App = ( location, context, store , stylesheet, loadableState, appPromises ) => {
     return (
-        <Provider store={ store }>
-            <StaticRouter location={ location } context={ context } >
-                <Routes stylesheet={ stylesheet } loadableState={ loadableState } />
-            </StaticRouter>
-        </Provider>
+        <RoutePromiseProvider value={ { promises: appPromises } }>
+            <Provider store={ store }>
+                <StaticRouter location={ location } context={ context } >
+                    <Routes store={ store } stylesheet={ stylesheet } loadableState={ loadableState } />
+                </StaticRouter>
+            </Provider>
+        </RoutePromiseProvider>
     )
 }
 
@@ -25,18 +28,21 @@ Router.get( '/*', async ( ctx ) => {
 
     const store = getStore( initialState )
 
+    const AppPromises = []
+
     const sheet = new ServerStyleSheet()
     const context = {}
 
     // Collecting Stylsheet
-    await sheet.collectStyles( App(ctx.url, context, store, null, null) )
+    await sheet.collectStyles( App(ctx.url, context, store, null, null, null) )
     // Collecting loadable State for code splitting
-    const loadableState = await getLoadableState( App( ctx.url, context, store, null, null ) )
+    const loadableState = await getLoadableState( App( ctx.url, context, store, null, null, null ) )
 
     // Rendering App
-    const html = renderToString( App( ctx.url, context, store, sheet, loadableState ) )
+    renderToString( App( ctx.url, context, store, sheet, loadableState, AppPromises ) )
+    await Promise.all( AppPromises )
+    const html = renderToString( App( ctx.url, context, store, sheet, loadableState, null ) )
 
-    // Checking for 404 error
     if ( context.is404 )
         ctx.status = 404
 
