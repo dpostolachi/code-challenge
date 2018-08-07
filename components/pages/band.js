@@ -136,7 +136,7 @@ export default class BandPage extends PureComponent {
         // Loading state of the band
         const { fetched, pending } = nextProps.band
 
-        if ( !fetched && !pending ) {
+        if ( band !== prevBand || ( !fetched && !pending ) ) {
 
             // typeof window === 'undefined' is used to check if it's backend
             if ( typeof window === 'undefined' && nextProps.promises !== null ) {
@@ -166,7 +166,7 @@ export default class BandPage extends PureComponent {
 
             e.preventDefault()
             this.props.dispatch( pushFavouriteBand( bandName ) )
-            
+
         }
 
     }
